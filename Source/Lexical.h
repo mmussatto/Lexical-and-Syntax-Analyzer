@@ -20,8 +20,20 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-#define COLUMNS 127 
-#define ROWS 10
+#define COLUMNS 4   //possible valid characters
+#define ROWS 5      //number of states
+
+typedef struct
+{
+    char* name; 
+    char* type;
+} token;
+
+typedef struct
+{
+    bool final; 
+    token s_token;
+} state;
 
 /**
  * @brief Create a ROWSxCOLUMNS matrix populated with the invalid
@@ -39,3 +51,44 @@ int** create_matrix();
 void free_matrix(int **matrix);
 
 void populate_matrix(int **matrix);
+
+/*
+
+4 colunas
+5 linhas 
+
+   +   -  *  / 
+q0 q1 q2 q3 q4           if < 9
+q1 -  -  -  -
+q2 -  -1  -1  -1
+q3 -  -  -  -
+q4 -  -  -  - 
+
+estado atual --> 
+
+switch(s)
+    case q2: return -, simbolo_menos
+
+    default:
+        proximo_estado
+
+    :  =  outro
+q0  q1 -  -
+q1  - q2  q3
+q2 -  -   -
+q3 -  -   -
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/

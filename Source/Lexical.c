@@ -30,7 +30,7 @@ int** create_matrix()
     //Populate Matrix with invalid character
     for(i = 0; i < ROWS; i++)
         for(j = 0; j < COLUMNS; j++)
-            matrix[i][j] = '-';
+            matrix[i][j] = -1;
 
     return matrix;
 }
@@ -45,6 +45,32 @@ void free_matrix(int **matrix)
     free(matrix); 
 }
 
-void populate_matrix(int **matrix){
+void populate_matrix(int **matrix)
+{
+    int i, j;
 
+    for (i = 0; i < ROWS; i++)
+        for (j = 0; j < COLUMNS; j++)
+            if(i == 0)
+                matrix[0][j] = i+1;
+        
+}
+
+/*
+state* create_state_vector()
+{
+    state* = (state*) calloc(ROWS, sizeof(state));
+}*/
+
+void populate_vector(state *v_state)
+{
+    int i;
+    for (i = 0; i < ROWS; i++)
+    {
+        if(i != 0)
+        {
+            v_state->final = true;
+        }
+    }
+    
 }
