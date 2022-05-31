@@ -18,12 +18,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Source/file.h"
+#include "Source/Lexical.h"
 
 int main(int argc, char** argv)
 {
     //Minion Gostoso  ^-^
     FILE *program = read_file(argv[1],'r');
-    char token;
 
     if(argc != 2)
     {
@@ -38,11 +38,19 @@ int main(int argc, char** argv)
     }
     
     /*------ Lexical analyser logic --------*/
-    while(read_character(program, &token))
-    {
-        printf("%c", token);
-        //Implementing the finite state
-    }
+    int **transition_matrix = create_matrix();
+    populate_matrix(transition_matrix);
+
+    state* vec_state = create_state_vector();
+    populate_vector(vec_state);
+
+    token t = get_token(program, transition_matrix, vec_state);
+
+    
+
+    //free data structures
+    free_matrix(transition_matrix);
+    free_vector(vec_state);
     
     fclose(program);
     return 0;

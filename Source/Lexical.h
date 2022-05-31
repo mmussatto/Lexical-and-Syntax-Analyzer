@@ -19,6 +19,8 @@
  
 #include <stdbool.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include "file.h"
 
 #define COLUMNS 4   //possible valid characters
 #define ROWS 5      //number of states
@@ -31,7 +33,7 @@ typedef struct
 
 typedef struct
 {
-    bool final; 
+    bool final ; 
     token s_token;
 } state;
 
@@ -51,6 +53,15 @@ int** create_matrix();
 void free_matrix(int **matrix);
 
 void populate_matrix(int **matrix);
+
+
+state* create_state_vector();
+
+void populate_vector(state *vec_state);
+
+void free_vector(state *vec_state);
+
+token get_token(FILE* program, int **transition_matrix, state *vec_state);
 
 /*
 
