@@ -1,6 +1,6 @@
 #include"Source/file.h"
 
-FILE* ReadFile(char *name, char mode)
+FILE* read_file(char *name, char mode)
 {
     FILE *arq;
 
@@ -9,12 +9,12 @@ FILE* ReadFile(char *name, char mode)
     return arq;
 }
 
-bool ReadCharacter(FILE* arq, char *ch)
+bool read_character(FILE* arq, char *ch)
 {
     return (fscanf(arq, "%c", ch) == 1);
 }
 
-void ReturnPointer(FILE  *arq, int shift)
+void return_pointer(FILE  *arq, int shift)
 {
     fseek(arq, SEEK_SET + (SEEK_CUR-shift), SEEK_CUR);
 }

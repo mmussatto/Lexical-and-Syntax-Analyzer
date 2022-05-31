@@ -12,13 +12,13 @@
  * 
  * @return int** - matrix created
  */
-int** CreateMatrix();
+int** create_matrix();
 
 /**
  * @brief deallocate the matrix
  * 
  * @param matrix 
  */
-void FreeMatrix(int **matrix);
+void free_matrix(int **matrix);
 
-void PopulateMatrix(int **matrix);
+void populate_matrix(int **matrix);

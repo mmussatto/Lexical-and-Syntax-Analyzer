@@ -1,7 +1,7 @@
 #include "Lexical.h"
 
 
-int** CreateMatrix()
+int** create_matrix()
 {
     int **matrix, i, j;
         
@@ -18,7 +18,7 @@ int** CreateMatrix()
     return matrix;
 }
 
-void FreeMatrix(int **matrix)
+void free_matrix(int **matrix)
 {
     int i;
     
@@ -28,6 +28,6 @@ void FreeMatrix(int **matrix)
     free(matrix); 
 }
 
-void PopulateMatrix(int **matrix){
+void populate_matrix(int **matrix){
 
 }

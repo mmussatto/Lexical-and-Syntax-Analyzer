@@ -5,7 +5,7 @@
 int main(int argc, char** argv)
 {
     //Minion Gostoso  ^-^
-    FILE *program = Read_File(argv[1],'r');
+    FILE *program = read_file(argv[1],'r');
     char token;
 
     if(argc != 2)
@@ -21,7 +21,7 @@ int main(int argc, char** argv)
     }
     
     /*------ Lexical analyser logic --------*/
-    while(Read_Character(program, &token))
+    while(read_character(program, &token))
     {
         printf("%c", token);
         //Implementing the finite state
