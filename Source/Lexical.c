@@ -63,7 +63,7 @@ state* create_state_vector()
     return final_states;
 }
 
-void populate_vector(state *final_states)
+void add_states(state *final_states)
 {
     final_states[0].final = false;
 

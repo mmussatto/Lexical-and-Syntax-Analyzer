@@ -54,14 +54,40 @@ int** create_matrix();
  */
 void free_matrix(int **matrix);
 
+/**
+ * @brief Adds the states transitions to the matrix
+ * 
+ * @param matrix 
+ */
 void populate_matrix(int **matrix);
 
+/**
+ * @brief Allocate the vector of states
+ * 
+ * @return state 
+ */
 state* create_state_vector();
 
-void populate_vector(state *final_states);
+/**
+ * @brief Add the final states to the vectpr
+ * 
+ * @param final_states
+ */
+void add_states(state *final_states);
 
+
+/**
+ * @brief deallocate the vector
+ * 
+ * @param final_states 
+ */
 void free_vector(state *final_states);
 
+/**
+ * @brief read the current token and apply the transition of states
+ * 
+ * @param program, transition_matrix, vec_state
+ */
 token get_token(FILE* program, int **transition_matrix, state *vec_state);
 
 /*

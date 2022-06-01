@@ -42,7 +42,7 @@ int main(int argc, char** argv)
     populate_matrix(transition_matrix);
 
     state* final_states = create_state_vector();
-    populate_vector(final_states);
+    add_states(final_states);
 
     token t = get_token(program, transition_matrix, final_states);
 
