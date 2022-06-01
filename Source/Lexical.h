@@ -25,12 +25,14 @@
 #define COLUMNS 4   //possible valid characters
 #define ROWS 5      //number of states
 
+//Store the possible tokens of the program
 typedef struct
 {
     char* name; 
     char* type;
 } token;
 
+//Stores a token and if it is a final state
 typedef struct
 {
     bool final ; 
@@ -53,7 +55,6 @@ int** create_matrix();
 void free_matrix(int **matrix);
 
 void populate_matrix(int **matrix);
-
 
 state* create_state_vector();
 
