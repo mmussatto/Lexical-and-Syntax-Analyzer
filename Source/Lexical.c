@@ -59,40 +59,40 @@ void populate_matrix(int **matrix)
 // Creating a vector of states
 state* create_state_vector()
 {
-    state* vec_state = (state*) calloc(ROWS, sizeof(state));
-    return vec_state;
+    state* final_states = (state*) calloc(ROWS, sizeof(state));
+    return final_states;
 }
 
-void populate_vector(state *vec_state)
+void populate_vector(state *final_states)
 {
-    vec_state[0].final = false;
+    final_states[0].final = false;
 
-    vec_state[1].final = true;
-    vec_state[1].s_token.name = "+";
-    vec_state[1].s_token.type = "simb_mais";
+    final_states[1].final = true;
+    final_states[1].s_token.name = "+";
+    final_states[1].s_token.type = "simb_mais";
 
-    vec_state[2].final = true;   
-    vec_state[2].s_token.name = "-";
-    vec_state[2].s_token.type = "simb_menos";
+    final_states[2].final = true;   
+    final_states[2].s_token.name = "-";
+    final_states[2].s_token.type = "simb_menos";
 
 
-    vec_state[3].final = true;
-    vec_state[3].s_token.name = "*";
-    vec_state[3].s_token.type = "simb_vezes";
+    final_states[3].final = true;
+    final_states[3].s_token.name = "*";
+    final_states[3].s_token.type = "simb_vezes";
     
 
-    vec_state[4].final = true;
-    vec_state[4].s_token.name = "/";
-    vec_state[4].s_token.type = "simb_div";
+    final_states[4].final = true;
+    final_states[4].s_token.name = "/";
+    final_states[4].s_token.type = "simb_div";
 }
 
-void free_vector(state *vec_state)
+void free_vector(state *final_states)
 {
-    free(vec_state);
+    free(final_states);
 }
 
 
-token get_token(FILE* program, int **transition_matrix, state *vec_state)
+token get_token(FILE* program, int **transition_matrix, state *final_states)
 {
     int curr_state = 0;
     char character;
@@ -119,11 +119,11 @@ token get_token(FILE* program, int **transition_matrix, state *vec_state)
             curr_state = 0;
         }
 
-        // if(vec_state[curr_state].final)
-        //     return vec_state[curr_state].s_token;
+        // if(final_states[curr_state].final)
+        //     return final_states[curr_state].s_token;
 
-        if(vec_state[curr_state].final)
-            printf("\n%s - %s \n",vec_state[curr_state].s_token.name , vec_state[curr_state].s_token.type);
+        if(final_states[curr_state].final)
+            printf("\n%s - %s \n",final_states[curr_state].s_token.name , final_states[curr_state].s_token.type);
         else
             curr_state = 0; //teste somente
 

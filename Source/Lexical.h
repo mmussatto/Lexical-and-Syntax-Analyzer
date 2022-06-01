@@ -57,9 +57,9 @@ void populate_matrix(int **matrix);
 
 state* create_state_vector();
 
-void populate_vector(state *vec_state);
+void populate_vector(state *final_states);
 
-void free_vector(state *vec_state);
+void free_vector(state *final_states);
 
 token get_token(FILE* program, int **transition_matrix, state *vec_state);
 

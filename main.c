@@ -41,16 +41,14 @@ int main(int argc, char** argv)
     int **transition_matrix = create_matrix();
     populate_matrix(transition_matrix);
 
-    state* vec_state = create_state_vector();
-    populate_vector(vec_state);
+    state* final_states = create_state_vector();
+    populate_vector(final_states);
 
-    token t = get_token(program, transition_matrix, vec_state);
-
-    
+    token t = get_token(program, transition_matrix, final_states);
 
     //free data structures
     free_matrix(transition_matrix);
-    free_vector(vec_state);
+    free_vector(final_states);
     
     fclose(program);
     return 0;
