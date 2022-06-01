@@ -45,93 +45,105 @@ void free_matrix(int **matrix)
     free(matrix); 
 }
 
-void populate_matrix(int **matrix)
-{
-    int i, j;
-
-    for (i = 0; i < ROWS; i++)
-        for (j = 0; j < COLUMNS; j++)
-            if(i == 0)
-                matrix[0][j] = i+1;
-        
-}
-
-// Creating a vector of states
-state* create_state_vector()
-{
-    state* final_states = (state*) calloc(ROWS, sizeof(state));
-    return final_states;
-}
-
-void add_states(state *final_states)
-{
-    final_states[0].final = false;
-
-    final_states[1].final = true;
-    final_states[1].s_token.name = "+";
-    final_states[1].s_token.type = "simb_mais";
-
-    final_states[2].final = true;   
-    final_states[2].s_token.name = "-";
-    final_states[2].s_token.type = "simb_menos";
-
-
-    final_states[3].final = true;
-    final_states[3].s_token.name = "*";
-    final_states[3].s_token.type = "simb_vezes";
-    
-
-    final_states[4].final = true;
-    final_states[4].s_token.name = "/";
-    final_states[4].s_token.type = "simb_div";
-}
-
-void free_vector(state *final_states)
-{
-    free(final_states);
-}
-
 
 token get_token(FILE* program, int **transition_matrix, state *final_states)
-{
+{   
+    //Variables for storing user identifiers
+    bool ident_flag = false;    //indicates if we're reading an identifier
+    char *str_identifier;       //string of the identifier
+    int str_size = 0;           //size of the string
+    int letters = 0;            //number of letter in the string
+    token token_ident;          //Temporary token to store the identifier chain
+
+    //Stores the current state of the automaton
     int curr_state = 0;
+
     char character;
 
+    //Loop while there are characters to read or the automaton hasn't reached a final state
     while(read_character(program, &character))
-    {
-        printf("%c", character);
-
-        switch (character)
+    {   
+        //Get the transition value
+        curr_state = transition_matrix[curr_state][(int)character];
+        
+        //Not an error, usual case
+        if (curr_state >= 0)
         {
-        case '+':
-            curr_state = transition_matrix[curr_state][0];
-            break;
-        case '-':
-            curr_state = transition_matrix[curr_state][1];
-            break;
-        case '*':
-            curr_state = transition_matrix[curr_state][2];
-            break;
-        case '/':
-            curr_state = transition_matrix[curr_state][3];
-            break;
-        default:
-            curr_state = 0;
+            //Testing if we are on a final state
+            if(final_states[curr_state].final)
+            {
+                //We read it all, time to return
+                if(!ident_flag)
+                    return final_states[curr_state].s_token;
+                else
+                {
+                    return_file_pointer(program, str_size);
+                    str_identifier = read_file(program, str_size);
+                    token_ident.name = str_identifier;
+                    token_ident.type = (char *) malloc(11*sizeof(char));
+                    strcpy(token_ident.type, "IDENTIFIER");
+                }
+            }
+            else
+            {
+                //Not in a final state
+                // Check if we need to read the token 
+                if(curr_state == 12 && !ident_flag)
+                {
+                    ident_flag = true; //We are in the identifiers sate, so we need to read!
+                    str_identifier = calloc(2, sizeof str_identifier); //initialize the string
+                    letters = 1;   //does not count the '\0'
+                    str_size = 2;
+                } 
+
+                if(ident_flag) //Reading identifier
+                {
+                    if (str_size <= letters + 1)
+                    {
+                        str_size *= 2;
+                        str_identifier = realloc(str_identifier, str_size * sizeof(char));
+                    }
+                        
+                    str_identifier[letters] = character;
+                    letters ++;
+                    str_identifier[letters] = '\0';
+                    str_size++;
+                }
+            }    
         }
-
-        // if(final_states[curr_state].final)
-        //     return final_states[curr_state].s_token;
-
-        if(final_states[curr_state].final)
-            printf("\n%s - %s \n",final_states[curr_state].s_token.name , final_states[curr_state].s_token.type);
-        else
-            curr_state = 0; //teste somente
-
-        //Implementing the finite state
+       // else // Error
+      
     }
 
     token x;
+    x.name = "EOF";
+    x.type = "EOF";
 
     return x;
-
 }
+
+
+void populate_transition_matrix(int **matrix)
+{
+    fill_matrix_rows(matrix, 0, 0, 127, 0);
+    matrix[0]['+'] = 1;
+    matrix[0]['-'] = 2;
+    matrix[0]['*'] = 3;
+    matrix[0]['/'] = 4;
+
+    matrix[0]['>'] = 5;
+    matrix[0]['<'] = 8;
+
+    fill_matrix_rows(matrix, 0 , '0', '9', 12);
+    fill_matrix_rows(matrix, 0 , 'A', 'Z', 12);
+    fill_matrix_rows(matrix, 0 , 'a', 'z', 12);
+    
+}
+
+void fill_matrix_rows(int **matrix, int line, int start, int end, int value){
+    int j;
+    
+    for (j = start; j <= end; j++)
+        matrix[line][j] = value;
+}
+

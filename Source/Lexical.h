@@ -20,24 +20,23 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "file.h"
+#include "error.h"
+#include "states_info.h"
 
-#define COLUMNS 4   //possible valid characters
-#define ROWS 5      //number of states
+#define COLUMNS 128   //possible valid characters
+#define ROWS 21      //number of states
 
-//Store the possible tokens of the program
-typedef struct
+#define NUM_ERRORS 3
+
+
+typedef struct 
 {
-    char* name; 
-    char* type;
-} token;
+    token* tokens;
+    int size;
+} vec_token;
 
-//Stores a token and if it is a final state
-typedef struct
-{
-    bool final ; 
-    token s_token;
-} state;
 
 /**
  * @brief Create a ROWSxCOLUMNS matrix populated with the invalid
@@ -59,36 +58,16 @@ void free_matrix(int **matrix);
  * 
  * @param matrix 
  */
-void populate_matrix(int **matrix);
+void populate_transition_matrix(int **matrix);
 
-/**
- * @brief Allocate the vector of states
- * 
- * @return state 
- */
-state* create_state_vector();
-
-/**
- * @brief Add the final states to the vectpr
- * 
- * @param final_states
- */
-void add_states(state *final_states);
+void fill_matrix_rows(int **matrix, int line, int start, int end, int value);
 
 
-/**
- * @brief deallocate the vector
- * 
- * @param final_states 
- */
-void free_vector(state *final_states);
-
-/**
- * @brief read the current token and apply the transition of states
- * 
- * @param program, transition_matrix, vec_state
- */
 token get_token(FILE* program, int **transition_matrix, state *vec_state);
+
+
+
+
 
 /*
 
@@ -115,17 +94,6 @@ q0  q1 -  -
 q1  - q2  q3
 q2 -  -   -
 q3 -  -   -
-
-
-
-
-
-
-
-
-
-
-
 
 
 

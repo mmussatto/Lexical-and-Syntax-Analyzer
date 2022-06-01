@@ -17,7 +17,7 @@
 
 #include"Source/file.h"
 
-FILE* read_file(char *name, char mode)
+FILE* read_new_file(char *name, char mode)
 {
     FILE *arq;
 
@@ -31,7 +31,14 @@ bool read_character(FILE* arq, char *ch)
     return (fscanf(arq, "%c", ch) == 1);
 }
 
-void return_pointer(FILE  *arq, int shift)
+char* read_file(FILE *program, int size)
+{
+    char *string = (char*) malloc(sizeof(char)*size);
+    fread(string, sizeof(char), size, program);
+    return string;
+}
+
+void return_file_pointer(FILE  *arq, int shift)
 {
     fseek(arq, SEEK_SET + (SEEK_CUR-shift), SEEK_CUR);
 }

@@ -19,8 +19,11 @@
 
 #include<stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
-FILE* read_file(char *name, char mode);
+
+FILE* read_new_file(char *name, char mode);
 int check_EOF();
 bool read_character(FILE* arq, char *ch);
-void return_pointer(FILE  *arq, int shift);
+char* read_file(FILE *program, int size);
+void return_file_pointer(FILE  *arq, int shift);

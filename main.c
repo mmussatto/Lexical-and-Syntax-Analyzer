@@ -17,20 +17,20 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "Source/file.h"
 #include "Source/Lexical.h"
 
 int main(int argc, char** argv)
 {
-    //Minion Gostoso  ^-^
-    FILE *program = read_file(argv[1],'r');
+    FILE *program = read_new_file(argv[1],'r');
 
+    //Checking runtime parameters
     if(argc != 2)
     {
         printf("Provide just the name of the file\n");
         return 1;
     }
-   
+    
+    //Checking for error on file opening
     if(program == NULL)
     {
         printf("Error opening file\n");
@@ -39,16 +39,26 @@ int main(int argc, char** argv)
     
     /*------ Lexical analyser logic --------*/
     int **transition_matrix = create_matrix();
-    populate_matrix(transition_matrix);
+    populate_transition_matrix(transition_matrix);
 
-    state* final_states = create_state_vector();
+    state* final_states = create_state_vector(ROWS);
     add_states(final_states);
 
-    token t = get_token(program, transition_matrix, final_states);
+    error *vec_error = create_error_vector(NUM_ERRORS);
+    add_errors(vec_error);
+
+    token t;
+
+    while(strcmp(t.name,"EOF") != 0) //???
+    {
+        t = get_token(program, transition_matrix, final_states);
+        //LEMBRAR DE DESALOCAR O TOKEN, A STRING DELE TA SENDO ALOCADA
+    }
 
     //free data structures
     free_matrix(transition_matrix);
-    free_vector(final_states);
+    free_vector_states(final_states);
+    free_error_vec(vec_error);
     
     fclose(program);
     return 0;
