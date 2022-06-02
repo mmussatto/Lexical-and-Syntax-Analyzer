@@ -17,19 +17,22 @@
 
 #include"Headers/file.h"
 
+
 FILE* read_new_file(char *name, char mode)
 {
-    FILE *arq;
+    FILE *fp;
 
-    arq = fopen(name, &mode);
+    fp = fopen(name, &mode);
 
-    return arq;
+    return fp;
 }
 
-bool read_character(FILE* arq, char *ch)
+
+bool read_character(FILE* fp, char *ch)
 {
-    return (fscanf(arq, "%c", ch) == 1);
+    return (fscanf(fp, "%c", ch) == 1);
 }
+
 
 char* read_file(FILE *program, int size)
 {
@@ -38,7 +41,8 @@ char* read_file(FILE *program, int size)
     return string;
 }
 
-void return_file_pointer(FILE  *arq, int shift)
+
+void move_back_fp(FILE  *fp, int shift)
 {
-    fseek(arq, SEEK_SET + (SEEK_CUR-shift), SEEK_CUR);
+    fseek(fp, SEEK_SET + (SEEK_CUR-shift), SEEK_CUR);
 }

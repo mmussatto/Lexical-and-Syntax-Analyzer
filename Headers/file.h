@@ -21,9 +21,44 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-
+/**
+ * @brief Opens a new file and returns a pointer to id
+ * 
+ * @param name      - string with the name of the file to be read
+ * @param mode      - mode to open the file
+ * @return FILE*    - pointer to the file
+ */
 FILE* read_new_file(char *name, char mode);
-int check_EOF();
-bool read_character(FILE* arq, char *ch);
-char* read_file(FILE *program, int size);
-void return_file_pointer(FILE  *arq, int shift);
+
+
+int check_EOF(); //Not implemented
+
+
+/**
+ * @brief Reads a character from a file.
+ * 
+ * @param fp        - Pointer to the opened file
+ * @param ch        - Character address 
+ * @return true     - If a character has been successfully read
+ * @return false    - If no character was read or if an error has ocurred
+ */
+bool read_character(FILE* fp, char *ch);
+
+
+/**
+ * @brief Reads a string from an opened file
+ * 
+ * @param fp        - Pointer to opened file
+ * @param size      - Size of the string to be read
+ * @return char*    - String read
+ */
+char* read_file(FILE *fp, int size);
+
+
+/**
+ * @brief Moves the file pointer back. 
+ * 
+ * @param fp        - Pointer to the opened file
+ * @param shift     - Number of spaces for the file pointer to be moved back
+ */
+void move_back_fp(FILE  *fp, int shift);
