@@ -18,7 +18,7 @@
 #include "Headers/lexical.h"
 
 
-int** create_matrix()
+int** create_transition_matrix()
 {
     int **matrix, i, j;
         
@@ -36,7 +36,7 @@ int** create_matrix()
 }
 
 
-void free_matrix(int **matrix)
+void free_transition_matrix(int **matrix)
 {
     int i;
     
@@ -44,6 +44,32 @@ void free_matrix(int **matrix)
         free(matrix[i]);
     
     free(matrix); 
+}
+
+
+void populate_transition_matrix(int **matrix)
+{
+    fill_matrix_rows(matrix, 0, 0, 127, 0);
+    matrix[0]['+'] = 1;
+    matrix[0]['-'] = 2;
+    matrix[0]['*'] = 3;
+    matrix[0]['/'] = 4;
+
+    matrix[0]['>'] = 5;
+    matrix[0]['<'] = 8;
+
+    fill_matrix_rows(matrix, 0 , '0', '9', 12);
+    fill_matrix_rows(matrix, 0 , 'A', 'Z', 12);
+    fill_matrix_rows(matrix, 0 , 'a', 'z', 12);
+    
+}
+
+
+void fill_matrix_rows(int **matrix, int row, int start, int end, int value){
+    int j;
+    
+    for (j = start; j <= end; j++)
+        matrix[line][j] = value;
 }
 
 
@@ -124,28 +150,4 @@ token get_token(FILE* program, int **transition_matrix, state *final_states)
 }
 
 
-void populate_transition_matrix(int **matrix)
-{
-    fill_matrix_rows(matrix, 0, 0, 127, 0);
-    matrix[0]['+'] = 1;
-    matrix[0]['-'] = 2;
-    matrix[0]['*'] = 3;
-    matrix[0]['/'] = 4;
-
-    matrix[0]['>'] = 5;
-    matrix[0]['<'] = 8;
-
-    fill_matrix_rows(matrix, 0 , '0', '9', 12);
-    fill_matrix_rows(matrix, 0 , 'A', 'Z', 12);
-    fill_matrix_rows(matrix, 0 , 'a', 'z', 12);
-    
-}
-
-
-void fill_matrix_rows(int **matrix, int row, int start, int end, int value){
-    int j;
-    
-    for (j = start; j <= end; j++)
-        matrix[line][j] = value;
-}
 

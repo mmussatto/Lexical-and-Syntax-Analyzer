@@ -45,7 +45,7 @@ typedef struct
  * 
  * @return int** - matrix created
  */
-int** create_matrix();
+int** create_transition_matrix();
 
 
 /**
@@ -53,7 +53,7 @@ int** create_matrix();
  * 
  * @param matrix 
  */
-void free_matrix(int **matrix);
+void free_transition_matrix(int **matrix);
 
 
 /**
