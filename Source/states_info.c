@@ -17,95 +17,95 @@
  
 #include "Headers/states_info.h"
 
- // Creating a vector of states
-state* create_state_vector(int ROWS)
+
+state* create_states_vector(int size)
 {
     int i;
-    state* final_states = (state*) calloc(ROWS, sizeof(state));
+    state* vec_states = (state*) calloc(size, sizeof(state));
 
-    for(i = 0; i < ROWS; i++)
+    for(i = 0; i < size; i++)
     {
-        final_states->final = false;
+        vec_states->final = false;
     }
 
-    return final_states;
+    return vec_states;
 }
 
 
-void add_states(state *final_states)
+void populate_states_vector(state *vec_states)
 {
 
     /* ---------- +, -, *, / ----------------*/ 
-    final_states[1].final = true;
-    final_states[1].s_token.name = "+";
-    final_states[1].s_token.type = "simb_mais";
+    vec_states[1].final = true;
+    vec_states[1].s_token.name = "+";
+    vec_states[1].s_token.type = "simb_mais";
 
-    final_states[2].final = true;   
-    final_states[2].s_token.name = "-";
-    final_states[2].s_token.type = "simb_menos";
+    vec_states[2].final = true;   
+    vec_states[2].s_token.name = "-";
+    vec_states[2].s_token.type = "simb_menos";
 
 
-    final_states[3].final = true;
-    final_states[3].s_token.name = "*";
-    final_states[3].s_token.type = "simb_vezes";
+    vec_states[3].final = true;
+    vec_states[3].s_token.name = "*";
+    vec_states[3].s_token.type = "simb_vezes";
     
 
-    final_states[4].final = true;
-    final_states[4].s_token.name = "/";
-    final_states[4].s_token.type = "simb_div";
+    vec_states[4].final = true;
+    vec_states[4].s_token.name = "/";
+    vec_states[4].s_token.type = "simb_div";
 
     /* ---------- >, <, >=, <=, <> ----------------*/ 
 
-    final_states[6].final = true;   
-    final_states[6].s_token.name = ">";
-    final_states[6].s_token.type = "op_maior";
+    vec_states[6].final = true;   
+    vec_states[6].s_token.name = ">";
+    vec_states[6].s_token.type = "op_maior";
 
-    final_states[7].final = true;   
-    final_states[7].s_token.name = ">=";
-    final_states[7].s_token.type = "op_maior_igual";
+    vec_states[7].final = true;   
+    vec_states[7].s_token.name = ">=";
+    vec_states[7].s_token.type = "op_maior_igual";
 
-    final_states[9].final = true;   
-    final_states[9].s_token.name = "<";
-    final_states[9].s_token.type = "op_menor";
+    vec_states[9].final = true;   
+    vec_states[9].s_token.name = "<";
+    vec_states[9].s_token.type = "op_menor";
 
-    final_states[10].final = true;   
-    final_states[10].s_token.name = "<=";
-    final_states[10].s_token.type = "op_menor_igual";
+    vec_states[10].final = true;   
+    vec_states[10].s_token.name = "<=";
+    vec_states[10].s_token.type = "op_menor_igual";
 
-    final_states[11].final = true;   
-    final_states[11].s_token.name = "<>";
-    final_states[11].s_token.type = "op_diferente";
+    vec_states[11].final = true;   
+    vec_states[11].s_token.name = "<>";
+    vec_states[11].s_token.type = "op_diferente";
 
 
     //State of user identifiers
-    final_states[13].final = true;
-    final_states[13].s_token.name = NULL;
-    final_states[13].s_token.type = "identificador";
+    vec_states[13].final = true;
+    vec_states[13].s_token.name = NULL;
+    vec_states[13].s_token.type = "identificador";
 
     //State of integer numbers
-    final_states[16].final = true;
-    final_states[16].s_token.name = NULL;
-    final_states[16].s_token.type = "numero_inteiro";
+    vec_states[16].final = true;
+    vec_states[16].s_token.name = NULL;
+    vec_states[16].s_token.type = "numero_inteiro";
     
     //State of real numbers
-    final_states[19].final = true;
-    final_states[19].s_token.name = NULL;
-    final_states[19].s_token.type = "numero_real";
+    vec_states[19].final = true;
+    vec_states[19].s_token.name = NULL;
+    vec_states[19].s_token.type = "numero_real";
 
     //State of the end of comments
-    final_states[21].final = true;
-    final_states[21].s_token.name = NULL;
-    final_states[21].s_token.type = "comentario"; //It is not relevant
+    vec_states[21].final = true;
+    vec_states[21].s_token.name = NULL;
+    vec_states[21].s_token.type = "comentario"; //It is not relevant
     
   /*  //State of unvalid character
-    final_states[21].final = true;
-    final_states[21].s_token.name = ;
-    final_states[21].s_token.type = NULL; //It is not relevant
+    vec_states[21].final = true;
+    vec_states[21].s_token.name = ;
+    vec_states[21].s_token.type = NULL; //It is not relevant
   */
     
 }
 
-void free_vector_states(state *final_states)
+void free_states_vector(state *vec_states)
 {
-    free(final_states);
+    free(vec_states);
 }

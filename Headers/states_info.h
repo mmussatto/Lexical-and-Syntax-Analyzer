@@ -37,18 +37,26 @@ typedef struct
 } state;
 
 
-state* create_state_vector(int ROWS);
+/**
+ * @brief Create a states vector object
+ * 
+ * @param size      - size of the vector
+ * @return state*   - states vector
+ */
+state* create_states_vector(int size);
+
 
 /**
- * @brief Add the final states to the vectpr
+ * @brief Adds the states to the vector
  * 
- * @param final_states
+ * @param vec_states - states vector
  */
-void add_states(state *final_states);
+void populate_states_vector(state *vec_states);
+
 
 /**
- * @brief deallocate the vector
+ * @brief Deallocates the vector
  * 
- * @param final_states 
+ * @param vec_states - states vector
  */
-void free_vector_states(state *final_states);
+void free_states_vector(state *vec_states);
