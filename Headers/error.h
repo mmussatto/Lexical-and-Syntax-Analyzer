@@ -26,9 +26,26 @@ typedef struct
 } error;
 
 
+/**
+ * @brief Create a error vector object
+ * 
+ * @param NUM_ERRORS    - Number of different errors
+ * @return error*       - Error vector
+ */
 error* create_error_vector(int NUM_ERRORS);
 
-void add_errors(error* vec_error);
+/**
+ * @brief Add error cases to the vector
+ * 
+ * @param vec_error - Error vector
+ */
+void populate_error_vector(error* vec_error);
 
-void free_error_vec(error* vec_error);
+
+/**
+ * @brief Deallocate the error vector
+ * 
+ * @param vec_error 
+ */
+void free_error_vector(error* vec_error);
 

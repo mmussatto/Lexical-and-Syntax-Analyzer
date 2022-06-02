@@ -24,10 +24,11 @@ error* create_error_vector(int NUM_ERRORS){
 }
 
 
-void add_errors(error* vec_error){
+void populate_error_vector(error* vec_error){
     
 }
 
-void free_error_vec(error* vec_error){
+
+void free_error_vector(error* vec_error){
     free(vec_error);
 }
