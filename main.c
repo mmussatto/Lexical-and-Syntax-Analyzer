@@ -38,14 +38,14 @@ int main(int argc, char** argv)
     }
     
     /*------ Lexical analyser logic --------*/
-    int **transition_matrix = create_matrix();
+    int **transition_matrix = create_transition_matrix();
     populate_transition_matrix(transition_matrix);
 
-    state* final_states = create_state_vector(ROWS);
-    add_states(final_states);
+    state* final_states = create_states_vector(ROWS);
+    populate_states_vector(final_states);
 
     error *vec_error = create_error_vector(NUM_ERRORS);
-    add_errors(vec_error);
+    populate_error_vector(vec_error);
 
     token t;
 
@@ -56,9 +56,9 @@ int main(int argc, char** argv)
     }
 
     //free data structures
-    free_matrix(transition_matrix);
-    free_vector_states(final_states);
-    free_error_vec(vec_error);
+    free_transition_matrix(transition_matrix);
+    free_states_vector(final_states);
+    free_error_vector(vec_error);
     
     fclose(program);
     return 0;
