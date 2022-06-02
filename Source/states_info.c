@@ -15,7 +15,7 @@
  * **************************************************
  */
  
-#include "states_info.h"
+#include "Headers/states_info.h"
 
  // Creating a vector of states
 state* create_state_vector(int ROWS)

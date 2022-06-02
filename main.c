@@ -17,7 +17,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "Source/Lexical.h"
+#include "Headers/lexical.h"
 
 int main(int argc, char** argv)
 {

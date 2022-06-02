@@ -15,7 +15,7 @@
  * **************************************************
  */
 
-#include "Lexical.h"
+#include "Headers/lexical.h"
 
 
 int** create_matrix()
