@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
 #include "file.h"
 #include "error.h"
 #include "states_info.h"
@@ -46,12 +47,14 @@ typedef struct
  */
 int** create_matrix();
 
+
 /**
  * @brief deallocate the matrix
  * 
  * @param matrix 
  */
 void free_matrix(int **matrix);
+
 
 /**
  * @brief Adds the states transitions to the matrix
@@ -80,32 +83,3 @@ token get_token(FILE* program, int **transition_matrix, state *vec_state);
 
 
 
-/*
-
-4 colunas
-5 linhas 
-
-   +   -  *  / 
-q0 q1 q2 q3 q4           if < 9
-q1 -  -  -  -
-q2 -  -1  -1  -1
-q3 -  -  -  -
-q4 -  -  -  - 
-
-estado atual --> 
-
-switch(s)
-    case q2: return -, simbolo_menos
-
-    default:
-        proximo_estado
-
-    :  =  outro
-q0  q1 -  -
-q1  - q2  q3
-q2 -  -   -
-q3 -  -   -
-
-
-
-*/

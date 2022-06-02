@@ -35,6 +35,7 @@ int** create_matrix()
     return matrix;
 }
 
+
 void free_matrix(int **matrix)
 {
     int i;
@@ -139,6 +140,7 @@ void populate_transition_matrix(int **matrix)
     fill_matrix_rows(matrix, 0 , 'a', 'z', 12);
     
 }
+
 
 void fill_matrix_rows(int **matrix, int row, int start, int end, int value){
     int j;
