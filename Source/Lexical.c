@@ -140,7 +140,7 @@ void populate_transition_matrix(int **matrix)
     
 }
 
-void fill_matrix_rows(int **matrix, int line, int start, int end, int value){
+void fill_matrix_rows(int **matrix, int row, int start, int end, int value){
     int j;
     
     for (j = start; j <= end; j++)

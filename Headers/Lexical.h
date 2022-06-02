@@ -60,7 +60,18 @@ void free_matrix(int **matrix);
  */
 void populate_transition_matrix(int **matrix);
 
-void fill_matrix_rows(int **matrix, int line, int start, int end, int value);
+
+/**
+ * @brief useful function to fiil an entire row of a matrix with a value. This
+ * function is used by the populate_transistion_matrix.
+ * 
+ * @param matrix 
+ * @param row      -  row to be filled
+ * @param start     - start column 
+ * @param end       - end column
+ * @param value     - value to be assigned
+ */
+void fill_matrix_rows(int **matrix, int row, int start, int end, int value);
 
 
 token get_token(FILE* program, int **transition_matrix, state *vec_state);
