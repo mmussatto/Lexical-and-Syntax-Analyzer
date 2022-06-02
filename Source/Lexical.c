@@ -104,7 +104,7 @@ token get_token(FILE* program, int **transition_matrix, state *final_states)
                     return final_states[curr_state].s_token;
                 else
                 {
-                    return_file_pointer(program, str_size);
+                    move_back_fp(program, str_size);
                     str_identifier = read_file(program, str_size);
                     token_ident.name = str_identifier;
                     token_ident.type = (char *) malloc(11*sizeof(char));
