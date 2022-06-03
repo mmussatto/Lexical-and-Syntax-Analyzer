@@ -18,17 +18,22 @@
 #include "Headers/error.h"
 
 
-error* create_errors_vector(int NUM_ERRORS){
+error* create_errors_vector(int NUM_ERRORS)
+{
     error* vec_error = (error*) calloc(NUM_ERRORS, sizeof(error));
     return vec_error;
 }
 
 
-void populate_errors_vector(error* vec_error){
-    
+void populate_errors_vector(error* vec_error)
+{ 
+    vec_error[0].error_token.type = strdup("ERROR(Badly Formed Real Number)");
+    vec_error[1].error_token.type = strdup("ERROR(Invalid Character)");
+    vec_error[2].error_token.type = strdup("ERROR(Unclosed Comment)");
 }
 
 
-void free_errors_vector(error* vec_error){
+void free_errors_vector(error* vec_error)
+{
     free(vec_error);
 }

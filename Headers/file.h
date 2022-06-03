@@ -20,6 +20,7 @@
 #include<stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 #include "token.h"
 
 /**
@@ -29,7 +30,7 @@
  * @param mode      - mode to open the file
  * @return FILE*    - pointer to the file
  */
-FILE* read_new_file(char *name, char mode);
+FILE* open_file(char *name, char mode);
 
 
 int check_EOF(); //Not implemented

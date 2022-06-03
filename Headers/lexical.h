@@ -74,7 +74,18 @@ void populate_transition_matrix(int **matrix);
 void fill_matrix_state(int **matrix, int state, int start, int end, int value);
 
 
-token get_token(FILE* program, int **transition_matrix, state *vec_state);
+/**
+ * @brief Get the token object
+ * 
+ * @param program 
+ * @param transition_matrix 
+ * @param vec_states 
+ * @param vec_tokens 
+ * @param vec_errors 
+ * @return token 
+ */
+token get_token(FILE* program, int **transition_matrix, state *vec_states, vec_token* vec_tokens, error* vec_errors);
+
 
 /**
  * @brief 

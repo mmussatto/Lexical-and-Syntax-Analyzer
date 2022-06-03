@@ -19,10 +19,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+#include "token.h"
 
 typedef struct 
 {
-    char* error_type;
+    token error_token;
 } error;
 
 

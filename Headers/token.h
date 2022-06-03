@@ -17,6 +17,8 @@
 
 #pragma once
 
+#include<stdlib.h>
+
  //Store the possible tokens of the program
 typedef struct
 {
@@ -28,6 +30,7 @@ typedef struct
 {
     token* tokens;
     int size;
+    int total_size; 
 } vec_token;
 
 /**
@@ -44,7 +47,6 @@ vec_token* create_tokens_vector();
  * @return token 
  */
 token last_vec_token(vec_token* vec_tokens);
-
 
 /**
  * @brief 

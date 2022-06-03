@@ -2,30 +2,33 @@
 # O que falta fazer
 
     - [ ] Preencher a matriz de transição de estados 
-    - [ ] Terminar de codar os erros
+    - [ X ] Terminar de codar os erros
+        - [ X ] Transformar para token
+        - [ X ] Preencher o type do error token
     - [ ] Vetor de tokens
-    - [ ] Resolver problema do símbolo mais
-    - [ ] Função get_token
-    - [ ] Plavras Reservadas
-    - [ ] Organizar melhor o código
+    - [ X ] Resolver problema do símbolo mais
+    - [ X ] Função get_token
+    - [  ] Plavras Reservadas
+    - [  ] Organizar melhor o código
         - Rever ordem das funções no .h
-    - [ ] Comentar o código
-    - [ ] Testar  
+    - [  ] Comentar o código
+    - [  ] Testar  
 
 # Funcões Não Implementadas
 
 ## file.h
 
-    - [ ] check_EOF()
-    - [ ] FILE* create_new_file(char* name);
-    - [ ] void write_tokens_file(FILE *fp, vec_token vec_tokens);   
-        - Não printar o ultimo toke (EOF)
+    - [X] check_EOF() //Checar para ver se era isso mesmo
+    - [X] FILE* create_new_file(char* name); //Não é necessário, basta abrir um novo arquivo no modo a
+    - [X] void write_tokens_file(FILE *fp, vec_token vec_tokens); //Feito, verificar se é isso mesmo   
+        - [  ] Não printar o ultimo toke (EOF)/
+        - [  ] Não printar token com type comment
 
 ## token.h
-    - [ ] create_tokens_vector
-    - [ ] last_vec_token(vec_token* vec_tokens)
-    - [ ] vec_tokens_push_back
-    - [ ] free_tokens_vector(vec_token* vec_tokens);
+    - [X] create_tokens_vector
+    - [X] last_vec_token(vec_token* vec_tokens)
+    - [X] vec_tokens_push_back
+    - [X] free_tokens_vector(vec_token* vec_tokens);
 
 # Estratégia para o símbolo mais
 

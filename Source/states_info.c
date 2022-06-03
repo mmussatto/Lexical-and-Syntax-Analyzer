@@ -36,75 +36,73 @@ state* create_states_vector(int size)
 void populate_states_vector(state *vec_states)
 {
 
-    /* ---------- +, -, *, / ----------------*/ 
+    // Times Sybol
     vec_states[1].final = true;
-    vec_states[1].s_token.name = "+";
-    vec_states[1].s_token.type = "simb_mais";
+    vec_states[1].s_token.name = "*";
+    vec_states[1].s_token.type = "times_simb";
 
-    vec_states[2].final = true;   
-    vec_states[2].s_token.name = "-";
-    vec_states[2].s_token.type = "simb_menos";
+    // Plus Symbol
+    vec_states[2].final = false;   
+    vec_states[2].s_token.name = "+";
+    vec_states[2].s_token.type = "plus_simb";
 
-
-    vec_states[3].final = true;
-    vec_states[3].s_token.name = "*";
-    vec_states[3].s_token.type = "simb_vezes";
+    //Minus Symbol
+    vec_states[3].final = false;
+    vec_states[3].s_token.name = "-";
+    vec_states[3].s_token.type = "minus_simb";
     
-
+    //Division Symbol
     vec_states[4].final = true;
     vec_states[4].s_token.name = "/";
-    vec_states[4].s_token.type = "simb_div";
+    vec_states[4].s_token.type = "div_simb";
 
-    /* ---------- >, <, >=, <=, <> ----------------*/ 
-
-    vec_states[6].final = true;   
-    vec_states[6].s_token.name = ">";
-    vec_states[6].s_token.type = "op_maior";
-
-    vec_states[7].final = true;   
-    vec_states[7].s_token.name = ">=";
-    vec_states[7].s_token.type = "op_maior_igual";
-
-    vec_states[9].final = true;   
-    vec_states[9].s_token.name = "<";
-    vec_states[9].s_token.type = "op_menor";
-
-    vec_states[10].final = true;   
-    vec_states[10].s_token.name = "<=";
-    vec_states[10].s_token.type = "op_menor_igual";
-
-    vec_states[11].final = true;   
-    vec_states[11].s_token.name = "<>";
-    vec_states[11].s_token.type = "op_diferente";
+    
+    //Interger Number
+    vec_states[6].final = true;  
+    vec_states[6].go_back = true;   
+    vec_states[6].s_token.name = "INTEGER NUMBER";
+    vec_states[6].s_token.type = "num_int";
 
 
-    //State of user identifiers
+    // Real Number  
+    vec_states[9].final = true;  
+    vec_states[9].go_back = true;   
+    vec_states[9].s_token.name = "REAL NUMBER";
+    vec_states[9].s_token.type = "num_real";
+
+
+    //Identifier
+    vec_states[11].final = true;
+    vec_states[11].go_back = true;   
+    vec_states[11].s_token.name = "ID";
+    vec_states[11].s_token.type = "identifier";
+
+
+    //Comment
     vec_states[13].final = true;
-    vec_states[13].s_token.name = NULL;
-    vec_states[13].s_token.type = "identificador";
+    vec_states[13].s_token.type = "comment";
 
-    //State of integer numbers
+
+    //Semicolon Symbol
+    vec_states[14].final = true;
+    vec_states[14].s_token.name = ";";
+    vec_states[14].s_token.type = "semicolon_simb";
+    
+
+    //Atribuition Symbol
     vec_states[16].final = true;
-    vec_states[16].s_token.name = NULL;
-    vec_states[16].s_token.type = "numero_inteiro";
-    
-    //State of real numbers
-    vec_states[19].final = true;
-    vec_states[19].s_token.name = NULL;
-    vec_states[19].s_token.type = "numero_real";
+    vec_states[16].s_token.name = ":=";
+    vec_states[16].s_token.type = "atribution_sim";
 
-    //State of the end of comments
-    vec_states[21].final = true;
-    vec_states[21].s_token.name = NULL;
-    vec_states[21].s_token.type = "comentario"; //It is not relevant
-    
-  /*  //State of unvalid character
-    vec_states[21].final = true;
-    vec_states[21].s_token.name = ;
-    vec_states[21].s_token.type = NULL; //It is not relevant
-  */
-    
+   
+    //Colon Symbol
+    vec_states[17].final = true;
+    vec_states[17].go_back = true; 
+    vec_states[17].s_token.name = ":";
+    vec_states[17].s_token.type = "colon_simb"; 
+  
 }
+
 
 void free_states_vector(state *vec_states)
 {

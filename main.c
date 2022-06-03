@@ -28,7 +28,7 @@ int main(int argc, char** argv)
         return 1;
     }
       
-    FILE *program = read_new_file(argv[1],'r');
+    FILE *program = open_file(argv[1],'r');
   
     //Checking for error on file opening
     if(program == NULL)
@@ -51,11 +51,11 @@ int main(int argc, char** argv)
 
     do
     {
-        vec_tokens_push_back(vec_tokens, get_token(program, transition_matrix, vec_states));
+        vec_tokens_push_back(vec_tokens, get_token(program, transition_matrix, vec_states, vec_tokens, vec_errors));
        
     } while(strcmp(last_vec_token(vec_tokens).name,"EOF") != 0); 
 
-    FILE *f_out = create_new_file("saida.txt");
+    FILE *f_out = open_file("saida.txt", 'a');
 
     write_tokens_file(f_out, vec_tokens);
 
@@ -65,6 +65,7 @@ int main(int argc, char** argv)
     free_errors_vector(vec_errors);
     free_tokens_vector(vec_tokens);
     
+    //Closing the files
     fclose(program);
     fclose(f_out);
     return 0;
