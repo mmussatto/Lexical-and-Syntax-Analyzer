@@ -25,22 +25,19 @@
 #include "file.h"
 #include "error.h"
 #include "states_info.h"
+#include "token.h"
 
-#define COLUMNS 128   //possible valid characters
-#define ROWS 21      //number of states
+#define VALID_CHARACTERS 128   //possible valid characters
+#define NUM_STATES 21      //number of states
 
 #define NUM_ERRORS 3
 
-
-typedef struct 
-{
-    token* tokens;
-    int size;
-} vec_token;
+#define STATE_PLUS 2 
+#define STATE_MINUS 3
 
 
 /**
- * @brief Create a ROWSxCOLUMNS matrix populated with the invalid
+ * @brief Create a (NUM_STATES x VALID_CHARACTERS) matrix populated with the invalid
  *  chareacter '-'
  * 
  * @return int** - matrix created
@@ -74,12 +71,15 @@ void populate_transition_matrix(int **matrix);
  * @param end       - end column
  * @param value     - value to be assigned
  */
-void fill_matrix_rows(int **matrix, int row, int start, int end, int value);
+void fill_matrix_state(int **matrix, int state, int start, int end, int value);
 
 
 token get_token(FILE* program, int **transition_matrix, state *vec_state);
 
-
-
+/**
+ * @brief 
+ * 
+ */
+bool check_plusminus_state(int curr_state, vec_token *vec_tokens);
 
 
