@@ -20,6 +20,7 @@
 #include<stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include "token.h"
 
 /**
  * @brief Opens a new file and returns a pointer to id
@@ -52,7 +53,7 @@ bool read_character(FILE* fp, char *ch);
  * @param size      - Size of the string to be read
  * @return char*    - String read
  */
-char* read_file(FILE *fp, int size);
+char* read_file_string(FILE *fp, int size);
 
 
 /**
@@ -62,3 +63,9 @@ char* read_file(FILE *fp, int size);
  * @param shift     - Number of spaces for the file pointer to be moved back
  */
 void move_back_fp(FILE  *fp, int shift);
+
+
+FILE* create_new_file(char *name);
+
+
+void write_tokens_file(FILE *fp, vec_token *vec_tokens);

@@ -34,7 +34,7 @@ bool read_character(FILE* fp, char *ch)
 }
 
 
-char* read_file(FILE *program, int size)
+char* read_file_string(FILE *program, int size)
 {
     char *string = (char*) malloc(sizeof(char)*size);
     fread(string, sizeof(char), size, program);
