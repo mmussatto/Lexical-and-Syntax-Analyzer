@@ -18,17 +18,17 @@
 #include "Headers/error.h"
 
 
-error* create_error_vector(int NUM_ERRORS){
+error* create_errors_vector(int NUM_ERRORS){
     error* vec_error = (error*) calloc(NUM_ERRORS, sizeof(error));
     return vec_error;
 }
 
 
-void populate_error_vector(error* vec_error){
+void populate_errors_vector(error* vec_error){
     
 }
 
 
-void free_error_vector(error* vec_error){
+void free_errors_vector(error* vec_error){
     free(vec_error);
 }

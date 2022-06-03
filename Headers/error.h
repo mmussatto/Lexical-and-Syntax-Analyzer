@@ -32,14 +32,14 @@ typedef struct
  * @param NUM_ERRORS    - Number of different errors
  * @return error*       - Error vector
  */
-error* create_error_vector(int NUM_ERRORS);
+error* create_errors_vector(int NUM_ERRORS);
 
 /**
  * @brief Add error cases to the vector
  * 
  * @param vec_error - Error vector
  */
-void populate_error_vector(error* vec_error);
+void populate_errors_vector(error* vec_error);
 
 
 /**
@@ -47,5 +47,5 @@ void populate_error_vector(error* vec_error);
  * 
  * @param vec_error 
  */
-void free_error_vector(error* vec_error);
+void free_errors_vector(error* vec_error);
 
