@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "token.h"
+#include "lexical.h"
 
 /**
  * @brief Opens a new file and returns a pointer to id
@@ -33,7 +34,7 @@
 FILE* open_file(char *name, char mode);
 
 
-int check_EOF(); //Not implemented
+int check_EOF(); //Need testing
 
 
 /**
@@ -70,3 +71,5 @@ FILE* create_new_file(char *name);
 
 
 void write_tokens_file(FILE *fp, vec_token *vec_tokens);
+
+void read_csv_file(FILE *csv, int **matrix);

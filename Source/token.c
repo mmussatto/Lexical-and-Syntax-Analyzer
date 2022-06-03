@@ -56,7 +56,9 @@ void vec_tokens_push_back(vec_token* vec_tokens, token t)
     }
 
     //Now we can procede to push-back
-    vec_tokens->tokens[vec_tokens->size++] = t;
+    vec_tokens->tokens[vec_tokens->size].name = strdup(t.name);
+    vec_tokens->tokens[vec_tokens->size].type = strdup(t.type);
+    vec_tokens->size++;
 }
 
 void free_tokens_vector(vec_token* vec_tokens)

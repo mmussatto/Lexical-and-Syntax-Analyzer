@@ -28,13 +28,12 @@
 #include "token.h"
 
 #define VALID_CHARACTERS 128   //possible valid characters
-#define NUM_STATES 21      //number of states
+#define NUM_STATES 30      //number of states
 
-#define NUM_ERRORS 3
+#define NUM_ERRORS 4
 
 #define STATE_PLUS 2 
 #define STATE_MINUS 3
-
 
 /**
  * @brief Create a (NUM_STATES x VALID_CHARACTERS) matrix populated with the invalid
@@ -58,20 +57,8 @@ void free_transition_matrix(int **matrix);
  * 
  * @param matrix 
  */
-void populate_transition_matrix(int **matrix);
+void populate_transition_matrix(int **matrix, char* file_name);
 
-
-/**
- * @brief useful function to fiil an entire row of a matrix with a value. This
- * function is used by the populate_transistion_matrix.
- * 
- * @param matrix 
- * @param row      -  row to be filled
- * @param start     - start column 
- * @param end       - end column
- * @param value     - value to be assigned
- */
-void fill_matrix_state(int **matrix, int state, int start, int end, int value);
 
 
 /**

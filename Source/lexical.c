@@ -47,29 +47,13 @@ void free_transition_matrix(int **matrix)
 }
 
 
-void populate_transition_matrix(int **matrix)
+void populate_transition_matrix(int **matrix, char* file_name)
 {
-    fill_matrix_state(matrix, 0, 0, 127, 0);
-    matrix[0]['+'] = 1;
-    matrix[0]['-'] = 2;
-    matrix[0]['*'] = 3;
-    matrix[0]['/'] = 4;
+    FILE *csv = open_file(file_name, 'r'); 
 
-    matrix[0]['>'] = 5;
-    matrix[0]['<'] = 8;
+    read_csv_file(csv, matrix);   
 
-    fill_matrix_state(matrix, 0 , '0', '9', 12);
-    fill_matrix_state(matrix, 0 , 'A', 'Z', 12);
-    fill_matrix_state(matrix, 0 , 'a', 'z', 12);
-    
-}
-
-
-void fill_matrix_state(int **matrix, int state, int start, int end, int value){
-    int j;
-    
-    for (j = start; j <= end; j++)
-        matrix[state][j] = value;
+    fclose(csv);
 }
 
 bool check_plusminus_state(int curr_state, vec_token *vec_tokens){

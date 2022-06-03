@@ -1,11 +1,13 @@
 
 # O que falta fazer
 
-    - [ ] Preencher a matriz de transição de estados 
+    - [ X ] Preencher a matriz de transição de estados 
+        - [ ] Revisar depois de mudar automatos
     - [ X ] Terminar de codar os erros
         - [ X ] Transformar para token
         - [ X ] Preencher o type do error token
-    - [ ] Vetor de tokens
+    - [ X ] Vetor de tokens
+        - [  ] Testar
     - [ X ] Resolver problema do símbolo mais
     - [ X ] Função get_token
     - [  ] Plavras Reservadas
@@ -37,3 +39,16 @@
         - Se sim --> soma --> retornar apenas o mais
         - Se não --> Numero inteiro --> continuar lendo o numero
     - Adicionar uma condição no while para verificar se está no estado do mais e se o ultimo lido foi um número
+
+# Estrategia para erros
+    - Erro '-5' chegou no estado final (teoricamente nao le nada)
+    - Erro EOF nao existe na matriz (dar um jeitinho)
+
+## Chezao things
+
+    - Automato para '(' e ')'   ,colocar em automato separado, continuando a numeracao de estado existente (25 e 26)
+    - Automato para ',' e '.', agora fudeu de vez - virgula 27 & ponto - 28
+    - Automato para '=' - 29
+    - Retirar o '_' (underline) do automato - caracter invalido
+    - Corrigir automato 4 (ta invertido)
+    

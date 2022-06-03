@@ -17,6 +17,7 @@
 
 #include"Headers/file.h"
 
+
 FILE* open_file(char *name, char mode)
 {
     FILE *fp;
@@ -84,4 +85,27 @@ void write_tokens_file(FILE *fp, vec_token *vec_tokens)
         //Write \n
         fwrite(&backspace, sizeof(char), 1, fp);
     } 
+}
+
+void read_csv_file(FILE *csv, int **matrix)
+{
+    //Consider the file already opened
+
+    //Control variables
+    int value, row = 0, col = 0;
+    char trash;
+
+    //Reading the transition matrix from a csv file
+    for(row = 0; row < NUM_STATES; row++)
+        for(col = 0; col < VALID_CHARACTERS; col++)
+        {
+            //Read the integer
+            fscanf(csv, "%d", &value);
+
+            //Read the comma
+            fscanf(csv, "%c",&trash);
+
+            //Add to the matrix
+            matrix[row][col] = value;
+        }
 }

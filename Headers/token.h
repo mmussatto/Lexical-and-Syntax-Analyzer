@@ -18,6 +18,7 @@
 #pragma once
 
 #include<stdlib.h>
+#include<string.h>
 
  //Store the possible tokens of the program
 typedef struct

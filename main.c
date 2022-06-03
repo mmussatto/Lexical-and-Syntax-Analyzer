@@ -29,7 +29,7 @@ int main(int argc, char** argv)
     }
       
     FILE *program = open_file(argv[1],'r');
-  
+    
     //Checking for error on file opening
     if(program == NULL)
     {
@@ -37,9 +37,11 @@ int main(int argc, char** argv)
         return 1;
     }
     
+    
     /*------ Lexical analyser logic --------*/
+    
     int **transition_matrix = create_transition_matrix();
-    populate_transition_matrix(transition_matrix); // Matrix of transitions
+    populate_transition_matrix(transition_matrix, "to_csv.csv"); // Matrix of transitions
 
     state* vec_states = create_states_vector(NUM_STATES);
     populate_states_vector(vec_states); // Vector of states
