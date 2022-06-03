@@ -26,6 +26,7 @@ state* create_states_vector(int size)
     for(i = 0; i < size; i++)
     {
         vec_states->final = false;
+        vec_states->go_back = false;
     }
 
     return vec_states;

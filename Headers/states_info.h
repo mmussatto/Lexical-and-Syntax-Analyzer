@@ -21,18 +21,14 @@
 #include <stdio.h>
 #include <stdbool.h>
 
- 
-//Store the possible tokens of the program
-typedef struct
-{
-    char* name; 
-    char* type;
-} token;
+#include "token.h"
 
+ 
 //Stores a token and if it is a final state
 typedef struct
 {
     bool final; 
+    bool go_back;       //indicates if the look ahead token has been read;
     token s_token;
 } state;
 
