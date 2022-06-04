@@ -22,45 +22,18 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "file.h"
+
 #include "error.h"
+#include "file.h"
+#include "reserved.h"
 #include "states_info.h"
 #include "token.h"
-#include "simb.h"
+#include "matrix.h"
 
-#define VALID_CHARACTERS 128    //Possible valid characters
-#define NUM_STATES 30           //Number of states
 
-#define NUM_ERRORS 6            //Number of possible errors
-#define NUM_RESERVEDS 17         //Number of reserved symbols
 
 #define STATE_PLUS 2            //Number of the state representing the plus symbol
 #define STATE_MINUS 3           //Number of the state representing the minus symbol
-
-
-/**
- * @brief Create a (NUM_STATES x VALID_CHARACTERS) matrix populated with the invalid
- *  chareacter '-'
- * 
- * @return int** - matrix created
- */
-int** create_transition_matrix();
-
-
-/**
- * @brief deallocate the matrix
- * 
- * @param matrix 
- */
-void free_transition_matrix(int **matrix);
-
-
-/**
- * @brief Adds the states transitions to the matrix
- * 
- * @param matrix 
- */
-void populate_transition_matrix(int **matrix, char* file_name);
 
 
 /**

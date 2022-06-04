@@ -17,46 +17,6 @@
 
 #include "Headers/lexical.h"
 
-
-int** create_transition_matrix()
-{
-    int **matrix, i, j;
-        
-    matrix = (int **) malloc(NUM_STATES * sizeof(int*));
-
-    for(i = 0; i < NUM_STATES; i++)
-        matrix[i] = (int *) malloc(VALID_CHARACTERS * sizeof(int));
-
-    //Populate Matrix with invalid character
-    for(i = 0; i < NUM_STATES; i++)
-        for(j = 0; j < VALID_CHARACTERS; j++)
-            matrix[i][j] = -1;
-
-    return matrix;
-}
-
-
-void free_transition_matrix(int **matrix)
-{
-    int i;
-    
-    for(i = 0; i < NUM_STATES; i++)
-        free(matrix[i]);
-    
-    free(matrix); 
-}
-
-
-void populate_transition_matrix(int **matrix, char* file_name)
-{
-    FILE *csv = open_file(file_name, 'r'); 
-
-    read_matrix_csv_file(csv, matrix);   
-
-    fclose(csv);
-}
-
-
 bool check_plusminus_state(int curr_state, vec_token *vec_tokens){
     
     if (curr_state == STATE_PLUS || curr_state == STATE_MINUS)
@@ -126,7 +86,8 @@ token create_token(FILE* fp, state* vec_states, int curr_state, int characters)
     char *string;
     move_back_fp(fp, characters);
     string = read_file_string(fp, characters);
-    t.name = strdup(string);
+    //t.name = strdup(string);
+    t.name = strndup(string, characters);
     t.type = strdup(vec_states[curr_state].s_token.type);
 
     return t;
@@ -139,7 +100,8 @@ token create_error_token(FILE* fp, error* vec_errors, int curr_state, int charac
     char *string;
     move_back_fp(fp, characters);
     string = read_file_string(fp, characters);
-    t.name = strdup(string);
+    //t.name = strdup(string);
+     t.name = strndup(string, characters);
     t.type = strdup(vec_errors[curr_state].error_token.type);
 
     return t;
