@@ -21,8 +21,9 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
-#include "token.h"
 #include "lexical.h"
+#include "simb.h"
+#include "error.h"
 
 /**
  * @brief Opens a new file and returns a pointer to id
@@ -87,4 +88,9 @@ void write_tokens_file(FILE *fp, vec_token *vec_tokens);
  * @param csv       - Pointer to csv file
  * @param matrix    - Transition Matrix
  */
-void read_csv_file(FILE *csv, int **matrix);
+void read_matrix_csv_file(FILE *csv, int **matrix);
+
+
+void read_reserved_csv_file(FILE *csv, reserved* vec_reserved);
+
+void read_error_csv_file(FILE *csv, error *vec_errors);

@@ -92,7 +92,7 @@ void write_tokens_file(FILE *fp, vec_token *vec_tokens)
 }
 
 
-void read_csv_file(FILE *csv, int **matrix)
+void read_matrix_csv_file(FILE *csv, int **matrix)
 {
     //Consider the file already opened
 
@@ -113,4 +113,44 @@ void read_csv_file(FILE *csv, int **matrix)
             //Add to the matrix
             matrix[row][col] = value;
         }
+}
+
+void read_reserved_csv_file(FILE *csv, reserved* vec_reserved)
+{
+    //Consider the file already opened
+
+    //Control variables
+    int i;
+
+    //Reading the transition matrix from a csv file
+    for(i = 0; i < NUM_RESERVEDS; i++)
+    {
+        //Read the integer
+        fscanf(csv, "%s%*c %s", vec_reserved[i].reserved_symb.name, vec_reserved[i].reserved_symb.type);
+    }
+}
+
+
+void read_error_csv_file(FILE *csv, error *vec_errors)
+{
+    //Consider the file already opened
+
+    //Control variables
+    int i;
+    char buff[50];
+    char s_error[20];
+
+    //Reading the transition matrix from a csv file
+    for(i = 1; i < NUM_ERRORS; i++){
+       
+        // fgets(buff, sizeof(buff), csv);
+
+        // sscanf(buff, "%s", s_error);
+
+        // printf("%s\n", s_error);
+
+        // //Add to the matrix
+        // vec_errors[i].error_token.type = strdup(s_error);
+    }
+
 }

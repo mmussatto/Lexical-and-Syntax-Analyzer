@@ -26,11 +26,13 @@
 #include "error.h"
 #include "states_info.h"
 #include "token.h"
+#include "simb.h"
 
 #define VALID_CHARACTERS 128    //Possible valid characters
 #define NUM_STATES 30           //Number of states
 
 #define NUM_ERRORS 6            //Number of possible errors
+#define NUM_RESERVEDS 17         //Number of reserved symbols
 
 #define STATE_PLUS 2            //Number of the state representing the plus symbol
 #define STATE_MINUS 3           //Number of the state representing the minus symbol

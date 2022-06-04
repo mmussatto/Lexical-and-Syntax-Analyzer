@@ -37,7 +37,8 @@ int main(int argc, char** argv)
         return 1;
     }
     
-    
+
+
     /*------ Lexical analyser logic --------*/
     
     int **transition_matrix = create_transition_matrix();
@@ -47,10 +48,22 @@ int main(int argc, char** argv)
     populate_states_vector(vec_states); // Vector of states
 
     error *vec_errors = create_errors_vector(NUM_ERRORS);
-    populate_errors_vector(vec_errors); // Vector of errors
+    //populate_errors_vector(vec_errors); // Vector of errors
 
     vec_token *vec_tokens = create_tokens_vector();
 
+    //reserved *vec_reserveds = create_reserved_vector(NUM_RESERVEDS);
+
+    FILE *csv2 = open_file("erros.csv",'r');
+  
+    read_error_csv_file(csv2, vec_errors);
+    
+    // for (size_t i = 0; i < NUM_ERRORS; i++)
+    // {
+    //     printf("%s\n", vec_errors[i].error_token.type);
+    // }
+    
+    /*
     do
     {
         vec_tokens_push_back(vec_tokens, get_token(program, transition_matrix, vec_states, vec_tokens, vec_errors));
@@ -70,5 +83,6 @@ int main(int argc, char** argv)
     //Closing the files
     fclose(program);
     fclose(f_out);
+    */
     return 0;
 }

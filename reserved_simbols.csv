@@ -1,0 +1,17 @@
+program, symb_program
+begin , symb_begin
+end, symb_end
+const, symb_const
+var, simb_var
+real, symb_tipo
+integer, symb_tipo
+procedure, symb_procedure
+else, symb_else
+read, symb_read
+write, symb_write
+while, symb_while
+do, symb_do
+if, symb_if
+then, symb_then
+for, symb_for
+to, symb_to

@@ -51,10 +51,11 @@ void populate_transition_matrix(int **matrix, char* file_name)
 {
     FILE *csv = open_file(file_name, 'r'); 
 
-    read_csv_file(csv, matrix);   
+    read_matrix_csv_file(csv, matrix);   
 
     fclose(csv);
 }
+
 
 bool check_plusminus_state(int curr_state, vec_token *vec_tokens){
     
@@ -118,6 +119,7 @@ token get_token(FILE* program, int **transition_matrix, state *vec_states, vec_t
     }
 }
 
+
 token create_token(FILE* fp, state* vec_states, int curr_state, int characters)
 {
     token t;
@@ -130,6 +132,7 @@ token create_token(FILE* fp, state* vec_states, int curr_state, int characters)
     return t;
 }
 
+
 token create_error_token(FILE* fp, error* vec_errors, int curr_state, int characters)
 {
     token t;
@@ -141,6 +144,7 @@ token create_error_token(FILE* fp, error* vec_errors, int curr_state, int charac
 
     return t;
 }
+
 
 token create_EOF_token()
 {

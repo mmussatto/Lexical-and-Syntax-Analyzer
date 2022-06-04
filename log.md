@@ -14,6 +14,8 @@
     - [  ] Organizar melhor o código
         - Rever ordem das funções no .h
     - [  ] Comentar o código
+    - [  ] Verificar todos os lugares que estao com simb em vez de symb
+        - [  ] trocar o nome do arquivo simb.h
     - [  ] Testar  
 
 # Funcões Não Implementadas

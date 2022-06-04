@@ -12,14 +12,14 @@ OBJ= *.c Source/*.c
 FILE = meu_programa.txt
 
 all: $(OBJ)
-	@$(CC) -o prog $^ $(CFLAGS) $(LIBS)
+	@$(CC) -o main $^ $(CFLAGS) $(LIBS)
 
 o: %.c $(DEPS)		
 	@$(CC) -c -o $@ $< $(CFLAGS)
 
 .PHONY: run
 run:
-	@./prog $(FILE)
+	@./main $(FILE)
 
 #Os comandos abaixo não são utilizados
 .PHONY: clean
