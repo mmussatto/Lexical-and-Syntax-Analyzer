@@ -27,9 +27,11 @@ error* create_errors_vector(int NUM_ERRORS)
 
 void populate_errors_vector(error* vec_error)
 { 
-    vec_error[0].error_token.type = strdup("ERROR(Badly Formed Real Number)");
-    vec_error[1].error_token.type = strdup("ERROR(Invalid Character)");
-    vec_error[2].error_token.type = strdup("ERROR(Unclosed Comment)");
+    vec_error[1].error_token.type = strdup("ERROR(State not defined)");
+    vec_error[2].error_token.type = strdup("ERROR(Badly Formed Number)");
+    vec_error[3].error_token.type = strdup("ERROR(Badly Formed Real Number)");
+    vec_error[4].error_token.type = strdup("ERROR(Invalid Character)");
+    vec_error[5].error_token.type = strdup("ERROR(Unclosed Comment)");
 }
 
 

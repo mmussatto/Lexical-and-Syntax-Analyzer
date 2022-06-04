@@ -48,7 +48,7 @@ void populate_errors_vector(error* vec_error);
 /**
  * @brief Deallocate the error vector
  * 
- * @param vec_error 
+ * @param vec_error - Error vector
  */
 void free_errors_vector(error* vec_error);
 

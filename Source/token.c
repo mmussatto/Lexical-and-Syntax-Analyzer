@@ -17,6 +17,7 @@
 
 #include "Headers/token.h"
 
+
 vec_token* create_tokens_vector()
 {
     vec_token *tk;
@@ -30,11 +31,12 @@ vec_token* create_tokens_vector()
     return tk;
 }
 
+
 token last_vec_token(vec_token* vec_tokens)
 {
     token t;
 
-    //Case when there is no token inserted
+    //Vec_tokens is empty
     if(vec_tokens->size == 0)
     {
         t.name = NULL;
@@ -42,24 +44,26 @@ token last_vec_token(vec_token* vec_tokens)
         return t;
     }
     else
-        return vec_tokens->tokens[vec_tokens->size - 1];
+        return vec_tokens->tokens[vec_tokens->size - 1];    //returns the last token in the vector
 }
+
 
 void vec_tokens_push_back(vec_token* vec_tokens, token t)
 {
 
-    //Edge case: Need to reallocate
+    //Vector too small for new token. Need to reallocate memory
     if(vec_tokens->size == vec_tokens->total_size)
     {
         vec_tokens->total_size *= 2;
         vec_tokens->tokens = realloc(vec_tokens->tokens, vec_tokens->total_size);
     }
 
-    //Now we can procede to push-back
+    //Push-back new token to vector
     vec_tokens->tokens[vec_tokens->size].name = strdup(t.name);
     vec_tokens->tokens[vec_tokens->size].type = strdup(t.type);
     vec_tokens->size++;
 }
+
 
 void free_tokens_vector(vec_token* vec_tokens)
 {

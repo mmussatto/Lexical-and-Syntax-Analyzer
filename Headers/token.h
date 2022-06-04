@@ -34,6 +34,7 @@ typedef struct
     int total_size; 
 } vec_token;
 
+
 /**
  * @brief Create a tokens vector object
  * 
@@ -41,21 +42,28 @@ typedef struct
  */
 vec_token* create_tokens_vector();
 
+
 /**
- * @brief 
+ * @brief Returns the last token read
  * 
- * @param vec_tokens 
- * @return token 
+ * @param vec_tokens    - Vector with all the tokens
+ * @return token        - Last token read
  */
 token last_vec_token(vec_token* vec_tokens);
 
+
 /**
- * @brief 
+ * @brief  Push back a token to the token vector 
  * 
- * @param vec_tokens 
- * @param t 
+ * @param vec_tokens    - Vector with all the tokens
+ * @param t             - Token to be pushed back
  */
 void vec_tokens_push_back(vec_token* vec_tokens, token t);
 
 
+/**
+ * @brief Deallocate the toekn vector
+ * 
+ * @param vec_tokens    - Vector with all the tokens
+ */
 void free_tokens_vector(vec_token* vec_tokens);

@@ -27,13 +27,14 @@
 #include "states_info.h"
 #include "token.h"
 
-#define VALID_CHARACTERS 128   //possible valid characters
-#define NUM_STATES 30      //number of states
+#define VALID_CHARACTERS 128    //Possible valid characters
+#define NUM_STATES 30           //Number of states
 
-#define NUM_ERRORS 4
+#define NUM_ERRORS 6            //Number of possible errors
 
-#define STATE_PLUS 2 
-#define STATE_MINUS 3
+#define STATE_PLUS 2            //Number of the state representing the plus symbol
+#define STATE_MINUS 3           //Number of the state representing the minus symbol
+
 
 /**
  * @brief Create a (NUM_STATES x VALID_CHARACTERS) matrix populated with the invalid
@@ -60,7 +61,6 @@ void free_transition_matrix(int **matrix);
 void populate_transition_matrix(int **matrix, char* file_name);
 
 
-
 /**
  * @brief Get the token object
  * 
@@ -79,5 +79,11 @@ token get_token(FILE* program, int **transition_matrix, state *vec_states, vec_t
  * 
  */
 bool check_plusminus_state(int curr_state, vec_token *vec_tokens);
+
+token create_token(FILE* fp, state* vec_states, int curr_state, int characters);
+
+token create_error_token(FILE* fp, error* vec_errors, int curr_state, int characters);
+
+token create_EOF_token();
 
 

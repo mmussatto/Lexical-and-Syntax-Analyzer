@@ -34,9 +34,6 @@
 FILE* open_file(char *name, char mode);
 
 
-int check_EOF(); //Need testing
-
-
 /**
  * @brief Reads a character from a file.
  * 
@@ -67,9 +64,27 @@ char* read_file_string(FILE *fp, int size);
 void move_back_fp(FILE  *fp, int shift);
 
 
-FILE* create_new_file(char *name);
+/**
+ * @brief 
+ * 
+ * @return int 
+ */
+int check_EOF(); //Need testing
 
 
+/**
+ * @brief Write all tokens read into a file
+ * 
+ * @param fp            - Pointer to file
+ * @param vec_tokens    - vector with the tokens
+ */
 void write_tokens_file(FILE *fp, vec_token *vec_tokens);
 
+
+/**
+ * @brief Reads a csv file with the values of the transition matrix
+ * 
+ * @param csv       - Pointer to csv file
+ * @param matrix    - Transition Matrix
+ */
 void read_csv_file(FILE *csv, int **matrix);

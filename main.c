@@ -41,7 +41,7 @@ int main(int argc, char** argv)
     /*------ Lexical analyser logic --------*/
     
     int **transition_matrix = create_transition_matrix();
-    populate_transition_matrix(transition_matrix, "to_csv.csv"); // Matrix of transitions
+    populate_transition_matrix(transition_matrix, "transition_matrix.csv"); // Matrix of transitions
 
     state* vec_states = create_states_vector(NUM_STATES);
     populate_states_vector(vec_states); // Vector of states
@@ -57,7 +57,7 @@ int main(int argc, char** argv)
        
     } while(strcmp(last_vec_token(vec_tokens).name,"EOF") != 0); 
 
-    FILE *f_out = open_file("saida.txt", 'a');
+    FILE *f_out = open_file("saida.txt", 'w');
 
     write_tokens_file(f_out, vec_tokens);
 
