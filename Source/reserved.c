@@ -26,13 +26,13 @@ reserved* create_reserved_vector(int n)
 }
 
 
-void populate_reserved_vector(char *file_name, reserved *vec_reserved)
+void populate_reserved_vector(reserved *vec_reserved, char *file_name)
 {
-    // FILE *csv = open_file(file_name, 'r'); 
+    FILE *csv = open_file(file_name, 'r'); 
 
-    // read_reserved_csv_file(csv, vec_reserved);   
+    read_reserved_csv_file(csv, vec_reserved);   
 
-    // fclose(csv);
+    fclose(csv);
 }
 
 
@@ -48,11 +48,37 @@ void read_reserved_csv_file(FILE *csv, reserved* vec_reserved)
 
     //Control variables
     int i;
+    char buff[100];
+    char string1[50];
+    char string2[50];
 
     //Reading the transition matrix from a csv file
     for(i = 0; i < NUM_RESERVEDS; i++)
     {
         //Read the integer
         fscanf(csv, "%s%*c %s", vec_reserved[i].reserved_symb.name, vec_reserved[i].reserved_symb.type);
+
+        fgets(buff, sizeof(buff), csv);
+        sscanf(buff, "%[^,\n],%s", string1, string2);
+
+        //printf("%s, %s\n", string1, string2);
+
+        vec_reserved[i].reserved_symb.name = strdup(string1);
+        vec_reserved[i].reserved_symb.type = strdup(string2);
+
+    }
+}
+
+void check_reserverd_symbols(token *t, reserved *vec_reserveds)
+{
+    int i;
+
+    for (i = 0; i < NUM_RESERVEDS; i++)
+    {
+        if (strcmp(t->name, vec_reserveds[i].reserved_symb.name) == 0)
+        {
+            t->type = strdup(vec_reserveds[i].reserved_symb.type);
+            return;
+        }
     }
 }
