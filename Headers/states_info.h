@@ -20,8 +20,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
 #include "token.h"
+#include "file.h"
 
  
 //Stores a token and if it is a final state
@@ -47,7 +49,10 @@ state* create_states_vector(int size);
  * 
  * @param vec_states - states vector
  */
-void populate_states_vector(state *vec_states);
+void populate_states_vector(state *vec_states, char* file_name);
+
+
+void read_state_tsv_file(FILE *tsv, state* vec_states);
 
 
 /**
@@ -56,4 +61,3 @@ void populate_states_vector(state *vec_states);
  * @param vec_states - states vector
  */
 void free_states_vector(state *vec_states);
-

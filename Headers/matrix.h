@@ -53,7 +53,7 @@ void populate_transition_matrix(int **matrix, char* file_name);
 /**
  * @brief Reads a csv file with the values of the transition matrix
  * 
- * @param csv       - Pointer to csv file
+ * @param tsv       - Pointer to csv file
  * @param matrix    - Transition Matrix
  */
-void read_matrix_csv_file(FILE *csv, int **matrix);
+void read_matrix_tsv_file(FILE *tsv, int **matrix);

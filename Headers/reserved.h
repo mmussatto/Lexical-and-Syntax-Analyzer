@@ -38,6 +38,6 @@ void populate_reserved_vector(reserved *vec_reserved, char *file_name);
 
 void free_reserved_vector(reserved *vec_reserved);
 
-void read_reserved_csv_file(FILE *csv, reserved* vec_reserved);
+void read_reserved_tsv_file(FILE *tsv, reserved* vec_reserved);
 
 void check_reserverd_symbols(token *t, reserved *vec_reserveds);

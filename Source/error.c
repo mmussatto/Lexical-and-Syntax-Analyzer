@@ -51,10 +51,10 @@ void read_error_csv_file(FILE *csv, error *vec_errors)
 
         sscanf(buff, "%[^\n]s", s_error);
 
-        //printf("%s\n", s_error);
-
         //Add to the matrix
         vec_errors[i].error_token.type = strdup(s_error);
+        
+        //printf("%s\n", s_error);
     }
 
 }

@@ -15,7 +15,7 @@ x, identifier
 while, symb_while
 (, open_parentheses
 x, identifier
-<, op_less
+<, op_lesser
 3), ERROR(Badly Formed Number)
 do, symb_do
 x, identifier

@@ -41,16 +41,16 @@ int main(int argc, char** argv)
     /*------ Lexical analyser logic --------*/
     
     int **transition_matrix = create_transition_matrix();
-    populate_transition_matrix(transition_matrix, "Data/transition_matrix.csv"); // Matrix of transitions
+    populate_transition_matrix(transition_matrix, "Data/transition_matrix.tsv"); // Matrix of transitions
 
     state* vec_states = create_states_vector(NUM_STATES);
-    populate_states_vector(vec_states); // Vector of states
+    populate_states_vector(vec_states, "Data/states.tsv"); // Vector of states
 
     error *vec_errors = create_errors_vector(NUM_ERRORS);
-    populate_errors_vector(vec_errors, "Data/errors.csv"); // Vector of errors
+    populate_errors_vector(vec_errors, "Data/errors.tsv"); // Vector of errors
 
     reserved *vec_reserveds = create_reserved_vector(NUM_RESERVEDS);
-    populate_reserved_vector(vec_reserveds, "Data/reserved_symbols.csv");
+    populate_reserved_vector(vec_reserveds, "Data/reserved_symbols.tsv");
 
     vec_token *vec_tokens = create_tokens_vector();
     

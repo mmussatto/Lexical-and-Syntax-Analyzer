@@ -49,31 +49,28 @@ void free_transition_matrix(int **matrix)
 
 void populate_transition_matrix(int **matrix, char* file_name)
 {
-    FILE *csv = open_file(file_name, 'r'); 
+    FILE *tsv = open_file(file_name, 'r'); 
 
-    read_matrix_csv_file(csv, matrix);   
+    read_matrix_tsv_file(tsv, matrix);   
 
-    fclose(csv);
+    fclose(tsv);
 }
 
 
-void read_matrix_csv_file(FILE *csv, int **matrix)
+void read_matrix_tsv_file(FILE *tsv, int **matrix)
 {
     //Consider the file already opened
 
     //Control variables
     int value, row = 0, col = 0;
-    char trash;
+    //char trash;
 
-    //Reading the transition matrix from a csv file
+    //Reading the transition matrix from a tsv file
     for(row = 0; row < NUM_STATES; row++)
         for(col = 0; col < VALID_CHARACTERS; col++)
         {
             //Read the integer
-            fscanf(csv, "%d", &value);
-
-            //Read the comma
-            fscanf(csv, "%c",&trash);
+            fscanf(tsv, "%d", &value);
 
             //Add to the matrix
             matrix[row][col] = value;
