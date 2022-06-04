@@ -38,35 +38,25 @@ int main(int argc, char** argv)
     }
     
 
-
     /*------ Lexical analyser logic --------*/
     
     int **transition_matrix = create_transition_matrix();
-    populate_transition_matrix(transition_matrix, "transition_matrix.csv"); // Matrix of transitions
+    populate_transition_matrix(transition_matrix, "Data/transition_matrix.csv"); // Matrix of transitions
 
     state* vec_states = create_states_vector(NUM_STATES);
     populate_states_vector(vec_states); // Vector of states
 
     error *vec_errors = create_errors_vector(NUM_ERRORS);
-    populate_errors_vector(vec_errors, "errors.csv"); // Vector of errors
+    populate_errors_vector(vec_errors, "Data/errors.csv"); // Vector of errors
+
+    reserved *vec_reserveds = create_reserved_vector(NUM_RESERVEDS);
+    populate_reserved_vector(vec_reserveds, "Data/reserved_symbols.csv");
 
     vec_token *vec_tokens = create_tokens_vector();
-
-    //reserved *vec_reserveds = create_reserved_vector(NUM_RESERVEDS);
-
-
-    for (size_t i = 1; i < NUM_ERRORS; i++)
-    {
-        printf("%s\n", vec_errors[i].error_token.type);
-    }
-    
-    
-    
-    
     
     do
     {
-        vec_tokens_push_back(vec_tokens, get_token(program, transition_matrix, vec_states, vec_tokens, vec_errors));
+        vec_tokens_push_back(vec_tokens, get_token(program, transition_matrix, vec_states, vec_tokens, vec_errors, vec_reserveds));
        
     } while(strcmp(last_vec_token(vec_tokens).name,"EOF") != 0); 
 
@@ -79,6 +69,7 @@ int main(int argc, char** argv)
     free_states_vector(vec_states);
     free_errors_vector(vec_errors);
     free_tokens_vector(vec_tokens);
+    free_reserved_vector(vec_reserveds);
     
     //Closing the files
     fclose(program);
