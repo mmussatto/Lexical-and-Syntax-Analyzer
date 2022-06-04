@@ -64,6 +64,34 @@ void vec_tokens_push_back(vec_token* vec_tokens, token t)
     vec_tokens->size++;
 }
 
+//Write in the file the combination of token name and type
+void write_tokens_file(FILE *fp, vec_token *vec_tokens)
+{
+    int i;
+    char backspace = '\n';
+    token t;
+
+    for(i = 0; i < vec_tokens->size; i++)
+    {   
+        //Get the current token
+        t = vec_tokens->tokens[i];
+
+        //Write the name of the token
+        fwrite(t.name, sizeof(char), strlen(t.name), fp);
+
+        //Write comma and space
+        fwrite(", ", sizeof(char), 2, fp);
+
+        //Write the type of the token
+        fwrite(t.type, sizeof(char), strlen(t.type), fp);
+
+        //Write \n
+        fwrite(&backspace, sizeof(char), 1, fp);
+    } 
+}
+
+
+
 
 void free_tokens_vector(vec_token* vec_tokens)
 {

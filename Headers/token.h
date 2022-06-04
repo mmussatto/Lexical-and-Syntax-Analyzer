@@ -17,8 +17,9 @@
 
 #pragma once
 
-#include<stdlib.h>
-#include<string.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
  //Store the possible tokens of the program
 typedef struct
@@ -59,6 +60,15 @@ token last_vec_token(vec_token* vec_tokens);
  * @param t             - Token to be pushed back
  */
 void vec_tokens_push_back(vec_token* vec_tokens, token t);
+
+
+/**
+ * @brief Write all tokens read into a file
+ * 
+ * @param fp            - Pointer to file
+ * @param vec_tokens    - vector with the tokens
+ */
+void write_tokens_file(FILE *fp, vec_token *vec_tokens);
 
 
 /**
