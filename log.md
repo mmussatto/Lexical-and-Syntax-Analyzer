@@ -54,4 +54,7 @@
 
     - Automato numero real, vai para estado final quando ler:
         \t, \n, espaco, *, + , ',', -, /, ;, <, >, = , {
+    - Tambem occore com numero normal
+        - [ ] seta do q5 para e2
+        - [ ] seta do q8 pro e3
     
