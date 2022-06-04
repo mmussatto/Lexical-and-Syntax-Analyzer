@@ -68,7 +68,7 @@ void vec_tokens_push_back(vec_token* vec_tokens, token t)
 void write_tokens_file(FILE *fp, vec_token *vec_tokens)
 {
     int i;
-    char backspace = '\n';
+    char enter = '\n';
     token t;
 
     for(i = 0; i < vec_tokens->size; i++)
@@ -86,7 +86,7 @@ void write_tokens_file(FILE *fp, vec_token *vec_tokens)
         fwrite(t.type, sizeof(char), strlen(t.type), fp);
 
         //Write \n
-        fwrite(&backspace, sizeof(char), 1, fp);
+        fwrite(&enter, sizeof(char), 1, fp);
     } 
 }
 
