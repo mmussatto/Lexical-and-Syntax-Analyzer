@@ -34,7 +34,8 @@ bool check_plusminus_state(int curr_state, vec_token *vec_tokens){
     return false;
 }
 
-token get_token(FILE* program, int **transition_matrix, state *vec_states, vec_token* vec_tokens, error* vec_errors)
+token get_token(FILE* program, int **transition_matrix, state *vec_states, 
+                vec_token* vec_tokens, error* vec_errors, reserved* vec_reserveds)
 {
 
     char character;
@@ -50,7 +51,7 @@ token get_token(FILE* program, int **transition_matrix, state *vec_states, vec_t
         if(curr_state != 0)
             n_characters_read++;
 
-        printf("%c , %d\n", character, curr_state);
+        //printf("%c , %d\n", character, curr_state);
 
         //Error state
         if (curr_state < 0)
@@ -66,7 +67,7 @@ token get_token(FILE* program, int **transition_matrix, state *vec_states, vec_t
                 n_characters_read--;
             }
             
-            return create_token(program, vec_states, curr_state, n_characters_read);
+            return create_token(program, vec_states, curr_state, n_characters_read, vec_reserveds);
         }
 
     }
@@ -80,7 +81,7 @@ token get_token(FILE* program, int **transition_matrix, state *vec_states, vec_t
 }
 
 
-token create_token(FILE* fp, state* vec_states, int curr_state, int characters)
+token create_token(FILE* fp, state* vec_states, int curr_state, int characters, reserved* vec_reserveds)
 {
     token t;
     char *string;
@@ -89,7 +90,11 @@ token create_token(FILE* fp, state* vec_states, int curr_state, int characters)
     //t.name = strdup(string);
     t.name = strndup(string, characters);
     t.type = strdup(vec_states[curr_state].s_token.type);
-
+    
+    if (curr_state == STATE_IDENT)
+        check_reserverd_symbols(&t, vec_reserveds);
+    
+   
     return t;
 }
 
@@ -101,7 +106,7 @@ token create_error_token(FILE* fp, error* vec_errors, int curr_state, int charac
     move_back_fp(fp, characters);
     string = read_file_string(fp, characters);
     //t.name = strdup(string);
-     t.name = strndup(string, characters);
+    t.name = strndup(string, characters);
     t.type = strdup(vec_errors[curr_state].error_token.type);
 
     return t;

@@ -32,8 +32,9 @@
 
 
 
-#define STATE_PLUS 2            //Number of the state representing the plus symbol
-#define STATE_MINUS 3           //Number of the state representing the minus symbol
+#define STATE_PLUS 2    //Number of the state representing the plus symbol
+#define STATE_MINUS 3   //Number of the state representing the minus symbol
+#define STATE_IDENT 11  //Number of the state representing identifiers
 
 
 /**
@@ -46,7 +47,8 @@
  * @param vec_errors 
  * @return token 
  */
-token get_token(FILE* program, int **transition_matrix, state *vec_states, vec_token* vec_tokens, error* vec_errors);
+token get_token(FILE* program, int **transition_matrix, state *vec_states, 
+                vec_token* vec_tokens, error* vec_errors, reserved* vec_reserveds);
 
 
 /**
@@ -55,7 +57,7 @@ token get_token(FILE* program, int **transition_matrix, state *vec_states, vec_t
  */
 bool check_plusminus_state(int curr_state, vec_token *vec_tokens);
 
-token create_token(FILE* fp, state* vec_states, int curr_state, int characters);
+token create_token(FILE* fp, state* vec_states, int curr_state, int characters, reserved* vec_reserveds);
 
 token create_error_token(FILE* fp, error* vec_errors, int curr_state, int characters);
 
