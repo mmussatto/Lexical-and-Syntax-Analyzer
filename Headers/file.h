@@ -21,9 +21,8 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
-#include "lexical.h"
-#include "simb.h"
-#include "error.h"
+
+#include "reserved.h"
 
 /**
  * @brief Opens a new file and returns a pointer to id
@@ -73,24 +72,10 @@ void move_back_fp(FILE  *fp, int shift);
 int check_EOF(); //Need testing
 
 
-/**
- * @brief Write all tokens read into a file
- * 
- * @param fp            - Pointer to file
- * @param vec_tokens    - vector with the tokens
- */
-void write_tokens_file(FILE *fp, vec_token *vec_tokens);
 
 
-/**
- * @brief Reads a csv file with the values of the transition matrix
- * 
- * @param csv       - Pointer to csv file
- * @param matrix    - Transition Matrix
- */
-void read_matrix_csv_file(FILE *csv, int **matrix);
 
 
-void read_reserved_csv_file(FILE *csv, reserved* vec_reserved);
 
-void read_error_csv_file(FILE *csv, error *vec_errors);
+
+
