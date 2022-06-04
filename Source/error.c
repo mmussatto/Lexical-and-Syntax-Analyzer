@@ -18,22 +18,45 @@
 #include "Headers/error.h"
 
 
-error* create_errors_vector(int NUM_ERRORS)
+error* create_errors_vector(int n)
 {
-    error* vec_error = (error*) calloc(NUM_ERRORS, sizeof(error));
+    error* vec_error = (error*) calloc(n, sizeof(error));
     return vec_error;
 }
 
 
-void populate_errors_vector(error* vec_error)
+void populate_errors_vector(error* vec_errors, char* file_name)
 { 
-    
+    FILE *csv = open_file(file_name, 'r');
 
-    vec_error[1].error_token.type = strdup("ERROR(State not defined)");
-    vec_error[2].error_token.type = strdup("ERROR(Badly Formed Number)");
-    vec_error[3].error_token.type = strdup("ERROR(Badly Formed Real Number)");
-    vec_error[4].error_token.type = strdup("ERROR(Invalid Character)");
-    vec_error[5].error_token.type = strdup("ERROR(Unclosed Comment)");
+    read_error_csv_file(csv, vec_errors);
+
+    fclose(csv);
+
+}
+
+void read_error_csv_file(FILE *csv, error *vec_errors)
+{
+    //Consider the file already opened
+
+    //Control variables
+    int i;
+    char buff[100];
+    char s_error[100];
+
+    //Reading the transition matrix from a csv file
+    for(i = 1; i < NUM_ERRORS; i++){
+       
+        fgets(buff, sizeof(buff), csv);
+
+        sscanf(buff, "%[^\n]s", s_error);
+
+        //printf("%s\n", s_error);
+
+        //Add to the matrix
+        vec_errors[i].error_token.type = strdup(s_error);
+    }
+
 }
 
 

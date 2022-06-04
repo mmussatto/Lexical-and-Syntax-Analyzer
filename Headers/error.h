@@ -22,6 +22,9 @@
 #include <string.h>
 
 #include "token.h"
+#include "file.h"
+
+#define NUM_ERRORS 6            //Number of possible errors
 
 typedef struct 
 {
@@ -32,23 +35,28 @@ typedef struct
 /**
  * @brief Create a error vector object
  * 
- * @param NUM_ERRORS    - Number of different errors
+ * @param n - Number of different errors
  * @return error*       - Error vector
  */
-error* create_errors_vector(int NUM_ERRORS);
+error* create_errors_vector(int n);
 
 /**
  * @brief Add error cases to the vector
  * 
- * @param vec_error - Error vector
+ * @param vec_errors - Error vector
+ * @param file_name - name of the csv file
  */
-void populate_errors_vector(error* vec_error);
+void populate_errors_vector(error* vec_errors, char* file_name);
+
+
+
+void read_error_csv_file(FILE *csv, error *vec_errors);
 
 
 /**
  * @brief Deallocate the error vector
  * 
- * @param vec_error - Error vector
+ * @param vec_errors - Error vector
  */
-void free_errors_vector(error* vec_error);
+void free_errors_vector(error* vec_errors);
 
