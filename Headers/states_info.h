@@ -56,3 +56,4 @@ void populate_states_vector(state *vec_states);
  * @param vec_states - states vector
  */
 void free_states_vector(state *vec_states);
+
