@@ -7,12 +7,12 @@ CFLAGS=-I. -g -Wall
 
 DEPS= *.h Source/*.h	
 
-OBJ= *.c Source/*.c 
+OBJ = Source/error.c Source/file.c Source/reserved.c Source/states_info.c Source/token.c Source/matrix.c Source/lexical.c main.c
 
 FILE = meu_programa.txt
 
 all: $(OBJ)
-	@$(CC) -o prog $^ $(CFLAGS) $(LIBS)
+	$(CC) -o prog $^ $(CFLAGS) $(LIBS)
 
 o: %.c $(DEPS)		
 	@$(CC) -c -o $@ $< $(CFLAGS)
