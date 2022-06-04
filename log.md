@@ -10,13 +10,13 @@
         - [ X ] Testar
     - [ X ] Resolver problema do símbolo mais
     - [ X ] Função get_token
-    - [  ] Plavras Reservadas
+    - [ X ] Plavras Reservadas
     - [  ] Organizar melhor o código
-        - Rever ordem das funções no .h
+        - [  ]Rever ordem das funções no .h
     - [  ] Comentar o código
     - [  ] Verificar todos os lugares que estao com simb em vez de symb
-        - [  ] trocar o nome do arquivo simb.h
-    - [  ] Testar  
+        - [ X ] trocar o nome do arquivo simb.h
+    - [ X ] Testar  
 
 # Funcões Não Implementadas
 
