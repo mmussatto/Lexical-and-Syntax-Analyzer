@@ -1,23 +1,23 @@
-program, identifier
+program, symb_program
 p, identifier
 ;, simb_semi_colon
-var, identifier
+var, simb_var
 x, identifier
 @, ERROR(Invalid Character)
 ?, ERROR(Invalid Character)
-integer, identifier
+integer, symb_tipo
 ;, simb_semi_colon
-begin, identifier
+begin, symb_begin
 x, identifier
 :=, simb_atribution
 1, num_int
 ;, simb_semi_colon
-while, identifier
+while, symb_while
 (, open_parentheses
 x, identifier
 <, op_less
 3), ERROR(Badly Formed Number)
-do, identifier
+do, symb_do
 x, identifier
 :=, simb_atribution
 x, identifier
