@@ -7,12 +7,12 @@ CFLAGS=-I. -g -Wall
 
 DEPS= *.h Source/*.h	
 
-OBJ = Source/error.c Source/file.c Source/reserved.c Source/states_info.c Source/token.c Source/matrix.c Source/lexical.c main.c
+OBJ = *.c Source/*.c 
 
 FILE = meu_programa.txt
 
 all: $(OBJ)
-	$(CC) -o prog $^ $(CFLAGS) $(LIBS)
+	@$(CC) -o prog $^ $(CFLAGS) $(LIBS)
 
 o: %.c $(DEPS)		
 	@$(CC) -c -o $@ $< $(CFLAGS)
@@ -25,4 +25,4 @@ run:
 .PHONY: clean
 
 clean:
-	@rm -f *.o prog  
+	@rm -f *.o prog saida.txt 
