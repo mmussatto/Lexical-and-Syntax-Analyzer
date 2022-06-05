@@ -27,4 +27,4 @@ x, identifier
 1, num_int
 ;, simb_semi_colon
 {lorenipsunlorenipsun, ERROR(Unclosed Comment)
-EOF, IT'S OVER ANAKIN! THE PROGRAM WAS TOKENIZED!
+EOF, Dread it, run from it, EOF arrives all the same.

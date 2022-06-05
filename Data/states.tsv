@@ -8,7 +8,7 @@
 12	true	(	open_parentheses	false
 14	true	COMMENT	comment	false
 15	true	)	close_parentheses	false
-16	true	;	simb_semi_colon	false
+16	true	;	simb_semicolon	false
 18	true	:	simb_colon	true
 19	true	:=	simb_atribution	false
 20	true	,	simb_comma	false
