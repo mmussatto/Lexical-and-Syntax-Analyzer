@@ -50,21 +50,3 @@ void move_back_fp(FILE  *fp, int shift)
 {
     fseek(fp, - shift, SEEK_CUR); 
 }
-
-
-/*
-int check_EOF(FILE *fp)
-{
-    char value;
-
-    //Didnt read anything, EOF
-    if(!fread(&value, sizeof(char), 1, fp))
-        return 1;
-    else
-    {
-        //Return the pointer, this is not EOF
-        move_back_fp(fp, 1);
-        return 0;
-    }
-
-}*/

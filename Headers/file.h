@@ -66,20 +66,3 @@ char* read_file_string(FILE *fp, int size);
  * @param shift     Number of spaces for the file pointer to be moved back
  */
 void move_back_fp(FILE  *fp, int shift);
-
-
-/**
- * @brief 
- * 
- * @return int 
- */
-//int check_EOF(); //Need testing
-
-
-
-
-
-
-
-
-
