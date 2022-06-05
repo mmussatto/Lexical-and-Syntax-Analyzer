@@ -27,15 +27,15 @@ error* create_errors_vector(int n)
 
 void populate_errors_vector(error* vec_errors, char* file_name)
 { 
-    FILE *csv = open_file(file_name, 'r');
+    FILE *tsv = open_file(file_name, 'r');
 
-    read_error_csv_file(csv, vec_errors);
+    read_error_tsv_file(tsv, vec_errors);
 
-    fclose(csv);
+    fclose(tsv);
 
 }
 
-void read_error_csv_file(FILE *csv, error *vec_errors)
+void read_error_tsv_file(FILE *tsv, error *vec_errors)
 {
     //Consider the file already opened
 
@@ -44,17 +44,19 @@ void read_error_csv_file(FILE *csv, error *vec_errors)
     char buff[100];
     char s_error[100];
 
-    //Reading the transition matrix from a csv file
+    //Reading the errors from a tsv file
     for(i = 1; i < NUM_ERRORS; i++){
        
-        fgets(buff, sizeof(buff), csv);
+        //Reads line from file and puts it in a buffer
+        fgets(buff, sizeof(buff), tsv);
 
+        //Get only the error from the buffer
         sscanf(buff, "%[^\n]s", s_error);
 
         //Add to the matrix
         vec_errors[i].error_token.type = strdup(s_error);
         
-        //printf("%s\n", s_error);
+        //printf("%s\n", s_error);      //Debug print to terminal
     }
 
 }
