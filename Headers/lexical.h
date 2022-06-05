@@ -22,14 +22,12 @@
 #include <stdio.h>
 #include <string.h>
 
-
 #include "error.h"
 #include "file.h"
 #include "reserved.h"
 #include "states_info.h"
 #include "token.h"
 #include "matrix.h"
-
 
 
 #define STATE_PLUS 2    //Number of the state representing the plus symbol
@@ -40,11 +38,12 @@
 /**
  * @brief Get the token object
  * 
- * @param program 
- * @param transition_matrix 
- * @param vec_states 
- * @param vec_tokens 
- * @param vec_errors 
+ * @param program           pointer to opened file containg the program to be tokenized
+ * @param transition_matrix state transition matrix
+ * @param vec_states        vector with information from all states 
+ * @param vec_tokens        vector with all the token read
+ * @param vec_errors        vector with possible errors
+ * @param vec_reserveds     vector with reserved words
  * @return token 
  */
 token get_token(FILE* program, int **transition_matrix, state *vec_states, 
@@ -52,15 +51,46 @@ token get_token(FILE* program, int **transition_matrix, state *vec_states,
 
 
 /**
- * @brief 
+ * @brief Create a token object
  * 
+ * @param fp            pointer to opened file       
+ * @param vec_states    vector with information from all states 
+ * @param curr_state    current state
+ * @param characters    number of characters read
+ * @param vec_reserveds vector with reserved words  
+ * @return token        
  */
-bool check_plusminus_state(int curr_state, vec_token *vec_tokens);
-
 token create_token(FILE* fp, state* vec_states, int curr_state, int characters, reserved* vec_reserveds);
 
+
+/**
+ * @brief Create a error token object
+ * 
+ * @param fp            pointer to opened file       
+ * @param vec_errors    vector with possible errors
+ * @param curr_state    current state 
+ * @param characters    number of characters read
+ * @return token 
+ */
 token create_error_token(FILE* fp, error* vec_errors, int curr_state, int characters);
 
+
+/**
+ * @brief Create a EOF token object
+ * 
+ * @return token 
+ */
 token create_EOF_token();
+
+
+/**
+ * @brief   Checks if the current state is a plus or minus state
+ * 
+ * @param curr_state    current state
+ * @param vec_tokens    vector with all the token read
+ * @return true         the token is only the plus symbol
+ * @return false        the plus is part of a number declaration
+ */
+bool check_plusminus_state(int curr_state, vec_token *vec_tokens);
 
 
