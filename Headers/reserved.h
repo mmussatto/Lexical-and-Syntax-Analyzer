@@ -32,12 +32,45 @@ typedef struct
 } reserved;
 
 
+/**
+ * @brief Create a reserved vector object
+ * 
+ * @param n             numeber of reserved words 
+ * @return reserved*    reserved words vector
+ */
 reserved* create_reserved_vector(int n);
 
-void populate_reserved_vector(reserved *vec_reserved, char *file_name);
 
+/**
+ * @brief   Deallocate reserved words vetor
+ * 
+ * @param vec_reserved  reserved words vector 
+ */
 void free_reserved_vector(reserved *vec_reserved);
 
+
+/**
+ * @brief Populate the reserved words vector
+ * 
+ * @param vec_reserved  reserved words vector
+ * @param file_name     name of a tvs file cointaing the reserved words
+ */
+void populate_reserved_vector(reserved *vec_reserved, char *file_name);
+
+
+/**
+ * @brief Read a tsv file with all the reserved words 
+ * 
+ * @param tsv           pointer to tsv file 
+ * @param vec_reserved  reserved words vector
+ */
 void read_reserved_tsv_file(FILE *tsv, reserved* vec_reserved);
 
+
+/**
+ * @brief Check if a token is a reserved word
+ * 
+ * @param t             token to be checked
+ * @param vec_reserveds reserved words vector 
+ */
 void check_reserverd_symbols(token *t, reserved *vec_reserveds);
