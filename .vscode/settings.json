@@ -3,6 +3,7 @@
         "stdio.h": "c",
         "arquivo.h": "c",
         "lexical.h": "c",
-        "token.h": "c"
+        "token.h": "c",
+        "stdlib.h": "c"
     }
 }
