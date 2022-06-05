@@ -26,12 +26,5 @@ x, identifier
 +, op_plus
 1, num_int
 ;, simb_semi_colon
-<<<<<<< HEAD
 {lorenipsunlorenipsun, ERROR(Unclosed Comment)
-=======
-{wedfwdwd}, comment
-3333%, ERROR(Badly Formed Number)
-333, num_int
-{efefweafwefwe, ERROR(Unclosed Comment)
->>>>>>> ee4a8838efaf623247a78bd4c6d56bd00a855487
 EOF, IT'S OVER ANAKIN! THE PROGRAM WAS TOKENIZED!
