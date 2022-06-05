@@ -27,7 +27,8 @@ int main(int argc, char** argv)
         printf("Provide just the name of the file\n");
         return 1;
     }
-      
+
+    //Opening file with the program to be tokenized  
     FILE *program = open_file(argv[1],'r');
     
     //Checking for error on file opening
@@ -36,33 +37,46 @@ int main(int argc, char** argv)
         printf("Error opening file\n");
         return 1;
     }
-    
 
     /*------ Lexical analyser logic --------*/
     
+    // Allocating Transition Matrix
     int **transition_matrix = create_transition_matrix();
-    populate_transition_matrix(transition_matrix, "Data/transition_matrix.tsv"); // Matrix of transitions
+    populate_transition_matrix(transition_matrix, "Data/transition_matrix.tsv"); 
 
+    // Allocating Vector of states
     state* vec_states = create_states_vector(NUM_STATES);
-    populate_states_vector(vec_states, "Data/states.tsv"); // Vector of states
+    populate_states_vector(vec_states, "Data/states.tsv"); 
 
+    // Allocating Vector of errors
     error *vec_errors = create_errors_vector(NUM_ERRORS);
-    populate_errors_vector(vec_errors, "Data/errors.tsv"); // Vector of errors
+    populate_errors_vector(vec_errors, "Data/errors.tsv"); 
 
+    // Allocating Vector of reserved words
     reserved *vec_reserveds = create_reserved_vector(NUM_RESERVEDS);
     populate_reserved_vector(vec_reserveds, "Data/reserved_symbols.tsv");
 
+    //Allocating the Vector of tokens read
     vec_token *vec_tokens = create_tokens_vector();
     
+    //Read file and push tokens read to vector
     do
     {
         vec_tokens_push_back(vec_tokens, get_token(program, transition_matrix, vec_states, vec_tokens, vec_errors, vec_reserveds));
        
     } while(strcmp(last_vec_token(vec_tokens).name,"EOF") != 0); 
 
+
+    /*------ Writting in out file --------*/
+
+    //Open out file
     FILE *f_out = open_file("saida.txt", 'w');
 
+    //Write all tokens read to file
     write_tokens_file(f_out, vec_tokens);
+
+
+    /*------ Deallocating memory --------*/
 
     //free data structures
     free_transition_matrix(transition_matrix);
