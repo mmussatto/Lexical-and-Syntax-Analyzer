@@ -20,7 +20,10 @@
 
 state* create_states_vector(int size)
 {
+    //Controll variables
     int i;
+
+    //Allocate the vector
     state* vec_states = (state*) calloc(size, sizeof(state));
 
     //Initialize everything with false
@@ -31,6 +34,12 @@ state* create_states_vector(int size)
     }
 
     return vec_states;
+}
+
+
+void free_states_vector(state *vec_states)
+{
+    free(vec_states);
 }
 
 
@@ -56,15 +65,18 @@ void read_state_tsv_file(FILE *tsv, state* vec_states)
     char s_type[50];
     char s_go_back[50];
     
-
+    //Read information from the tvs file
     while (fscanf(tsv, "%d\t%s\t%s\t%s\t%s", &i, s_final, s_name, s_type, s_go_back) != -1 )
     {
+        //Create token
         vec_states[i].s_token.name = strdup(s_name);
         vec_states[i].s_token.type = strdup(s_type);
         
+        //State is final
         if(strcmp(s_final, "true") == 0)
             vec_states[i].final = true;
 
+        //Look ahead token has been read
         if(strcmp(s_go_back, "true") ==0)
             vec_states[i].go_back = true;
             
@@ -73,7 +85,4 @@ void read_state_tsv_file(FILE *tsv, state* vec_states)
 }
 
 
-void free_states_vector(state *vec_states)
-{
-    free(vec_states);
-}
+
