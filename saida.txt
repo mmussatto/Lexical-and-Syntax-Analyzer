@@ -8,9 +8,11 @@ x, identifier
 integer, symb_tipo
 ;, simb_semi_colon
 begin, symb_begin
+3333%, ERROR(Badly Formed Number)
+333, num_int
 x, identifier
 :=, simb_atribution
-1, num_int
+-1, num_int
 ;, simb_semi_colon
 while, symb_while
 (, open_parentheses
@@ -24,8 +26,5 @@ x, identifier
 +, op_plus
 1, num_int
 ;, simb_semi_colon
-{wedfwdwd}, comment
-3333%, ERROR(Badly Formed Number)
-333, num_int
-{efefweafwefwe, ERROR(Unclosed Comment)
+{lorenipsunlorenipsun, ERROR(Unclosed Comment)
 EOF, IT'S OVER ANAKIN! THE PROGRAM WAS TOKENIZED!
