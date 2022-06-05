@@ -35,8 +35,8 @@ typedef struct
 /**
  * @brief Create a error vector object
  * 
- * @param n         - Number of different errors
- * @return error*   - Error vector
+ * @param n         Number of different errors
+ * @return error*   Error vector
  */
 error* create_errors_vector(int n);
 
@@ -44,7 +44,7 @@ error* create_errors_vector(int n);
 /**
  * @brief Deallocate the errors vector
  * 
- * @param vec_errors - Errors vector
+ * @param vec_errors Errors vector
  */
 void free_errors_vector(error* vec_errors);
 
@@ -52,8 +52,8 @@ void free_errors_vector(error* vec_errors);
 /**
  * @brief Add error cases to the vector
  * 
- * @param vec_errors    - Error vector
- * @param file_name     - Name of the file
+ * @param vec_errors    Error vector
+ * @param file_name     Name of the file
  */
 void populate_errors_vector(error* vec_errors, char* file_name);
 
@@ -61,7 +61,7 @@ void populate_errors_vector(error* vec_errors, char* file_name);
 /**
  * @brief Reads the tsv file and build the errors vector
  * 
- * @param tsv           - Opened tsv file containing the errors
- * @param vec_errors    - Errors vector
+ * @param tsv           Opened tsv file containing the errors
+ * @param vec_errors    Errors vector
  */
 void read_error_tsv_file(FILE *tsv, error *vec_errors);

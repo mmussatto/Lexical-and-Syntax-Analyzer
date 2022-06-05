@@ -44,6 +44,7 @@
  * @param vec_tokens        vector with all the token read
  * @param vec_errors        vector with possible errors
  * @param vec_reserveds     vector with reserved words
+ * 
  * @return token 
  */
 token get_token(FILE* program, int **transition_matrix, state *vec_states, 
@@ -58,6 +59,7 @@ token get_token(FILE* program, int **transition_matrix, state *vec_states,
  * @param curr_state    current state
  * @param characters    number of characters read
  * @param vec_reserveds vector with reserved words  
+ * 
  * @return token        
  */
 token create_token(FILE* fp, state* vec_states, int curr_state, int characters, reserved* vec_reserveds);
@@ -70,6 +72,7 @@ token create_token(FILE* fp, state* vec_states, int curr_state, int characters, 
  * @param vec_errors    vector with possible errors
  * @param curr_state    current state 
  * @param characters    number of characters read
+ * 
  * @return token 
  */
 token create_error_token(FILE* fp, error* vec_errors, int curr_state, int characters);
@@ -88,6 +91,7 @@ token create_EOF_token();
  * 
  * @param curr_state    current state
  * @param vec_tokens    vector with all the token read
+ * 
  * @return true         the token is only the plus symbol
  * @return false        the plus is part of a number declaration
  */

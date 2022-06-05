@@ -11,12 +11,16 @@
     - [ X ] Resolver problema do símbolo mais
     - [ X ] Função get_token
     - [ X ] Plavras Reservadas
-    - [  ] Organizar melhor o código
-        - [  ]Rever ordem das funções no .h
-    - [  ] Comentar o código
+    - [ X ] Organizar melhor o código
+        - [ X ]Rever ordem das funções no .h
+    - [ X ] Comentar o código
     - [  ] Verificar todos os lugares que estao com simb em vez de symb
         - [ X ] trocar o nome do arquivo simb.h
     - [ X ] Testar  
+
+## Duvidas
+    - [  ] Remover EOF function in file.h and file.c?
+    - [  ] Remover Debug Prints?
 
 # Funcões Não Implementadas
 

@@ -36,6 +36,7 @@ typedef struct
  * @brief Create a reserved vector object
  * 
  * @param n             numeber of reserved words 
+ * 
  * @return reserved*    reserved words vector
  */
 reserved* create_reserved_vector(int n);
