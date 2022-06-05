@@ -1,19 +1,19 @@
 program, symb_program
 p, identifier
-;, simb_semi_colon
+;, simb_semicolon
 var, simb_var
 x, identifier
 @, ERROR(Invalid Character)
 ?, ERROR(Invalid Character)
 integer, symb_tipo
-;, simb_semi_colon
+;, simb_semicolon
 begin, symb_begin
 3333%, ERROR(Badly Formed Number)
 333, num_int
 x, identifier
 :=, simb_atribution
 -1, num_int
-;, simb_semi_colon
+;, simb_semicolon
 while, symb_while
 (, open_parentheses
 x, identifier
@@ -25,6 +25,6 @@ x, identifier
 x, identifier
 +, op_plus
 1, num_int
-;, simb_semi_colon
+;, simb_semicolon
 {lorenipsunlorenipsun, ERROR(Unclosed Comment)
 EOF, Dread it, run from it, EOF arrives all the same.

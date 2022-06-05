@@ -70,7 +70,7 @@ int main(int argc, char** argv)
     /*------ Writting in out file --------*/
 
     //Open out file
-    FILE *f_out = open_file("saida.txt", 'w');
+    FILE *f_out = open_file("output.txt", 'w');
 
     //Write all tokens read to file
     write_tokens_file(f_out, vec_tokens);
