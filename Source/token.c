@@ -27,8 +27,16 @@ vec_token* create_tokens_vector()
     tk->total_size = 50;        //Totally arbitrary starting value 
     tk->size = 0;
 
+    //Allocating the tokens vector
     tk->tokens = malloc(tk->total_size*sizeof(token));
     return tk;
+}
+
+
+void free_tokens_vector(vec_token* vec_tokens)
+{
+    free(vec_tokens->tokens);
+    free(vec_tokens);
 }
 
 
@@ -44,7 +52,7 @@ token last_vec_token(vec_token* vec_tokens)
         return t;
     }
     else
-        return vec_tokens->tokens[vec_tokens->size - 1];    //returns the last token in the vector
+        return vec_tokens->tokens[vec_tokens->size - 1];    //Returns the last token in the vector
 }
 
 
@@ -64,13 +72,15 @@ void vec_tokens_push_back(vec_token* vec_tokens, token t)
     vec_tokens->size++;
 }
 
-//Write in the file the combination of token name and type
+
 void write_tokens_file(FILE *fp, vec_token *vec_tokens)
 {
+    //Control variables
     int i;
     char enter = '\n';
     token t;
 
+    //Traverse the tokens vector
     for(i = 0; i < vec_tokens->size; i++)
     {   
         //Get the current token
@@ -93,9 +103,4 @@ void write_tokens_file(FILE *fp, vec_token *vec_tokens)
 
 
 
-void free_tokens_vector(vec_token* vec_tokens)
-{
-    free(vec_tokens->tokens);
-    free(vec_tokens);
-}
 
