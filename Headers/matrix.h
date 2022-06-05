@@ -55,7 +55,7 @@ void populate_transition_matrix(int **matrix, char* file_name);
 /**
  * @brief Reads a tsv file with the values of the transition matrix
  * 
- * @param tsv       - Pointer to tsv file
- * @param matrix    - Transition Matrix
+ * @param tsv       Pointer to tsv file
+ * @param matrix    Transition Matrix
  */
 void read_matrix_tsv_file(FILE *tsv, int **matrix);

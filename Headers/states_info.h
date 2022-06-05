@@ -39,6 +39,7 @@ typedef struct
  * @brief Create a states vector object
  * 
  * @param size      size of the vector
+ * 
  * @return state*   states vector
  */
 state* create_states_vector(int size);

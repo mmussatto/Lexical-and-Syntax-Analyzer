@@ -56,6 +56,7 @@ void free_tokens_vector(vec_token* vec_tokens);
  * @brief Returns the last token read
  * 
  * @param vec_tokens    Vector with all the tokens
+ * 
  * @return token        Last token read
  */
 token last_vec_token(vec_token* vec_tokens);
