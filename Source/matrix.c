@@ -21,9 +21,11 @@
 int** create_transition_matrix()
 {
     int **matrix, i, j;
-        
+
+    //Allocate matrix first column   
     matrix = (int **) malloc(NUM_STATES * sizeof(int*));
 
+    //Allocate matrix rows
     for(i = 0; i < NUM_STATES; i++)
         matrix[i] = (int *) malloc(VALID_CHARACTERS * sizeof(int));
 
@@ -39,7 +41,7 @@ int** create_transition_matrix()
 void free_transition_matrix(int **matrix)
 {
     int i;
-    
+
     for(i = 0; i < NUM_STATES; i++)
         free(matrix[i]);
     
@@ -63,7 +65,6 @@ void read_matrix_tsv_file(FILE *tsv, int **matrix)
 
     //Control variables
     int value, row = 0, col = 0;
-    //char trash;
 
     //Reading the transition matrix from a tsv file
     for(row = 0; row < NUM_STATES; row++)

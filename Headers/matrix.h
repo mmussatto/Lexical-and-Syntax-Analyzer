@@ -28,17 +28,17 @@
 
 /**
  * @brief Create a (NUM_STATES x VALID_CHARACTERS) matrix populated with the invalid
- *  chareacter '-'
+ *  chareacter '-1'
  * 
- * @return int** - matrix created
+ * @return int** - Matrix created
  */
 int** create_transition_matrix();
 
 
 /**
- * @brief deallocate the matrix
+ * @brief Deallocate the matrix
  * 
- * @param matrix 
+ * @param matrix    Transition matrix
  */
 void free_transition_matrix(int **matrix);
 
@@ -46,14 +46,16 @@ void free_transition_matrix(int **matrix);
 /**
  * @brief Adds the states transitions to the matrix
  * 
- * @param matrix 
+ * @param matrix    Transition matrix
+ * @param file_name Name of the tsv file containing the matrix
  */
 void populate_transition_matrix(int **matrix, char* file_name);
 
+
 /**
- * @brief Reads a csv file with the values of the transition matrix
+ * @brief Reads a tsv file with the values of the transition matrix
  * 
- * @param tsv       - Pointer to csv file
+ * @param tsv       - Pointer to tsv file
  * @param matrix    - Transition Matrix
  */
 void read_matrix_tsv_file(FILE *tsv, int **matrix);
