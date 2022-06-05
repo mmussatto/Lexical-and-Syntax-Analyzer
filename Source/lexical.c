@@ -114,7 +114,7 @@ token create_EOF_token()
 {
     token t;
     t.name = strdup("EOF");
-    t.type = strdup("IT'S OVER ANAKIN! THE PROGRAM WAS TOKENIZED!");
+    t.type = strdup("Dread it, run from it, EOF arrives all the same.");
     return t;
 }
 
