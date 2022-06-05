@@ -19,7 +19,7 @@ o: %.c $(DEPS)
 
 .PHONY: run
 run:
-	@read -p "Insira no nome do arquivo (com extensao): "  NOME; \
+	@read -p "Insira o nome do arquivo (com extensao): "  NOME; \
 	./prog $${NOME};
 
 #Os comandos abaixo não são utilizados
