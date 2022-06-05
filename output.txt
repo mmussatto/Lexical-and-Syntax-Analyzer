@@ -18,7 +18,8 @@ while, symb_while
 (, open_parentheses
 x, identifier
 <, op_lesser
-3), ERROR(Badly Formed Number)
+3, num_int
+), close_parentheses
 do, symb_do
 x, identifier
 :=, simb_atribution
