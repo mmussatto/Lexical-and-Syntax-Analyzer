@@ -25,6 +25,12 @@ error* create_errors_vector(int n)
 }
 
 
+void free_errors_vector(error* vec_error)
+{
+    free(vec_error);
+}
+
+
 void populate_errors_vector(error* vec_errors, char* file_name)
 { 
     FILE *tsv = open_file(file_name, 'r');
@@ -34,6 +40,7 @@ void populate_errors_vector(error* vec_errors, char* file_name)
     fclose(tsv);
 
 }
+
 
 void read_error_tsv_file(FILE *tsv, error *vec_errors)
 {
@@ -59,10 +66,4 @@ void read_error_tsv_file(FILE *tsv, error *vec_errors)
         //printf("%s\n", s_error);      //Debug print to terminal
     }
 
-}
-
-
-void free_errors_vector(error* vec_error)
-{
-    free(vec_error);
 }

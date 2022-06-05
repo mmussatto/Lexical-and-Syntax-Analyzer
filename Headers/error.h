@@ -42,6 +42,14 @@ error* create_errors_vector(int n);
 
 
 /**
+ * @brief Deallocate the errors vector
+ * 
+ * @param vec_errors - Errors vector
+ */
+void free_errors_vector(error* vec_errors);
+
+
+/**
  * @brief Add error cases to the vector
  * 
  * @param vec_errors    - Error vector
@@ -57,12 +65,3 @@ void populate_errors_vector(error* vec_errors, char* file_name);
  * @param vec_errors    - Errors vector
  */
 void read_error_tsv_file(FILE *tsv, error *vec_errors);
-
-
-/**
- * @brief Deallocate the errors vector
- * 
- * @param vec_errors - Errors vector
- */
-void free_errors_vector(error* vec_errors);
-
