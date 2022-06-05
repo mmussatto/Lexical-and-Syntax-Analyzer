@@ -66,10 +66,13 @@ void vec_tokens_push_back(vec_token* vec_tokens, token t)
         vec_tokens->tokens = realloc(vec_tokens->tokens, vec_tokens->total_size);
     }
 
-    //Push-back new token to vector
-    vec_tokens->tokens[vec_tokens->size].name = strdup(t.name);
-    vec_tokens->tokens[vec_tokens->size].type = strdup(t.type);
-    vec_tokens->size++;
+    if(strcmp(t.type,"comment") != 0)
+    {
+        //Push-back new token to vector
+        vec_tokens->tokens[vec_tokens->size].name = strdup(t.name);
+        vec_tokens->tokens[vec_tokens->size].type = strdup(t.type);
+        vec_tokens->size++;
+    }
 }
 
 
