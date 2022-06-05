@@ -17,27 +17,28 @@
 
 #pragma once
 
-#include<stdio.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "reserved.h"
 
+
 /**
- * @brief Opens a new file and returns a pointer to id
+ * @brief Opens a new file and returns a pointer to it
  * 
- * @param name      - string with the name of the file to be read
- * @param mode      - mode to open the file
- * @return FILE*    - pointer to the file
+ * @param name      - String with the name of the file to be opened
+ * @param mode      - Mode to open the file
+ * @return FILE*    - Pointer to the file
  */
 FILE* open_file(char *name, char mode);
 
 
 /**
- * @brief Reads a character from a file.
+ * @brief Reads a character from an opened file
  * 
- * @param fp        - Pointer to the opened file
+ * @param fp        - Pointer to opened file
  * @param ch        - Character address 
  * @return true     - If a character has been successfully read
  * @return false    - If no character was read or if an error has ocurred
@@ -56,9 +57,9 @@ char* read_file_string(FILE *fp, int size);
 
 
 /**
- * @brief Moves the file pointer back. 
+ * @brief Moves the file pointer back 'shift' spaces 
  * 
- * @param fp        - Pointer to the opened file
+ * @param fp        - Pointer to opened file
  * @param shift     - Number of spaces for the file pointer to be moved back
  */
 void move_back_fp(FILE  *fp, int shift);
@@ -69,7 +70,7 @@ void move_back_fp(FILE  *fp, int shift);
  * 
  * @return int 
  */
-int check_EOF(); //Need testing
+//int check_EOF(); //Need testing
 
 
 

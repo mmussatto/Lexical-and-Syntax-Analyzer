@@ -36,8 +36,12 @@ bool read_character(FILE* fp, char *ch)
 
 char* read_file_string(FILE *program, int size)
 {
+    //Allocate string
     char *string = malloc(size * sizeof(char));
+
+    //Read from file
     fread(string, sizeof(char), size, program);
+
     return string;
 }
 
@@ -48,6 +52,7 @@ void move_back_fp(FILE  *fp, int shift)
 }
 
 
+/*
 int check_EOF(FILE *fp)
 {
     char value;
@@ -62,4 +67,4 @@ int check_EOF(FILE *fp)
         return 0;
     }
 
-}
+}*/
