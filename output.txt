@@ -1,5 +1,6 @@
 program, symb_program
-p, identifier
+_, ERROR(Invalid Character)
+p_, identifier
 ;, simb_semicolon
 var, simb_var
 x, identifier
