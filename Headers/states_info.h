@@ -24,6 +24,7 @@
 
 #include "token.h"
 #include "file.h"
+#include "matrix.h"
 
  
 //Stores a token and if it is a final state
