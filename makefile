@@ -19,11 +19,15 @@ o: %.c $(DEPS)
 
 .PHONY: run
 run:
-	@read -p "Insira o nome do arquivo (com extensao): "  NOME; \
+	./prog $(FILE);
+#run:
+#	@read -p "Insira o nome do arquivo (com extensao): "  NOME; \
 	./prog $${NOME};
+
 
 #Os comandos abaixo não são utilizados
 .PHONY: clean
 
 clean:
-	@rm -f *.o prog saida.txt 
+	@rm -f *.o prog saida.txt output.txt
+	
