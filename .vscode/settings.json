@@ -4,6 +4,7 @@
         "arquivo.h": "c",
         "lexical.h": "c",
         "token.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "typeinfo": "c"
     }
 }
