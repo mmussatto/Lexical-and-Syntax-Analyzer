@@ -13,6 +13,8 @@
     [ ] Função get_token para o sintatico
     [ ] Arrumar os tokens com erro
     [ ] Vetor de erros
+    [ ] Nunmero da linha ta errado
+        - Como a gnt volta a cabe;a de leitura no lookahead, ele le o /n duas vezes
 
 ## LL(1)
 
