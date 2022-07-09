@@ -27,3 +27,20 @@ token* get_token_from_vector(vec_token* vec_tokens, token *curr_token)
     //curr_token->name = vec_tokens->tokens[vec_tokens->n_curr_token].name;
     return curr_token;
 }
+
+int ASD(vec_token* vec_tokens)
+{
+    token *curr_token = malloc(1*sizeof(token));
+
+    get_token_from_vector(vec_tokens, curr_token);
+
+    sytx_programa(vec_tokens, curr_token);
+
+    if (strcmp(curr_token->name, "EOF") == 0)
+        return 1;
+    else
+        return 0;
+    
+    
+
+}
