@@ -9,8 +9,8 @@ DEPS= *.h Headers/*.h
 
 OBJ = *.c Source/*.c 
 
-#FILE = meu_programa.txt
-FILE = correto.txt
+FILE = meu_programa.txt
+#FILE = correto.txt
 
 all: $(OBJ)
 	@$(CC) -o prog $^ $(CFLAGS) $(LIBS)
