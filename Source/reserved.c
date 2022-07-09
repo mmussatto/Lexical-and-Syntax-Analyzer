@@ -28,6 +28,14 @@ reserved* create_reserved_vector(int n)
 
 void free_reserved_vector(reserved *vec_reserved)
 {
+    int i;
+    //Reading the reserved words from the tsv file
+    for(i = 0; i < NUM_RESERVEDS; i++)
+    {   
+        free(vec_reserved[i].reserved_symb.name);
+        free(vec_reserved[i].reserved_symb.type);
+    }
+
     free(vec_reserved);
 }
 

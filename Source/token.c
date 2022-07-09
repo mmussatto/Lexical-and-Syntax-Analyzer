@@ -36,6 +36,14 @@ vec_token* create_tokens_vector()
 
 void free_tokens_vector(vec_token* vec_tokens)
 {
+
+    int i;
+    for(i = 0; i < vec_tokens->size; i++)
+    {   
+        free(vec_tokens->tokens[i].name);
+        free(vec_tokens->tokens[i].type);
+    }
+
     free(vec_tokens->tokens);
     free(vec_tokens);
 }
@@ -57,7 +65,7 @@ token last_vec_token(vec_token* vec_tokens)
 }
 
 
-void vec_tokens_push_back(vec_token* vec_tokens, token t)
+void vec_tokens_push_back(vec_token* vec_tokens, token* t)
 {
 
     //Vector too small for new token. Need to reallocate memory
@@ -67,14 +75,18 @@ void vec_tokens_push_back(vec_token* vec_tokens, token t)
         vec_tokens->tokens = realloc(vec_tokens->tokens, vec_tokens->total_size);
     }
 
-    if(strcmp(t.type,"comment") != 0)
+    if(strcmp(t->type,"comment") != 0)
     {
         //Push-back new token to vector
-        vec_tokens->tokens[vec_tokens->size].name = strdup(t.name);
-        vec_tokens->tokens[vec_tokens->size].type = strdup(t.type);
-        vec_tokens->tokens[vec_tokens->size].line = t.line;
+        vec_tokens->tokens[vec_tokens->size].name = strdup(t->name);
+        vec_tokens->tokens[vec_tokens->size].type = strdup(t->type);
+        vec_tokens->tokens[vec_tokens->size].line = t->line;
         vec_tokens->size++;
     }
+
+    free(t->name);
+    free(t->type);
+    free(t);
 }
 
 

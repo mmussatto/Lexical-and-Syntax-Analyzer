@@ -70,7 +70,7 @@ token last_vec_token(vec_token* vec_tokens);
  * @param vec_tokens    Vector with all the tokens
  * @param t             Token to be pushed back
  */
-void vec_tokens_push_back(vec_token* vec_tokens, token t);
+void vec_tokens_push_back(vec_token* vec_tokens, token* t);
 
 
 /**

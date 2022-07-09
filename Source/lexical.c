@@ -18,7 +18,7 @@
 #include "Headers/lexical.h"
 
 
-token get_token(FILE* program, int **transition_matrix, state *vec_states, 
+token* get_token(FILE* program, int **transition_matrix, state *vec_states, 
                 vec_token* vec_tokens, error* vec_errors, reserved* vec_reserveds, int* curr_line)
 {
 
@@ -71,10 +71,12 @@ token get_token(FILE* program, int **transition_matrix, state *vec_states,
 }
 
 
-token create_token(FILE* fp, state* vec_states, int curr_state, int characters, reserved* vec_reserveds, int line)
+token* create_token(FILE* fp, state* vec_states, int curr_state, int characters, reserved* vec_reserveds, int line)
 {
     //Control variables
-    token t;
+    token *t;
+    t = malloc(sizeof(token));
+
     char *string;
 
     //Read string
@@ -82,23 +84,28 @@ token create_token(FILE* fp, state* vec_states, int curr_state, int characters, 
     string = read_file_string(fp, characters);
 
     //Create token
-    t.name = strndup(string, characters);
-    t.type = strdup(vec_states[curr_state].s_token.type);
-    t.line = line;
+    t->name = strndup(string, characters);
+    //t->type = malloc(strlen(vec_states[curr_state].s_token.type)*sizeof(char));
+    //strcpy(t->type, vec_states[curr_state].s_token.type);
+    t->type = strdup(vec_states[curr_state].s_token.type);
+    t->line = line;
     
     //Checks if token is and identifier and if its a reserved word
     if (curr_state == STATE_IDENT)
-        check_reserverd_symbols(&t, vec_reserveds);
+        check_reserverd_symbols(t, vec_reserveds);
+    
+    free(string);
     
     //Returns token
     return t;
 }
 
 
-token create_error_token(FILE* fp, error* vec_errors, int curr_state, int characters, int line)
+token* create_error_token(FILE* fp, error* vec_errors, int curr_state, int characters, int line)
 {
     //Control variables
-    token t;
+    token *t;
+    t = malloc(sizeof(token));
     char *string;
 
     //Read string
@@ -106,21 +113,23 @@ token create_error_token(FILE* fp, error* vec_errors, int curr_state, int charac
     string = read_file_string(fp, characters);
     
     //Create error token
-    t.name = strndup(string, characters);
-    t.type = strdup(vec_errors[curr_state].error_token.type);
-    t.line = line;
+    t->name = strndup(string, characters);
+    t->type = strdup(vec_errors[curr_state].error_token.type);
+    t->line = line;
 
+    free(string);
     //Return error token
     return t;
 }
 
 
-token create_EOF_token(int line)
+token* create_EOF_token(int line)
 {
-    token t;
-    t.name = strdup("EOF");
-    t.type = strdup("Dread it, run from it, EOF arrives all the same.");
-    t.line = line;
+    token *t;
+    t = malloc(sizeof(token));
+    t->name = strdup("EOF");
+    t->type = strdup("Dread it, run from it, EOF arrives all the same.");
+    t->line = line;
     return t;
 }
 
