@@ -83,7 +83,7 @@ token create_error_token(FILE* fp, error* vec_errors, int curr_state, int charac
  * 
  * @return token 
  */
-token create_EOF_token();
+token create_EOF_token(int line);
 
 
 /**
