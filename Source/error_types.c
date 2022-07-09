@@ -18,6 +18,32 @@
 #include "Headers/error_types.h"
 
 
+synt_error_vec* create_synth_error_vector(int n)
+{
+    //Alloc the synt error vector
+    synt_error_vec* synt_errors = (synt_error_vec*) malloc(sizeof(synt_error));
+    
+    //Stores the size
+    synt_errors->size = n;
+
+    //Initialize the error description
+    synt_errors->list_errors = (synt_error *) malloc(n*sizeof(synt_error));
+
+    return synt_errors;
+}
+
+void free_synt_errors_vector(synt_error_vec* vec_error)
+{
+    int i;
+
+    for (i = 0; i < NUM_ERRORS; i++){
+        free(vec_error->list_errors[i].desc);
+    }
+
+    free(vec_error->list_errors);
+    free(vec_error);
+}
+
 error* create_errors_vector(int n)
 {
     error* vec_error = (error*) calloc(n, sizeof(error));
