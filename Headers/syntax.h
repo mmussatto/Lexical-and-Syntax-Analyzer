@@ -17,3 +17,15 @@
 
 #pragma once
 
+#include "Headers/lexical.h"
+
+
+token* get_token_from_vector(vec_token* vec_tokens, token *curr_token);
+
+int ASD(vec_token* vec_tokens);
+
+void sytx_programa(vec_token* vec_tokens, token *curr_token);
+
+void sytx_corpo(vec_token* vec_tokens, token *curr_token);
+
+sytx_dc(vec_token* vec_tokens, token *curr_token);    
