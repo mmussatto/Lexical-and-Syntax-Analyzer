@@ -71,6 +71,7 @@ void vec_tokens_push_back(vec_token* vec_tokens, token t)
         //Push-back new token to vector
         vec_tokens->tokens[vec_tokens->size].name = strdup(t.name);
         vec_tokens->tokens[vec_tokens->size].type = strdup(t.type);
+        vec_tokens->tokens[vec_tokens->size].line = t.line;
         vec_tokens->size++;
     }
 }
@@ -97,6 +98,12 @@ void write_tokens_file(FILE *fp, vec_token *vec_tokens)
 
         //Write the type of the token
         fwrite(t.type, sizeof(char), strlen(t.type), fp);
+
+        //Write comma and space
+        fwrite(", ", sizeof(char), 2, fp);
+
+        //Write the line of the token
+        fprintf(fp, "%d", t.line);
 
         //Write \n
         fwrite(&enter, sizeof(char), 1, fp);

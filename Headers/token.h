@@ -26,6 +26,7 @@ typedef struct
 {
     char* name;     //String representing the token
     char* type;     //Type of the token
+    int line;
 } token;
 
 typedef struct 

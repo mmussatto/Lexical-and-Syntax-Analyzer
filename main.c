@@ -58,11 +58,14 @@ int main(int argc, char** argv)
 
     //Allocating the Vector of tokens read
     vec_token *vec_tokens = create_tokens_vector();
+
+    //Keeps track of the current line of the program
+    int curr_line = 1;
     
     //Read file and push tokens read to vector
     do
     {
-        vec_tokens_push_back(vec_tokens, get_token(program, transition_matrix, vec_states, vec_tokens, vec_errors, vec_reserveds));
+        vec_tokens_push_back(vec_tokens, get_token(program, transition_matrix, vec_states, vec_tokens, vec_errors, vec_reserveds, &curr_line));
        
     } while(strcmp(last_vec_token(vec_tokens).name,"EOF") != 0); 
 
