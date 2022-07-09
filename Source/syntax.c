@@ -16,6 +16,7 @@
  */
 
 #include "Headers/syntax.h"
+
 token* get_token_from_vector(vec_token* vec_tokens, token *curr_token)
 {   
     vec_tokens->n_curr_token++;
@@ -67,4 +68,33 @@ void sytx_programa(vec_token* vec_tokens, token *curr_token)
 
     return;
     
+}
+
+void sytx_corpo(vec_token* vec_tokens, token *curr_token)
+{
+    sytx_dc(vec_tokens, curr_token);
+
+    if (strcmp(curr_token->name, "begin") == 0)
+        get_token_from_vector(vec_tokens, curr_token);
+    //else 
+        //deu ruim
+
+    //sytx_comandos(vec_tokens, curr_token);    //nao implementado
+
+    if (strcmp(curr_token->name, "end") == 0)
+        get_token_from_vector(vec_tokens, curr_token);
+    //else 
+        //deu ruim
+
+
+
+}
+
+sytx_dc(vec_token* vec_tokens, token *curr_token)
+{
+    //sytx_dc_c(vec_tokens, curr_token);
+
+    //sytx_dc_v(vec_tokens, curr_token);
+
+    //sytx_dc_p(vec_tokens, curr_token);
 }
