@@ -1,32 +1,31 @@
-program, symb_program
-_, ERROR(Invalid Character)
-p_, identifier
-;, simb_semicolon
-var, simb_var
-x, identifier
-@, ERROR(Invalid Character)
-?, ERROR(Invalid Character)
-integer, symb_tipo
-;, simb_semicolon
-begin, symb_begin
-3333%, ERROR(Badly Formed Number)
-333, num_int
-x, identifier
-:=, simb_atribution
--1, num_int
-;, simb_semicolon
-while, symb_while
-(, open_parentheses
-x, identifier
-<, op_lesser
-3, num_int
-), close_parentheses
-do, symb_do
-x, identifier
-:=, simb_atribution
-x, identifier
-+, op_plus
-1, num_int
-;, simb_semicolon
-{lorenipsunlorenipsun, ERROR(Unclosed Comment)
-EOF, Dread it, run from it, EOF arrives all the same.
+program, symb_program, 1
+p_, identifier, 1
+;, simb_semicolon, 1
+var, simb_var, 2
+x, identifier, 2
+@, ERROR(Invalid Character), 2
+?, ERROR(Invalid Character), 2
+integer, symb_tipo, 2
+;, simb_semicolon, 2
+begin, symb_begin, 3
+3333%, ERROR(Badly Formed Number), 4
+333, num_int, 4
+x, identifier, 5
+:=, simb_atribution, 5
+-1, num_int, 5
+;, simb_semicolon, 5
+while, symb_while, 6
+(, open_parentheses, 6
+x, identifier, 6
+<, op_lesser, 6
+3, num_int, 6
+), close_parentheses, 6
+do, symb_do, 6
+x, identifier, 7
+:=, simb_atribution, 7
+x, identifier, 7
++, op_plus, 7
+1, num_int, 7
+;, simb_semicolon, 7
+{lorenipsunlorenipsun, ERROR(Unclosed Comment), 8
+EOF, Dread it, run from it, EOF arrives all the same., 8

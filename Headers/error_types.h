@@ -31,6 +31,14 @@ typedef struct
     token error_token;  
 } error;
 
+typedef struct{
+    int 
+    char *descript;
+    int line;
+}synt_error;
+
+
+synt_error* create_synth_error_vector(int n);
 
 /**
  * @brief Create a error vector object

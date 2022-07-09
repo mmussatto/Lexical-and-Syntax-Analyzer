@@ -1,8 +1,7 @@
 program p_;
-var x@? integer;
+var x: integer;
 begin
-    3333%333
     x:=-1;
     while (x<3) do
             x:=x+1;
-{lorenipsunlorenipsun
+end.

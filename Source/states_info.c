@@ -39,6 +39,13 @@ state* create_states_vector(int size)
 
 void free_states_vector(state *vec_states)
 {
+    int i;
+
+    for (i = 0; i < NUM_STATES; i++){
+        free(vec_states[i].s_token.name);
+        free(vec_states[i].s_token.type);
+    }
+
     free(vec_states);
 }
 

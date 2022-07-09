@@ -26,6 +26,7 @@ typedef struct
 {
     char* name;     //String representing the token
     char* type;     //Type of the token
+    int line;
 } token;
 
 typedef struct 
@@ -33,6 +34,7 @@ typedef struct
     token* tokens;  //Tokens vector
     int size;       //Number of tokens in the vector
     int total_size; //Total size of the vector
+    int n_curr_token; //Used by the syntax analyzer to keep track of the current token
 } vec_token;
 
 
@@ -68,7 +70,7 @@ token last_vec_token(vec_token* vec_tokens);
  * @param vec_tokens    Vector with all the tokens
  * @param t             Token to be pushed back
  */
-void vec_tokens_push_back(vec_token* vec_tokens, token t);
+void vec_tokens_push_back(vec_token* vec_tokens, token* t);
 
 
 /**

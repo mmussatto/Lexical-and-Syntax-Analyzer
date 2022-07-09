@@ -22,7 +22,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "error.h"
+#include "error_types.h"
 #include "file.h"
 #include "reserved.h"
 #include "states_info.h"
@@ -47,8 +47,8 @@
  * 
  * @return token 
  */
-token get_token(FILE* program, int **transition_matrix, state *vec_states, 
-                vec_token* vec_tokens, error* vec_errors, reserved* vec_reserveds);
+token* get_token(FILE* program, int **transition_matrix, state *vec_states, 
+                vec_token* vec_tokens, error* vec_errors, reserved* vec_reserveds, int* curr_line);
 
 
 /**
@@ -62,7 +62,7 @@ token get_token(FILE* program, int **transition_matrix, state *vec_states,
  * 
  * @return token        
  */
-token create_token(FILE* fp, state* vec_states, int curr_state, int characters, reserved* vec_reserveds);
+token* create_token(FILE* fp, state* vec_states, int curr_state, int characters, reserved* vec_reserveds, int line);
 
 
 /**
@@ -75,7 +75,7 @@ token create_token(FILE* fp, state* vec_states, int curr_state, int characters, 
  * 
  * @return token 
  */
-token create_error_token(FILE* fp, error* vec_errors, int curr_state, int characters);
+token* create_error_token(FILE* fp, error* vec_errors, int curr_state, int characters, int line);
 
 
 /**
@@ -83,7 +83,7 @@ token create_error_token(FILE* fp, error* vec_errors, int curr_state, int charac
  * 
  * @return token 
  */
-token create_EOF_token();
+token* create_EOF_token(int line);
 
 
 /**

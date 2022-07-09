@@ -15,7 +15,7 @@
  * **************************************************
  */
 
-#include "Headers/error.h"
+#include "Headers/error_types.h"
 
 
 error* create_errors_vector(int n)
@@ -27,6 +27,12 @@ error* create_errors_vector(int n)
 
 void free_errors_vector(error* vec_error)
 {
+    int i;
+
+    for (i = 0; i < NUM_ERRORS; i++){
+        free(vec_error[i].error_token.name);
+        free(vec_error[i].error_token.type);
+    }
     free(vec_error);
 }
 
@@ -62,7 +68,7 @@ void read_error_tsv_file(FILE *tsv, error *vec_errors)
 
         //Add to the matrix
         vec_errors[i].error_token.type = strdup(s_error);
-        
+
         //printf("%s\n", s_error);      //Debug print to terminal
     }
 

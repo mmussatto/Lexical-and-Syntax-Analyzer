@@ -24,8 +24,9 @@ vec_token* create_tokens_vector()
 
     //Allocating the vec_token
     tk = malloc(sizeof(vec_token));
-    tk->total_size = 50;        //Totally arbitrary starting value 
+    tk->total_size = 50;    //Totally arbitrary starting value 
     tk->size = 0;
+    tk->n_curr_token = -1;    //function get_token_from_vector increments the counter, so it starts with -1. 
 
     //Allocating the tokens vector
     tk->tokens = malloc(tk->total_size*sizeof(token));
@@ -35,6 +36,14 @@ vec_token* create_tokens_vector()
 
 void free_tokens_vector(vec_token* vec_tokens)
 {
+
+    int i;
+    for(i = 0; i < vec_tokens->size; i++)
+    {   
+        free(vec_tokens->tokens[i].name);
+        free(vec_tokens->tokens[i].type);
+    }
+
     free(vec_tokens->tokens);
     free(vec_tokens);
 }
@@ -56,7 +65,7 @@ token last_vec_token(vec_token* vec_tokens)
 }
 
 
-void vec_tokens_push_back(vec_token* vec_tokens, token t)
+void vec_tokens_push_back(vec_token* vec_tokens, token* t)
 {
 
     //Vector too small for new token. Need to reallocate memory
@@ -66,13 +75,18 @@ void vec_tokens_push_back(vec_token* vec_tokens, token t)
         vec_tokens->tokens = realloc(vec_tokens->tokens, vec_tokens->total_size);
     }
 
-    if(strcmp(t.type,"comment") != 0)
+    if(strcmp(t->type,"comment") != 0)
     {
         //Push-back new token to vector
-        vec_tokens->tokens[vec_tokens->size].name = strdup(t.name);
-        vec_tokens->tokens[vec_tokens->size].type = strdup(t.type);
+        vec_tokens->tokens[vec_tokens->size].name = strdup(t->name);
+        vec_tokens->tokens[vec_tokens->size].type = strdup(t->type);
+        vec_tokens->tokens[vec_tokens->size].line = t->line;
         vec_tokens->size++;
     }
+
+    free(t->name);
+    free(t->type);
+    free(t);
 }
 
 
@@ -97,6 +111,12 @@ void write_tokens_file(FILE *fp, vec_token *vec_tokens)
 
         //Write the type of the token
         fwrite(t.type, sizeof(char), strlen(t.type), fp);
+
+        //Write comma and space
+        fwrite(", ", sizeof(char), 2, fp);
+
+        //Write the line of the token
+        fprintf(fp, "%d", t.line);
 
         //Write \n
         fwrite(&enter, sizeof(char), 1, fp);

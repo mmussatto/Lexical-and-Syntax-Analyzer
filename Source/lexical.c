@@ -18,8 +18,8 @@
 #include "Headers/lexical.h"
 
 
-token get_token(FILE* program, int **transition_matrix, state *vec_states, 
-                vec_token* vec_tokens, error* vec_errors, reserved* vec_reserveds)
+token* get_token(FILE* program, int **transition_matrix, state *vec_states, 
+                vec_token* vec_tokens, error* vec_errors, reserved* vec_reserveds, int* curr_line)
 {
 
     //Control Variables
@@ -30,6 +30,9 @@ token get_token(FILE* program, int **transition_matrix, state *vec_states,
     //Loop while there are characters to read or the automaton hasn't reached a final state or error
     while(read_character(program, &character))
     {
+        //Verifies if it's a new line
+        if(character == '\n') (*curr_line)++;
+ 
         //Get the current state from the transition matrix
         curr_state = transition_matrix[curr_state][(int)character];
 
@@ -41,7 +44,7 @@ token get_token(FILE* program, int **transition_matrix, state *vec_states,
 
         //Error state
         if (curr_state < 0)
-            return create_error_token(program, vec_errors, abs(curr_state), n_characters_read);
+            return create_error_token(program, vec_errors, abs(curr_state), n_characters_read, *curr_line);
 
         //Final state
         if(vec_states[curr_state].final || check_plusminus_state(curr_state, vec_tokens))
@@ -49,29 +52,32 @@ token get_token(FILE* program, int **transition_matrix, state *vec_states,
             //Go back file pointer
             if(vec_states[curr_state].go_back)
             {
+                if(character == '\n') (*curr_line)--;
                 //Removes look ahead token
                 move_back_fp(program, 1);       
                 n_characters_read--;            
             }
             
             //Returns the token read
-            return create_token(program, vec_states, curr_state, n_characters_read, vec_reserveds);
+            return create_token(program, vec_states, curr_state, n_characters_read, vec_reserveds, *curr_line);
         }
     }
 
     if(n_characters_read == 0) //End of file
-        return create_EOF_token();
+        return create_EOF_token(*curr_line);
     else{
         curr_state = -5; //EOF while unclosed comment
-        return create_error_token(program, vec_errors, abs(curr_state), n_characters_read);
+        return create_error_token(program, vec_errors, abs(curr_state), n_characters_read, *curr_line);
     }
 }
 
 
-token create_token(FILE* fp, state* vec_states, int curr_state, int characters, reserved* vec_reserveds)
+token* create_token(FILE* fp, state* vec_states, int curr_state, int characters, reserved* vec_reserveds, int line)
 {
     //Control variables
-    token t;
+    token *t;
+    t = malloc(sizeof(token));
+
     char *string;
 
     //Read string
@@ -79,22 +85,28 @@ token create_token(FILE* fp, state* vec_states, int curr_state, int characters, 
     string = read_file_string(fp, characters);
 
     //Create token
-    t.name = strndup(string, characters);
-    t.type = strdup(vec_states[curr_state].s_token.type);
+    t->name = strndup(string, characters);
+    //t->type = malloc(strlen(vec_states[curr_state].s_token.type)*sizeof(char));
+    //strcpy(t->type, vec_states[curr_state].s_token.type);
+    t->type = strdup(vec_states[curr_state].s_token.type);
+    t->line = line;
     
     //Checks if token is and identifier and if its a reserved word
     if (curr_state == STATE_IDENT)
-        check_reserverd_symbols(&t, vec_reserveds);
+        check_reserverd_symbols(t, vec_reserveds);
     
+    free(string);
+
     //Returns token
     return t;
 }
 
 
-token create_error_token(FILE* fp, error* vec_errors, int curr_state, int characters)
+token* create_error_token(FILE* fp, error* vec_errors, int curr_state, int characters, int line)
 {
     //Control variables
-    token t;
+    token *t;
+    t = malloc(sizeof(token));
     char *string;
 
     //Read string
@@ -102,19 +114,23 @@ token create_error_token(FILE* fp, error* vec_errors, int curr_state, int charac
     string = read_file_string(fp, characters);
     
     //Create error token
-    t.name = strndup(string, characters);
-    t.type = strdup(vec_errors[curr_state].error_token.type);
+    t->name = strndup(string, characters);
+    t->type = strdup(vec_errors[curr_state].error_token.type);
+    t->line = line;
 
+    free(string);
     //Return error token
     return t;
 }
 
 
-token create_EOF_token()
+token* create_EOF_token(int line)
 {
-    token t;
-    t.name = strdup("EOF");
-    t.type = strdup("Dread it, run from it, EOF arrives all the same.");
+    token *t;
+    t = malloc(sizeof(token));
+    t->name = strdup("EOF");
+    t->type = strdup("Dread it, run from it, EOF arrives all the same.");
+    t->line = line;
     return t;
 }
 
