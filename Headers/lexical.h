@@ -22,7 +22,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "error.h"
+#include "error_types.h"
 #include "file.h"
 #include "reserved.h"
 #include "states_info.h"

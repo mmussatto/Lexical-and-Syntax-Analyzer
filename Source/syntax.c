@@ -30,7 +30,6 @@ void get_token_from_vector(vec_token* vec_tokens, token *curr_token)
     curr_token->name = strdup(vec_tokens->tokens[vec_tokens->n_curr_token].name);
     curr_token->type = strdup(vec_tokens->tokens[vec_tokens->n_curr_token].type);
     curr_token->line = vec_tokens->tokens[vec_tokens->n_curr_token].line;
-
 }
 
 int ASD(vec_token* vec_tokens)
@@ -57,8 +56,6 @@ int ASD(vec_token* vec_tokens)
         free(curr_token);
         return 0;
     }
-        
-
 }
 
 // 1.

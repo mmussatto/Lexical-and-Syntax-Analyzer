@@ -31,6 +31,10 @@ typedef struct
     token error_token;  
 } error;
 
+typedef struct{
+    
+}
+
 
 /**
  * @brief Create a error vector object
