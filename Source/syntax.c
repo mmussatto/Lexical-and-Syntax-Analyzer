@@ -44,3 +44,27 @@ int ASD(vec_token* vec_tokens)
     
 
 }
+
+void sytx_programa(vec_token* vec_tokens, token *curr_token)
+{
+    if (strcmp(curr_token->name, "program") == 0)
+        get_token_from_vector(vec_tokens, curr_token);
+    //else 
+        //deu ruim
+    
+    if (strcmp(curr_token->type, "identifier") == 0)
+        get_token_from_vector(vec_tokens, curr_token);
+    //else 
+        //deu ruim
+
+    if (strcmp(curr_token->name, ";") == 0)
+        get_token_from_vector(vec_tokens, curr_token);
+    //else 
+        //deu ruim
+
+    sytx_corpo(vec_tokens, curr_token);
+    
+
+    return;
+    
+}
