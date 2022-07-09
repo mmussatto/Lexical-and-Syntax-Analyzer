@@ -17,7 +17,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "Headers/lexical.h"
 #include "Headers/syntax.h"
 
 int main(int argc, char** argv)
@@ -69,6 +68,9 @@ int main(int argc, char** argv)
         vec_tokens_push_back(vec_tokens, get_token(program, transition_matrix, vec_states, vec_tokens, vec_errors, vec_reserveds, &curr_line));
        
     } while(strcmp(last_vec_token(vec_tokens).name,"EOF") != 0); 
+
+    /*------ Syntax Analyzer --------*/
+    ASD(vec_tokens);
 
 
     /*------ Writting in out file --------*/
