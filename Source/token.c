@@ -24,8 +24,9 @@ vec_token* create_tokens_vector()
 
     //Allocating the vec_token
     tk = malloc(sizeof(vec_token));
-    tk->total_size = 50;        //Totally arbitrary starting value 
+    tk->total_size = 50;    //Totally arbitrary starting value 
     tk->size = 0;
+    tk->n_curr_token = -1;    //function get_token_from_vector increments the counter, so it starts with -1. 
 
     //Allocating the tokens vector
     tk->tokens = malloc(tk->total_size*sizeof(token));

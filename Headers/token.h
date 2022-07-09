@@ -34,6 +34,7 @@ typedef struct
     token* tokens;  //Tokens vector
     int size;       //Number of tokens in the vector
     int total_size; //Total size of the vector
+    int n_curr_token; //Used by the syntax analyzer to keep track of the current token
 } vec_token;
 
 
