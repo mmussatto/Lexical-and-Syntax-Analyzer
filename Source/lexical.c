@@ -52,6 +52,7 @@ token* get_token(FILE* program, int **transition_matrix, state *vec_states,
             //Go back file pointer
             if(vec_states[curr_state].go_back)
             {
+                if(character == '\n') (*curr_line)--;
                 //Removes look ahead token
                 move_back_fp(program, 1);       
                 n_characters_read--;            
@@ -95,7 +96,7 @@ token* create_token(FILE* fp, state* vec_states, int curr_state, int characters,
         check_reserverd_symbols(t, vec_reserveds);
     
     free(string);
-    
+
     //Returns token
     return t;
 }
