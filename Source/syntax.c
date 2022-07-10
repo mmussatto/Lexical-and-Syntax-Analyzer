@@ -203,6 +203,7 @@ void ASD(vec_token* vec_tokens, synt_error_vec* vec_synt_error)
     }
 }
 
+
 // 1.
 void sytx_programa(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error)
 {
@@ -247,8 +248,11 @@ void sytx_programa(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec
 // 2.
 void sytx_corpo(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error)
 {
+    
+    //Creating followers
     token *follower = (token *) malloc(sizeof(token));
     follower->name = strdup(".");
+
 
     sytx_dc(vec_tokens, curr_token, vec_synt_error);
 
@@ -287,10 +291,12 @@ void sytx_dc(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_
 // 4.
 void sytx_dc_c(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error)
 {
+    //Creating followers
     token *follower = (token *) malloc(3*sizeof(token));
     follower[0].name = strdup("begin");
     follower[1].name = strdup("var");
     follower[2].name = strdup("procedure");
+
 
     if (strcmp(curr_token->name, "const") == 0)
     {
@@ -339,9 +345,11 @@ void sytx_dc_c(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
 // 5.
 void sytx_dc_v(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error)
 {
+    //Creating followers
     token *follower = (token *) malloc(2*sizeof(token));
     follower[0].name = strdup("begin");
     follower[1].name = strdup("procedure");
+
 
     if (strcmp(curr_token->name, "var") == 0)
     {
@@ -389,9 +397,11 @@ void sytx_dc_v(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
 // 7.
 void sytx_variaveis(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error)
 {
+    //Creating followers
     token *follower = (token *) malloc(2*sizeof(token));
     follower[0].name = strdup(":");
     follower[1].name = strdup(")");
+
 
     if (strcmp(curr_token->type, "identifier") == 0)
         get_token_from_vector(vec_tokens, curr_token);
@@ -408,9 +418,11 @@ void sytx_variaveis(vec_token* vec_tokens, token *curr_token, synt_error_vec* ve
 // 8.
 void sytx_mais_var(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error)
 {
+    //Creating followers
     token *follower = (token *) malloc(2*sizeof(token));
     follower[0].name = strdup(":");
     follower[1].name = strdup(")");
+
 
     if (strcmp(curr_token->name, ",") == 0){
         get_token_from_vector(vec_tokens, curr_token);
@@ -427,8 +439,10 @@ void sytx_mais_var(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec
 // 9.
 void sytx_dc_p(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error)
 {
+    //Creating followers
     token *follower = (token *) malloc(sizeof(token));
     follower->name = strdup("begin");
+
 
     if (strcmp(curr_token->name, "procedure") == 0)
     {
@@ -466,8 +480,10 @@ void sytx_dc_p(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
 // 10.
 void sytx_parametros(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error)
 {
+    //Creating followers
     token *follower = (token *) malloc(sizeof(token));
     follower->name = strdup(";");
+
 
     if (strcmp(curr_token->name, "(") == 0)
     {
@@ -491,8 +507,10 @@ void sytx_parametros(vec_token* vec_tokens, token *curr_token, synt_error_vec* v
 // 11.
 void sytx_lista_par(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error)
 {
+    //Creating followers
     token *follower = (token *) malloc(sizeof(token));
     follower->name = strdup(")");
+
 
     sytx_variaveis(vec_tokens, curr_token, vec_synt_error);
     
@@ -522,9 +540,11 @@ void sytx_lista_par(vec_token* vec_tokens, token *curr_token, synt_error_vec* ve
 // 12.
 void sytx_mais_par(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error)
 {
+    //Creating followers
     token *follower = (token *) malloc(sizeof(token));
     follower->name = strdup(")");
     
+
     if (strcmp(curr_token->name, ";") == 0)
     {
         get_token_from_vector(vec_tokens, curr_token);
@@ -543,9 +563,11 @@ void sytx_mais_par(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec
 // 13.
 void sytx_corpo_p(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error)
 {
+    //Creating followers
     token *follower = (token *) malloc(2*sizeof(token));
     follower[0].name = strdup("begin");
     follower[1].name = strdup("procedure");
+
 
     sytx_dc_loc(vec_tokens, curr_token, vec_synt_error);
 
@@ -590,8 +612,10 @@ void sytx_dc_loc(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_s
 // 15.
 void sytx_lista_arg(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error)
 {
+    //Creating followers
     token *follower = (token *) malloc(sizeof(token));
     follower->name = strdup(";");
+
 
     if (strcmp(curr_token->name, "(") == 0)
     {
@@ -660,7 +684,7 @@ void sytx_comandos(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec
         (strcmp(curr_token->name, "write")  == 0)       ||
         (strcmp(curr_token->name, "while")  == 0)       ||
         (strcmp(curr_token->name, "if")     == 0)       ||
-        (strcmp(curr_token->type, "identifier") == 0)  ||
+        (strcmp(curr_token->type, "identifier") == 0)   ||
         (strcmp(curr_token->name, "begin")  == 0))
     {
         sytx_cmd(vec_tokens, curr_token, vec_synt_error);
@@ -697,6 +721,7 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
             add_synt_error(vec_synt_error, "Syntax Error: Missing expected ')' ", curr_token->line);
         
     }    
+
     //Write
     else if (strcmp(curr_token->name, "write") == 0){
         get_token_from_vector(vec_tokens, curr_token);
@@ -755,6 +780,8 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
         sytx_pfalsa(vec_tokens, curr_token, vec_synt_error);
         
     }
+
+    //Ident
     else if (strcmp(curr_token->type, "identifier") == 0){
         get_token_from_vector(vec_tokens, curr_token);
         
@@ -807,8 +834,9 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
         
     }
     
+    //Error
     else
-        add_synt_error(vec_synt_error, "Syntax Error: Missing expected cmd ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: Missing expected a command ", curr_token->line);
 
 }
 
@@ -835,17 +863,15 @@ void sytx_relacao(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_
     else if (strcmp(curr_token->name, "<") == 0)
         get_token_from_vector(vec_tokens, curr_token);
  
-    
     else if (strcmp(curr_token->name, "<>") == 0)
         get_token_from_vector(vec_tokens, curr_token);
 
-
     else if (strcmp(curr_token->name, "<=") == 0)
         get_token_from_vector(vec_tokens, curr_token);
-
     
     else if (strcmp(curr_token->name, ">=") == 0)
         get_token_from_vector(vec_tokens, curr_token);
+
     else
     {
         add_synt_error(vec_synt_error, "Syntax Error: Unrecognized comparator ", curr_token->line);
@@ -881,7 +907,6 @@ void sytx_outros_termos(vec_token* vec_tokens, token *curr_token, synt_error_vec
     }
     else    
         return;
-    
 }
 
 // 26.
