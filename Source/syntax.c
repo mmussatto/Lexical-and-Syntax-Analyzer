@@ -32,13 +32,16 @@ void dealocate_follower(token* followers, int size_follower)
     free(followers);
 }
 
-//
+
 void consume_until(vec_token* vec_tokens, token *curr_token, token* followers, int size_follower)
 {
     int flg_sair = 0;
     int i;
 
+    //Get the next token
     get_token_from_vector(vec_tokens, curr_token);
+
+    //Consume tokens while hasn't reach EOF or found a follower
     while(strcmp(curr_token->name, "EOF") != 0 && !flg_sair)
     {
         //For each new token, test it with all followers
@@ -54,6 +57,8 @@ void consume_until(vec_token* vec_tokens, token *curr_token, token* followers, i
         if(!flg_sair)
             get_token_from_vector(vec_tokens, curr_token);
     }
+
+    //Deallocate memory
     dealocate_follower(followers, size_follower);
 }
 

@@ -19,6 +19,14 @@
 
 #include "Headers/lexical.h"
 
+/**
+ * @brief 
+ * 
+ * @param vec_tokens    vector containing all tokens from source code
+ * @param curr_token    current token
+ * @param followers     followers (can be a single token or a vector of tokens)
+ * @param size_follower number of followers
+ */
 void consume_until(vec_token* vec_tokens, token *curr_token, token* followers, int size_follower);
 
 void sort_synt_error_vec(synt_error_vec *vec_synt_error);
