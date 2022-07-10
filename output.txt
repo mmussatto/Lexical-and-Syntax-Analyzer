@@ -7,11 +7,9 @@ x, identifier, 2
 integer, symb_tipo, 2
 ;, simb_semicolon, 2
 begin, symb_begin, 3
-x, identifier, 4
-:=, simb_atribution, 4
--1, num_int, 4
+-2, num_int, 4
 ;, simb_semicolon, 4
-while, symb_while, 5
+whe, identifier, 5
 (, open_parentheses, 5
 x, identifier, 5
 <, op_lesser, 5
@@ -20,9 +18,7 @@ x, identifier, 5
 do, symb_do, 5
 x, identifier, 6
 :=, simb_atribution, 6
-x, identifier, 6
-+, op_plus, 6
-1, num_int, 6
+2, num_int, 6
 ;, simb_semicolon, 6
 end, symb_end, 7
 ., simb_dot, 7
