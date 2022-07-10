@@ -1,3 +1,2 @@
-ERROR: Expected variable type, 2 
-ERROR: Missing begin, 2 
-ERROR: Missing final dot, 2 
+ERROR(Invalid Character), 5 
+ERROR: Missing expected semicolon, 7 

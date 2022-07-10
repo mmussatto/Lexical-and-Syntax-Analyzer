@@ -22,12 +22,12 @@ void consume_until(vec_token* vec_tokens, token *curr_token, token follower)
     get_token_from_vector(vec_tokens, curr_token);
 
     //While it is not the follower AND it is not EOF
-    while(strcmp(curr_token->type, follower.type) != 0 && strcmp(curr_token->name, "EOF") != 0)
+    while(strcmp(curr_token->type, follower.type) != 0 && strcmp(curr_token->name, follower.name) != 0
+         && strcmp(curr_token->name, "EOF") != 0)
     {
         get_token_from_vector(vec_tokens, curr_token);
     }
 }
-
 
 void sort_synt_error_vec(synt_error_vec *vec_synt_error){
     
@@ -84,6 +84,7 @@ void write_error_file(FILE *fp, synt_error_vec *vec_synt_error, vec_token *vec_t
     }
 
     //FAZER  O SORT DO VETOR
+    sort_synt_error_vec(vec_synt_error);
 
     //Traverse the tokens vector
     for(i = 0; i < vec_synt_error->list_size; i++)
