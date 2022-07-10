@@ -1,0 +1,4 @@
+Syntax Error: Expected identifier, 2 
+Syntax Error: Expected double points, 5 
+Syntax Error: Missing begin, 8 
+Syntax Error: Missing final dot, 8 
