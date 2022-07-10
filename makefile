@@ -10,7 +10,6 @@ DEPS= *.h Headers/*.h
 OBJ = *.c Source/*.c 
 
 FILE = test.txt
-#FILE = correto.txt
 
 all: $(OBJ)
 	@$(CC) -o prog $^ $(CFLAGS) $(LIBS)
@@ -18,11 +17,8 @@ all: $(OBJ)
 o: %.c $(DEPS)		
 	@$(CC) -c -o $@ $< $(CFLAGS)
 
-.PHONY: run
 run:
-	./prog $(FILE);
-#run:
-#	@read -p "Insira o nome do arquivo (com extensao): "  NOME; \
+	@read -p "Insira o nome do arquivo (com extensao): "  NOME; \
 	./prog $${NOME};
 
 
