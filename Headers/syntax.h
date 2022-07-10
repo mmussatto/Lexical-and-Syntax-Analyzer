@@ -28,7 +28,7 @@
 void dealocate_follower(token* followers, int size_follower);
 
 /**
- * @brief 
+ * @brief Consumes tokens until a follower is found
  * 
  * @param vec_tokens    vector containing all tokens from source code
  * @param curr_token    current token
@@ -57,7 +57,7 @@ void get_token_from_vector(vec_token* vec_tokens, token *curr_token);
 void ASD(vec_token* vec_tokens, synt_error_vec* vec_synt_error);
 
 
-//The funcitons below are a reflection of the syntax rules of the P-- language.
+/* ----- The funcitons below are a reflection of the syntax rules of the P-- language. ---- */
 
 // 1.
 void sytx_programa(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error);
