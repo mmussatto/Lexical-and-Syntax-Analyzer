@@ -25,6 +25,12 @@ void sort_synt_error_vec(synt_error_vec *vec_synt_error);
 
 void write_error_file(FILE *fp, synt_error_vec *vec_synt_error, vec_token *vec_tokens);
 
+/**
+ * @brief Get the next token from token vector object
+ * 
+ * @param vec_tokens vector containing all tokens from source code
+ * @param curr_token current token
+ */
 void get_token_from_vector(vec_token* vec_tokens, token *curr_token);
 
 /**
@@ -125,4 +131,3 @@ void sytx_fator(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_sy
 
 // 31.
 void sytx_numero(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error);
-
