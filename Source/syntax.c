@@ -17,18 +17,20 @@
 
 #include "Headers/syntax.h"
 
-//FREEING THE FOLLOWER
+
 void dealocate_follower(token* followers, int size_follower)
 {
     int i;
 
-    if(size_follower > 1)
+    if(size_follower > 1)   //its a vector of followers
+    {
         for(i = 0; i < size_follower; i++)
-        {
             free(followers[i].name);
-        }
-    else
+        
+    }    
+    else    //its only one follower
         free(followers->name);
+
     free(followers);
 }
 
@@ -155,31 +157,31 @@ void get_token_from_vector(vec_token* vec_tokens, token *curr_token)
     {
         vec_tokens->n_curr_token++;
     }
-    
+
     //Dealocate memory from the last token
     if(curr_token->name != NULL && curr_token->type != NULL)
     {
         free(curr_token->name);
         free(curr_token->type);
     }
-    
+
     //Verify if the current token is an error
     if(strlen(vec_tokens->tokens[vec_tokens->n_curr_token].type) > 14)
     {
         //Get the first letters ot the token's type
-        substring = strndup(vec_tokens->tokens[vec_tokens->n_curr_token].type, 14);
+        substring = strndup(vec_tokens->tokens[vec_tokens->n_curr_token].type, 14); 
 
         while(strcmp(substring, "Lexical Error:") == 0) //runs through error tokens
         {
             vec_tokens->n_curr_token++; //get next token
 
             //Get the first letters ot the token's type
-            substring = strndup(vec_tokens->tokens[vec_tokens->n_curr_token].type, 14);
+            substring = strndup(vec_tokens->tokens[vec_tokens->n_curr_token].type, 14); 
         }
       
         free(substring);    //deallocate the string
     }
-    
+
     //Get the current token's properties
     curr_token->name = strdup(vec_tokens->tokens[vec_tokens->n_curr_token].name);
     curr_token->type = strdup(vec_tokens->tokens[vec_tokens->n_curr_token].type);
@@ -735,7 +737,7 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
         else 
             add_synt_error(vec_synt_error, "Syntax Error: Missing expected ')' ", curr_token->line);
         
-    }    
+    }   
 
     //Write
     else if (strcmp(curr_token->name, "write") == 0){

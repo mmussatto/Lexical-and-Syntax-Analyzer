@@ -20,6 +20,14 @@
 #include "Headers/lexical.h"
 
 /**
+ * @brief Deallocate the memory used for the follower tokens
+ * 
+ * @param followers     followers (can be a single token or a vector of tokens)
+ * @param size_follower number of followers
+ */
+void dealocate_follower(token* followers, int size_follower);
+
+/**
  * @brief 
  * 
  * @param vec_tokens    vector containing all tokens from source code
