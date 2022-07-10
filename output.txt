@@ -9,8 +9,8 @@ integer, symb_tipo, 2
 begin, symb_begin, 3
 x, identifier, 4
 :=, simb_atribution, 4
--2, num_int, 4
 ;, simb_semicolon, 4
+@, Lexical Error: Invalid Character, 5
 while, symb_while, 5
 (, open_parentheses, 5
 x, identifier, 5
@@ -20,7 +20,9 @@ x, identifier, 5
 do, symb_do, 5
 x, identifier, 6
 :=, simb_atribution, 6
-2, num_int, 6
-;, simb_semicolon, 6
+x, identifier, 6
++, op_plus, 6
+1, num_int, 6
 end, symb_end, 7
-EOF, Dread it, run from it, EOF arrives all the same., 8
+., simb_dot, 7
+EOF, Dread it, run from it, EOF arrives all the same., 7

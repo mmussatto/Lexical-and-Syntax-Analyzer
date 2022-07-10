@@ -1,7 +1,7 @@
 program p_;
 var x: integer;
 begin
-    x := -2;
-    while (x<3) do
-            x:= 2;
+    x:= ;
+    @while (x<3) do
+            x:=x+1
 end.
