@@ -19,9 +19,13 @@
 
 #include "Headers/lexical.h"
 
+void consume_until(vec_token* vec_tokens, token *curr_token, token follower);
+
 void write_error_file(FILE *fp, synt_error_vec *vec_synt_error, vec_token *vec_tokens);
 
-void get_token_from_vector(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error);
+void get_token_from_vector(vec_token* vec_tokens, token *curr_token);
+
+void sort_synt_error_vec(synt_error_vec *vec_synt_error);
 
 int ASD(vec_token* vec_tokens, synt_error_vec* vec_synt_error);
 

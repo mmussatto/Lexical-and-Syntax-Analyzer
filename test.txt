@@ -1,5 +1,5 @@
 program p_;
-var @x: integer;
+var x: ;
 begin
     x:=-1;
     while (x<3) do

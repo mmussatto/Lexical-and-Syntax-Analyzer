@@ -1,2 +1,3 @@
-ERROR: Unexpected string, missing identifier, 1 
-ERROR(Invalid Character), 2 
+ERROR: Expected variable type, 2 
+ERROR: Missing begin, 2 
+ERROR: Missing final dot, 2 

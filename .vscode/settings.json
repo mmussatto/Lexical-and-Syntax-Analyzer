@@ -6,6 +6,8 @@
         "token.h": "c",
         "stdlib.h": "c",
         "string.h": "c",
-        "error_types.h": "c"
+        "error_types.h": "c",
+        "syntax.h": "c",
+        "string": "c"
     }
 }

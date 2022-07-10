@@ -96,12 +96,21 @@ void write_tokens_file(FILE *fp, vec_token *vec_tokens)
     int i;
     char enter = '\n';
     token t;
+    char *substring;
 
     //Traverse the tokens vector
     for(i = 0; i < vec_tokens->size; i++)
     {   
         //Get the current token
         t = vec_tokens->tokens[i];
+
+        if(strlen(vec_tokens->tokens[i].type) > 5)
+        {
+            substring = strndup(vec_tokens->tokens[i].type, 5);
+            if(strcmp(substring, "ERROR") == 0)
+                continue;
+            free(substring);
+        }
 
         //Write the name of the token
         fwrite(t.name, sizeof(char), strlen(t.name), fp);

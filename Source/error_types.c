@@ -43,7 +43,7 @@ void add_synt_error(synt_error_vec* vec_synt_error, char *descricao, int linha)
         vec_synt_error->list_errors = realloc(vec_synt_error->list_errors, vec_synt_error->size);
     }
 
-    vec_synt_error->list_errors[vec_synt_error->list_size].desc = strndup(descricao, strlen(descricao));
+    vec_synt_error->list_errors[vec_synt_error->list_size].desc = strndup(descricao, strlen(descricao) - 1);
     vec_synt_error->list_errors[vec_synt_error->list_size].line = linha;
 
     vec_synt_error->list_size++;
@@ -53,7 +53,7 @@ void free_synt_errors_vector(synt_error_vec* vec_synt_error)
 {
     int i;
 
-    for (i = 0; i < NUM_ERRORS; i++){
+    for (i = 0; i < vec_synt_error->list_size; i++){
         free(vec_synt_error->list_errors[i].desc);
     }
 
