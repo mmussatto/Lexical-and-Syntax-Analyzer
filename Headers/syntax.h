@@ -37,9 +37,6 @@ void dealocate_follower(token* followers, int size_follower);
  */
 void consume_until(vec_token* vec_tokens, token *curr_token, token* followers, int size_follower);
 
-void sort_synt_error_vec(synt_error_vec *vec_synt_error);
-
-void write_error_file(FILE *fp, synt_error_vec *vec_synt_error, vec_token *vec_tokens);
 
 /**
  * @brief Get the next token from token vector object
@@ -48,6 +45,7 @@ void write_error_file(FILE *fp, synt_error_vec *vec_synt_error, vec_token *vec_t
  * @param curr_token current token
  */
 void get_token_from_vector(vec_token* vec_tokens, token *curr_token);
+
 
 /**
  * @brief Function called by the main. Runs the syntax analyzer.

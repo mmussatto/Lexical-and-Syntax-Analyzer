@@ -120,3 +120,86 @@ void read_error_tsv_file(FILE *tsv, error *vec_errors)
     }
 
 }
+
+
+void sort_synt_error_vec(synt_error_vec *vec_synt_error){
+    
+    int i,j;
+    int bigger;
+
+    char *temp_desc;
+    int temp_line;
+
+    for (i = vec_synt_error->list_size - 1; i >= 0; i--){
+        bigger = i;
+        
+        for (j = i - 1; j >= 0; j--){
+            if(vec_synt_error->list_errors[j].line > vec_synt_error->list_errors[i].line)
+                bigger = j;
+        }
+
+        if (i != bigger){
+            temp_line = vec_synt_error->list_errors[bigger].line;
+            temp_desc = vec_synt_error->list_errors[bigger].desc;
+
+            vec_synt_error->list_errors[bigger].line = vec_synt_error->list_errors[i].line;
+            vec_synt_error->list_errors[bigger].desc = vec_synt_error->list_errors[i].desc;
+
+            vec_synt_error->list_errors[i].line = temp_line;
+            vec_synt_error->list_errors[i].desc = temp_desc;
+        }
+
+    }
+    
+}
+
+
+void write_error_file(FILE *fp, synt_error_vec *vec_synt_error, vec_token *vec_tokens)
+{
+    //Control variables
+    int i;
+    synt_error er;
+
+    char *substring;
+
+    //Run the tokens vector searching for errors
+    for(i = 0; i< vec_tokens->size; i++)
+    {
+        if(strlen(vec_tokens->tokens[i].type) > 14)
+        {
+            substring = strndup(vec_tokens->tokens[i].type, 14);
+            if(strcmp(substring, "Lexical Error:") == 0)
+                add_synt_error(vec_synt_error, vec_tokens->tokens[i].type, vec_tokens->tokens[i].line);
+
+            free(substring);
+        }
+    }
+
+    //FAZER  O SORT DO VETOR
+    sort_synt_error_vec(vec_synt_error);
+
+    //No errors
+    if(vec_synt_error->list_size == 0)
+    {
+        //Compilation sucessful 
+        fprintf(fp, "Compilation successful.\nI can finally rest and watch the sun rise on a grateful universe.\n");
+        
+        return;
+    }
+
+    //Traverse the tokens vector
+    for(i = 0; i < vec_synt_error->list_size; i++)
+    {   
+        //Get the current token
+        er = vec_synt_error->list_errors[i];
+
+        //Write the name of the token
+        fwrite(er.desc, sizeof(char), strlen(er.desc), fp);
+
+        //Write comma and space
+        fwrite(", ", sizeof(char), 2, fp);
+
+        //Write the line of the problem
+        fprintf(fp, "%d \n", er.line);
+    } 
+}

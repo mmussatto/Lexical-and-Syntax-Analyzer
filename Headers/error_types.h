@@ -80,3 +80,8 @@ void populate_errors_vector(error* vec_errors, char* file_name);
  * @param vec_errors    Errors vector
  */
 void read_error_tsv_file(FILE *tsv, error *vec_errors);
+
+
+void sort_synt_error_vec(synt_error_vec *vec_synt_error);
+
+void write_error_file(FILE *fp, synt_error_vec *vec_synt_error, vec_token *vec_tokens);
