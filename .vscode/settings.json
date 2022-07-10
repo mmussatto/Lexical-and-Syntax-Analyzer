@@ -5,7 +5,9 @@
         "lexical.h": "c",
         "token.h": "c",
         "stdlib.h": "c",
-        "typeinfo": "c",
-        "error_types.h": "c"
+        "string.h": "c",
+        "error_types.h": "c",
+        "syntax.h": "c",
+        "string": "c"
     }
 }

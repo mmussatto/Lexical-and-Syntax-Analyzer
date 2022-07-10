@@ -11,14 +11,16 @@
 
     [x] Fazer o léxico printar a linha.
     [X] Função get_token para o sintatico
-    [ ] Arrumar os tokens com erro
-    [ ] Vetor de erros
-    [ ] Nunmero da linha ta errado
+    [X] Arrumar os tokens com erro
+    [X] Vetor de erros
+    [X] Numero da linha ta errado
         - Como a gnt volta a cabeca de leitura no lookahead, ele le o /n duas vezes
+    [ ] Implementar busca por seguidores
+        - Previnir a avalanche de erros que atualmente assola o código
 
 ## LL(1)
 
-    Transformar o P-- em LL(1) --> tem que incluir umas regras a mais
+    [X] Transformar o P-- em LL(1) --> tem que incluir umas regras a mais
 
 ## Estratégia ASD
 
@@ -32,12 +34,6 @@
     - Rodar o léxico primeiro e trabalhar com os vetores que criamos no trabalho 1.
     - Colocar um novo campo no token pra indicar a linha que ele está
 
-### Estratégia 2
-
-    - Modificar o léxico para rodar junto com o 
-    -
-
-
 ## Duvidas
 
     - Rodar o léixco primeiro e depois o sintático? (vetor de tokens)
@@ -47,6 +43,6 @@
 
 ## Mensagens de Erro
 
-    [ ] Identificar se o erro é lexico ou sintático
+    [] Identificar se o erro é lexico ou sintático
 
     

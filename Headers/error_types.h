@@ -32,13 +32,20 @@ typedef struct
 } error;
 
 typedef struct{
-    int 
-    char *descript;
+    char *desc;
     int line;
 }synt_error;
 
+typedef struct{
+    int size;
+    int list_size;
+    synt_error *list_errors;  
+}synt_error_vec;
 
-synt_error* create_synth_error_vector(int n);
+
+synt_error_vec* create_synth_error_vector(int n);
+void free_synt_errors_vector(synt_error_vec* vec_synt_error);
+void add_synt_error(synt_error_vec* vec_synt_error, char *descricao, int linha);
 
 /**
  * @brief Create a error vector object

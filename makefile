@@ -9,7 +9,7 @@ DEPS= *.h Headers/*.h
 
 OBJ = *.c Source/*.c 
 
-FILE = meu_programa.txt
+FILE = test.txt
 #FILE = correto.txt
 
 all: $(OBJ)

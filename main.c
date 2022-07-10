@@ -38,6 +38,17 @@ int main(int argc, char** argv)
         return 1;
     }
 
+    
+    //Opening error file
+    FILE *fp_error = open_file("error_file.txt",'w');
+    
+    //Checking for error on file opening
+    if(fp_error == NULL)
+    {
+        printf("Error opening file\n");
+        return 1;
+    }
+
     /*------ Lexical analyser logic --------*/
     
     // Allocating Transition Matrix
@@ -59,6 +70,9 @@ int main(int argc, char** argv)
     //Allocating the Vector of tokens read
     vec_token *vec_tokens = create_tokens_vector();
 
+    //Allocating the synth_errors_vector
+    synt_error_vec *vec_synt_error = create_synth_error_vector(10); 
+
     //Keeps track of the current line of the program
     int curr_line = 1;
     
@@ -70,7 +84,7 @@ int main(int argc, char** argv)
     } while(strcmp(last_vec_token(vec_tokens).name,"EOF") != 0); 
 
     /*------ Syntax Analyzer --------*/
-    ASD(vec_tokens);
+    ASD(vec_tokens, vec_synt_error);
 
 
     /*------ Writting in out file --------*/
@@ -80,8 +94,9 @@ int main(int argc, char** argv)
 
     //Write all tokens read to file
     write_tokens_file(f_out, vec_tokens);
+    write_error_file(fp_error, vec_synt_error, vec_tokens);
 
-
+    
     /*------ Deallocating memory --------*/
 
     //free data structures
@@ -90,10 +105,13 @@ int main(int argc, char** argv)
     free_errors_vector(vec_errors);
     free_tokens_vector(vec_tokens);
     free_reserved_vector(vec_reserveds);
+
+    free_synt_errors_vector(vec_synt_error);
     
     //Closing the files
     fclose(program);
     fclose(f_out);
+    fclose(fp_error);
     
     return 0;
 }

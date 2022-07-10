@@ -43,8 +43,11 @@ token* get_token(FILE* program, int **transition_matrix, state *vec_states,
         //printf("%c , %d\n", character, curr_state);   //Debug print
 
         //Error state
-        if (curr_state < 0)
+        if (curr_state < 0){
+            //n_characters_read--;
             return create_error_token(program, vec_errors, abs(curr_state), n_characters_read, *curr_line);
+        }
+           
 
         //Final state
         if(vec_states[curr_state].final || check_plusminus_state(curr_state, vec_tokens))

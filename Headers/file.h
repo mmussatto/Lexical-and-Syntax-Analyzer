@@ -24,7 +24,6 @@
 
 #include "reserved.h"
 
-
 /**
  * @brief Opens a new file and returns a pointer to it
  * 
