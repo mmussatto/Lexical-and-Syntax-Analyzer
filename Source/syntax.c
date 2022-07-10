@@ -459,7 +459,7 @@ void sytx_dc_p(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
             sytx_dc_p(vec_tokens, curr_token, vec_synt_error);  
     }  
     
-    dealocate_follower(follower, 2);
+    dealocate_follower(follower, 1);
 }
 
 
@@ -604,7 +604,7 @@ void sytx_lista_arg(vec_token* vec_tokens, token *curr_token, synt_error_vec* ve
         else
         {
             add_synt_error(vec_synt_error, "Syntax Error: Missing expected ')' ", curr_token->line);
-            consume_until(vec_tokens, curr_token, follower, 2);
+            consume_until(vec_tokens, curr_token, follower, 1);
         }
     }
     else
