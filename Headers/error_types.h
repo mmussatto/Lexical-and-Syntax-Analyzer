@@ -26,8 +26,7 @@
 
 #define NUM_ERRORS 6    //Number of possible errors
 
-typedef struct 
-{
+typedef struct {
     token error_token;  
 } error;
 
@@ -42,10 +41,6 @@ typedef struct{
     synt_error *list_errors;  
 }synt_error_vec;
 
-
-synt_error_vec* create_synth_error_vector(int n);
-void free_synt_errors_vector(synt_error_vec* vec_synt_error);
-void add_synt_error(synt_error_vec* vec_synt_error, char *descricao, int linha);
 
 /**
  * @brief Create a error vector object
@@ -82,6 +77,46 @@ void populate_errors_vector(error* vec_errors, char* file_name);
 void read_error_tsv_file(FILE *tsv, error *vec_errors);
 
 
+/**
+ * @brief Create a synth error vector object
+ * 
+ * @param n                 initial size of the vector
+ * @return synt_error_vec*  
+ */
+synt_error_vec* create_synth_error_vector(int n);
+
+
+/**
+ * @brief Adds a syntax error to the vector
+ * 
+ * @param vec_synt_error    vector containing all errors from the syntax analyzer
+ * @param description       error message
+ * @param linha             line containing the error
+ */
+void add_synt_error(synt_error_vec* vec_synt_error, char *description, int linha);
+
+
+/**
+ * @brief  Deallocate memory from errors vector
+ * 
+ * @param vec_synt_error    vector containing all errors from the syntax analyzer
+ */
+void free_synt_errors_vector(synt_error_vec* vec_synt_error);
+
+
+/**
+ * @brief Sorts the synt error vector
+ * 
+ * @param vec_synt_error vector containing all errors from the syntax analyzer
+ */
 void sort_synt_error_vec(synt_error_vec *vec_synt_error);
 
+
+/**
+ * @brief Write all error token to error_file
+ * 
+ * @param fp              Pointer to error_file
+ * @param vec_synt_error  Vector of syntatic erros
+ * @param vec_tokens      Vector of tokens
+ */
 void write_error_file(FILE *fp, synt_error_vec *vec_synt_error, vec_token *vec_tokens);
