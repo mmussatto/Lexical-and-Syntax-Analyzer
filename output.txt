@@ -23,6 +23,7 @@ x, identifier, 6
 x, identifier, 6
 +, op_plus, 6
 1, num_int, 6
+;, simb_semicolon, 6
 end, symb_end, 7
 ., simb_dot, 7
 EOF, Dread it, run from it, EOF arrives all the same., 8

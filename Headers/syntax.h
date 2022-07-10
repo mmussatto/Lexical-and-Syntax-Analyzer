@@ -19,15 +19,25 @@
 
 #include "Headers/lexical.h"
 
-void consume_until(vec_token* vec_tokens, token *curr_token, token follower);
+void consume_until(vec_token* vec_tokens, token *curr_token, token* followers, int size_follower);
+
+void sort_synt_error_vec(synt_error_vec *vec_synt_error);
 
 void write_error_file(FILE *fp, synt_error_vec *vec_synt_error, vec_token *vec_tokens);
 
 void get_token_from_vector(vec_token* vec_tokens, token *curr_token);
 
-void sort_synt_error_vec(synt_error_vec *vec_synt_error);
+/**
+ * @brief Function called by the main. Runs the syntax analyzer.
+ * 
+ * @param vec_tokens        vector containing all tokens from source code
+ * @param vec_synt_error    vector containing all errors from the syntax analyzer
+ * @return int 
+ */
+void ASD(vec_token* vec_tokens, synt_error_vec* vec_synt_error);
 
-int ASD(vec_token* vec_tokens, synt_error_vec* vec_synt_error);
+
+//The funcitons below are a reflection of the syntax rules of the P-- language.
 
 // 1.
 void sytx_programa(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error);

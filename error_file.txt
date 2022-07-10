@@ -1,2 +1,0 @@
-ERROR(Invalid Character), 5 
-ERROR: Missing expected semicolon, 7 

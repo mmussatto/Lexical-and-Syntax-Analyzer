@@ -35,6 +35,7 @@ synt_error_vec* create_synth_error_vector(int n)
     return vec_synt_error;
 }
 
+//Add syntatic errors to vector
 void add_synt_error(synt_error_vec* vec_synt_error, char *descricao, int linha)
 {
     if(vec_synt_error->list_size >= vec_synt_error->size - 1)
@@ -49,6 +50,7 @@ void add_synt_error(synt_error_vec* vec_synt_error, char *descricao, int linha)
     vec_synt_error->list_size++;
 }
 
+//free memory
 void free_synt_errors_vector(synt_error_vec* vec_synt_error)
 {
     int i;
@@ -61,7 +63,7 @@ void free_synt_errors_vector(synt_error_vec* vec_synt_error)
     free(vec_synt_error);
 }
 
-/********************* Codigo do Dois termina aqui **************/
+/***********************************/
 
 error* create_errors_vector(int n)
 {

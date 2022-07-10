@@ -86,7 +86,6 @@ int main(int argc, char** argv)
     /*------ Syntax Analyzer --------*/
     ASD(vec_tokens, vec_synt_error);
 
-
     /*------ Writting in out file --------*/
 
     //Open out file
