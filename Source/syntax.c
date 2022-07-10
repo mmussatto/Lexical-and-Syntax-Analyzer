@@ -143,34 +143,44 @@ void write_error_file(FILE *fp, synt_error_vec *vec_synt_error, vec_token *vec_t
 
 void get_token_from_vector(vec_token* vec_tokens, token *curr_token)
 {   
-    char* substring;
+    char* substring;    //used to verify if the token is an error token
 
+    //Increment the n_curr_token if it hasn't reach the end
     if(vec_tokens->n_curr_token != vec_tokens->size)
     {
         vec_tokens->n_curr_token++;
     }
     
+    //Dealocate memory from the last token
     if(curr_token->name != NULL && curr_token->type != NULL)
     {
         free(curr_token->name);
         free(curr_token->type);
     }
     
+    //Verify if the current token is an error
     if(strlen(vec_tokens->tokens[vec_tokens->n_curr_token].type) > 14)
     {
+        //Get the first letters ot the token's type
         substring = strndup(vec_tokens->tokens[vec_tokens->n_curr_token].type, 14);
-        while(strcmp(substring, "Lexical Error:") == 0){
-            vec_tokens->n_curr_token++;
+
+        while(strcmp(substring, "Lexical Error:") == 0) //runs through error tokens
+        {
+            vec_tokens->n_curr_token++; //get next token
+
+            //Get the first letters ot the token's type
             substring = strndup(vec_tokens->tokens[vec_tokens->n_curr_token].type, 14);
         }
       
-        free(substring);
+        free(substring);    //deallocate the string
     }
     
+    //Get the current token's properties
     curr_token->name = strdup(vec_tokens->tokens[vec_tokens->n_curr_token].name);
     curr_token->type = strdup(vec_tokens->tokens[vec_tokens->n_curr_token].type);
     curr_token->line = vec_tokens->tokens[vec_tokens->n_curr_token].line;
 }
+
 
 void ASD(vec_token* vec_tokens, synt_error_vec* vec_synt_error)
 {
