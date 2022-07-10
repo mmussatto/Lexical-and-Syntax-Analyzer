@@ -19,12 +19,34 @@
 
 #include "Headers/lexical.h"
 
+/**
+ * @brief Deallocate the memory used for the follower tokens
+ * 
+ * @param followers     followers (can be a single token or a vector of tokens)
+ * @param size_follower number of followers
+ */
+void dealocate_follower(token* followers, int size_follower);
+
+/**
+ * @brief 
+ * 
+ * @param vec_tokens    vector containing all tokens from source code
+ * @param curr_token    current token
+ * @param followers     followers (can be a single token or a vector of tokens)
+ * @param size_follower number of followers
+ */
 void consume_until(vec_token* vec_tokens, token *curr_token, token* followers, int size_follower);
 
 void sort_synt_error_vec(synt_error_vec *vec_synt_error);
 
 void write_error_file(FILE *fp, synt_error_vec *vec_synt_error, vec_token *vec_tokens);
 
+/**
+ * @brief Get the next token from token vector object
+ * 
+ * @param vec_tokens vector containing all tokens from source code
+ * @param curr_token current token
+ */
 void get_token_from_vector(vec_token* vec_tokens, token *curr_token);
 
 /**
@@ -125,4 +147,3 @@ void sytx_fator(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_sy
 
 // 31.
 void sytx_numero(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error);
-

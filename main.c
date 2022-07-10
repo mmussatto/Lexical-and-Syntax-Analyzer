@@ -49,8 +49,8 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    /*------ Lexical analyser logic --------*/
-    
+
+    /*------------ Creating vectors and alocatting memory ------------*/
     // Allocating Transition Matrix
     int **transition_matrix = create_transition_matrix();
     populate_transition_matrix(transition_matrix, "Data/transition_matrix.tsv"); 
@@ -75,7 +75,9 @@ int main(int argc, char** argv)
 
     //Keeps track of the current line of the program
     int curr_line = 1;
-    
+
+
+    /*------------ Lexical analyser logic ------------*/
     //Read file and push tokens read to vector
     do
     {
@@ -83,8 +85,10 @@ int main(int argc, char** argv)
        
     } while(strcmp(last_vec_token(vec_tokens).name,"EOF") != 0); 
 
+
     /*------ Syntax Analyzer --------*/
     ASD(vec_tokens, vec_synt_error);
+
 
     /*------ Writting in out file --------*/
 
@@ -93,18 +97,18 @@ int main(int argc, char** argv)
 
     //Write all tokens read to file
     write_tokens_file(f_out, vec_tokens);
+
+    //Write all errors to file
     write_error_file(fp_error, vec_synt_error, vec_tokens);
 
     
     /*------ Deallocating memory --------*/
-
     //free data structures
     free_transition_matrix(transition_matrix);
     free_states_vector(vec_states);
     free_errors_vector(vec_errors);
     free_tokens_vector(vec_tokens);
     free_reserved_vector(vec_reserveds);
-
     free_synt_errors_vector(vec_synt_error);
     
     //Closing the files
