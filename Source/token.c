@@ -124,6 +124,3 @@ void write_tokens_file(FILE *fp, vec_token *vec_tokens)
 }
 
 
-
-
-

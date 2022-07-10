@@ -1,0 +1,2 @@
+ERROR: Unexpected string, missing identifier, 1 
+ERROR(Invalid Character), 2 

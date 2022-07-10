@@ -15,13 +15,14 @@
  * **************************************************
  */
 
+
 #pragma once
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
- //Store the possible tokens of the program
+//Store the possible tokens of the program
 typedef struct
 {
     char* name;     //String representing the token

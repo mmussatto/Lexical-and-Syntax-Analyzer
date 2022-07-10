@@ -2,30 +2,29 @@ program, symb_program, 1
 p_, identifier, 1
 ;, simb_semicolon, 1
 var, simb_var, 2
-x, identifier, 2
 @, ERROR(Invalid Character), 2
-?, ERROR(Invalid Character), 2
+x, identifier, 2
+:, simb_colon, 2
 integer, symb_tipo, 2
 ;, simb_semicolon, 2
 begin, symb_begin, 3
-3333%, ERROR(Badly Formed Number), 4
-333, num_int, 4
+x, identifier, 4
+:=, simb_atribution, 4
+-1, num_int, 4
+;, simb_semicolon, 4
+while, symb_while, 5
+(, open_parentheses, 5
 x, identifier, 5
-:=, simb_atribution, 5
--1, num_int, 5
-;, simb_semicolon, 5
-while, symb_while, 6
-(, open_parentheses, 6
+<, op_lesser, 5
+3, num_int, 5
+), close_parentheses, 5
+do, symb_do, 5
 x, identifier, 6
-<, op_lesser, 6
-3, num_int, 6
-), close_parentheses, 6
-do, symb_do, 6
-x, identifier, 7
-:=, simb_atribution, 7
-x, identifier, 7
-+, op_plus, 7
-1, num_int, 7
-;, simb_semicolon, 7
-{lorenipsunlorenipsun, ERROR(Unclosed Comment), 8
+:=, simb_atribution, 6
+x, identifier, 6
++, op_plus, 6
+1, num_int, 6
+;, simb_semicolon, 6
+end, symb_end, 7
+., simb_dot, 7
 EOF, Dread it, run from it, EOF arrives all the same., 8

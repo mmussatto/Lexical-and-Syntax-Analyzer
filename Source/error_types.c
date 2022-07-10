@@ -17,32 +17,51 @@
 
 #include "Headers/error_types.h"
 
+/***************** Codigo do Dois começa a aqui ****************/
 
 synt_error_vec* create_synth_error_vector(int n)
 {
     //Alloc the synt error vector
-    synt_error_vec* synt_errors = (synt_error_vec*) malloc(sizeof(synt_error));
+    synt_error_vec* vec_synt_error = (synt_error_vec*) malloc(sizeof(synt_error_vec));
     
     //Stores the size
-    synt_errors->size = n;
+    vec_synt_error->size = n;
+
+    vec_synt_error->list_size = 0;
 
     //Initialize the error description
-    synt_errors->list_errors = (synt_error *) malloc(n*sizeof(synt_error));
+    vec_synt_error->list_errors = (synt_error *) malloc(n*sizeof(synt_error));
 
-    return synt_errors;
+    return vec_synt_error;
 }
 
-void free_synt_errors_vector(synt_error_vec* vec_error)
+void add_synt_error(synt_error_vec* vec_synt_error, char *descricao, int linha)
+{
+    if(vec_synt_error->list_size >= vec_synt_error->size - 1)
+    {
+        vec_synt_error->size += 10;
+        vec_synt_error->list_errors = realloc(vec_synt_error->list_errors, vec_synt_error->size);
+    }
+
+    vec_synt_error->list_errors[vec_synt_error->list_size].desc = strndup(descricao, strlen(descricao));
+    vec_synt_error->list_errors[vec_synt_error->list_size].line = linha;
+
+    vec_synt_error->list_size++;
+}
+
+void free_synt_errors_vector(synt_error_vec* vec_synt_error)
 {
     int i;
 
     for (i = 0; i < NUM_ERRORS; i++){
-        free(vec_error->list_errors[i].desc);
+        free(vec_synt_error->list_errors[i].desc);
     }
 
-    free(vec_error->list_errors);
-    free(vec_error);
+    free(vec_synt_error->list_errors);
+    free(vec_synt_error);
 }
+
+/********************* Codigo do Dois termina aqui **************/
 
 error* create_errors_vector(int n)
 {

@@ -17,7 +17,6 @@
 
 #include"Headers/file.h"
 
-
 FILE* open_file(char *name, char mode)
 {
     FILE *fp;
