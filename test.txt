@@ -1,7 +1,7 @@
 program p_;
-var integer;
+var x: integer;
 begin
-    x -2;
-    whe (x<<3) do
-            x:= ;
+    -2;
+    whe (x<3) do
+            x:= 2;
 end.

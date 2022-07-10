@@ -249,7 +249,7 @@ void sytx_corpo(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_sy
 {
     token *follower = (token *) malloc(sizeof(token));
     follower->name = strdup(".");
-    
+
     sytx_dc(vec_tokens, curr_token, vec_synt_error);
 
     if (strcmp(curr_token->name, "begin") == 0)

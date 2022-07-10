@@ -8,6 +8,7 @@
         "string.h": "c",
         "error_types.h": "c",
         "syntax.h": "c",
-        "string": "c"
+        "string": "c",
+        "typeinfo": "c"
     }
 }
