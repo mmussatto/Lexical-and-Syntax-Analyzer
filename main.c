@@ -73,6 +73,11 @@ int main(int argc, char** argv)
     //Allocating the synth_errors_vector
     synt_error_vec *vec_synt_error = create_synth_error_vector(10); 
 
+
+
+    stack *sync_stack = create_sync_stack();
+
+
     //Keeps track of the current line of the program
     int curr_line = 1;
 
@@ -87,7 +92,7 @@ int main(int argc, char** argv)
 
 
     /*------ Syntax Analyzer --------*/
-    ASD(vec_tokens, vec_synt_error);
+    ASD(vec_tokens, vec_synt_error, sync_stack);
 
 
     /*------ Writting in out file --------*/
