@@ -18,9 +18,6 @@
 #include "Headers/error_types.h"
 
 
-
-
-
 error* create_errors_vector(int n)
 {
     error* vec_error = (error*) calloc(n, sizeof(error));
