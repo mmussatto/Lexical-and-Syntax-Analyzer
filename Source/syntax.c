@@ -211,11 +211,11 @@ void sytx_programa(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec
 void sytx_corpo(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error, stack *sync_stack)
 {
 
-    sync_push(sync_stack, "begin");
+    sync_push(sync_stack, "begin"); //push begin
 
     sytx_dc(vec_tokens, curr_token, vec_synt_error, sync_stack);
 
-    sync_pop(sync_stack, 1);    //pop begin
+    sync_pop(sync_stack, 1);        //pop begin
 
     if (strcmp(curr_token->name, "begin") == 0)
         get_token_from_vector(vec_tokens, curr_token);
@@ -293,56 +293,144 @@ void sytx_dc(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_
 // 4.
 void sytx_dc_c(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error, stack *sync_stack)
 {
-    //Creating followers
-    token *follower = (token *) malloc(3*sizeof(token));
-    follower[0].name = strdup("begin");
-    follower[1].name = strdup("var");
-    follower[2].name = strdup("procedure");
+    // //Creating followers
+    // token *follower = (token *) malloc(3*sizeof(token));
+    // follower[0].name = strdup("begin");
+    // follower[1].name = strdup("var");
+    // follower[2].name = strdup("procedure");
+
+    
 
 
     if (strcmp(curr_token->name, "const") == 0)
-    {
-        get_token_from_vector(vec_tokens, curr_token);
-
-        if (strcmp(curr_token->type, "identifier") == 0)
             get_token_from_vector(vec_tokens, curr_token);
-        else 
-        {   
-            add_synt_error(vec_synt_error, "Syntax Error: Expected identifier ", curr_token->line);
-            consume_until(vec_tokens, curr_token, sync_stack);
-            return;
-        }
-          
-        if (strcmp(curr_token->name, "=") == 0)
-            get_token_from_vector(vec_tokens, curr_token);
-        else 
+    else 
+    {   
+        add_synt_error(vec_synt_error, "Syntax Error: Missing const ", curr_token->line);
+        //----------------------------------------------
+        sync_push(sync_stack, "identifier");
+        if(!consume_until(vec_tokens, curr_token, sync_stack))
         {
-            add_synt_error(vec_synt_error, "Syntax Error: Missing '=' token ", curr_token->line);
-            consume_until(vec_tokens, curr_token, sync_stack);
+            sync_pop(sync_stack, 1);
             return;
-        }
-
-        if ((strcmp(curr_token->type, "num_int") == 0) || (strcmp(curr_token->type, "num_real") == 0))
-        {
-            get_token_from_vector(vec_tokens, curr_token);
-            if (strcmp(curr_token->name, ";") == 0)
-                get_token_from_vector(vec_tokens, curr_token);
-            else 
-            {
-                add_synt_error(vec_synt_error, "Syntax Error: Missing expected semicolon ", curr_token->line);
-                consume_until(vec_tokens, curr_token, sync_stack);
-                return;
-            }
-        }
-        else 
-        {
-            add_synt_error(vec_synt_error, curr_token->type, curr_token->line);
-            consume_until(vec_tokens, curr_token, sync_stack);
-            return;
-        }
-
-        sytx_dc_c(vec_tokens, curr_token, vec_synt_error, sync_stack);
+        } 
+        //----------------------------------------------
+        sync_pop(sync_stack, 1);
     }
+
+
+    if (strcmp(curr_token->type, "identifier") == 0)
+            get_token_from_vector(vec_tokens, curr_token);
+    else 
+    {   
+        add_synt_error(vec_synt_error, "Syntax Error: Expected identifier ", curr_token->line);
+        //----------------------------------------------
+        sync_push(sync_stack, "=");
+        if(!consume_until(vec_tokens, curr_token, sync_stack))
+        {
+            sync_pop(sync_stack, 1);
+            return;
+        } 
+        //----------------------------------------------
+        sync_pop(sync_stack, 1);
+    }
+
+    if (strcmp(curr_token->name, "=") == 0)
+            get_token_from_vector(vec_tokens, curr_token);
+    else 
+    {   
+        add_synt_error(vec_synt_error, "Syntax Error: Missing '=' token ", curr_token->line);
+        //----------------------------------------------
+        sync_push(sync_stack, "num_int");
+        sync_push(sync_stack, "num_real");
+        if(!consume_until(vec_tokens, curr_token, sync_stack))
+        {
+            sync_pop(sync_stack, 2);
+            return;
+        } 
+        //----------------------------------------------
+        sync_pop(sync_stack, 2);
+    }
+
+    if ((strcmp(curr_token->type, "num_int") == 0) || (strcmp(curr_token->type, "num_real") == 0))
+            get_token_from_vector(vec_tokens, curr_token);
+    else 
+    {   
+        add_synt_error(vec_synt_error, "Syntax Error: Expected an integer or real number ", curr_token->line);
+        //----------------------------------------------
+        sync_push(sync_stack, ";");
+        if(!consume_until(vec_tokens, curr_token, sync_stack))
+        {
+            sync_pop(sync_stack, 1);
+            return;
+        } 
+        //----------------------------------------------
+        sync_pop(sync_stack, 1);
+    }
+
+    if (strcmp(curr_token->name, ";") == 0)
+            get_token_from_vector(vec_tokens, curr_token);
+    else 
+    {   
+        add_synt_error(vec_synt_error, "Syntax Error: Missing ';' token ", curr_token->line);
+        //----------------------------------------------
+        sync_push(sync_stack, "const");
+        if(!consume_until(vec_tokens, curr_token, sync_stack))
+        {
+            sync_pop(sync_stack, 1);
+            return;
+        } 
+        //----------------------------------------------
+        sync_pop(sync_stack, 1);
+    }
+
+    sytx_dc_c(vec_tokens, curr_token, vec_synt_error, sync_stack);
+
+//-------------------------------------------------------------------------------------------------------------
+
+    // if (strcmp(curr_token->name, "const") == 0)
+    // {
+    //     get_token_from_vector(vec_tokens, curr_token);
+
+    //     if (strcmp(curr_token->type, "identifier") == 0)
+    //         get_token_from_vector(vec_tokens, curr_token);
+    //     else 
+    //     {   
+    //         add_synt_error(vec_synt_error, "Syntax Error: Expected identifier ", curr_token->line);
+    //         consume_until(vec_tokens, curr_token, sync_stack);
+    //         return;
+    //     }
+          
+    //     if (strcmp(curr_token->name, "=") == 0)
+    //         get_token_from_vector(vec_tokens, curr_token);
+    //     else 
+    //     {
+    //         add_synt_error(vec_synt_error, "Syntax Error: Missing '=' token ", curr_token->line);
+    //         consume_until(vec_tokens, curr_token, sync_stack);
+    //         return;
+    //     }
+
+    //     if ((strcmp(curr_token->type, "num_int") == 0) || (strcmp(curr_token->type, "num_real") == 0))
+    //     {
+    //         get_token_from_vector(vec_tokens, curr_token);
+    //         if (strcmp(curr_token->name, ";") == 0)
+    //             get_token_from_vector(vec_tokens, curr_token);
+    //         else 
+    //         {
+    //             add_synt_error(vec_synt_error, "Syntax Error: Missing expected semicolon ", curr_token->line);
+    //             consume_until(vec_tokens, curr_token, sync_stack);
+    //             return;
+    //         }
+    //     }
+    //     else 
+    //     {
+    //         add_synt_error(vec_synt_error, curr_token->type, curr_token->line);
+    //         consume_until(vec_tokens, curr_token, sync_stack);
+    //         return;
+    //     }
+
+    //     sytx_dc_c(vec_tokens, curr_token, vec_synt_error, sync_stack);
+    // }
 }
 
 // 5.
