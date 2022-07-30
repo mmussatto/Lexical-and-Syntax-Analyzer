@@ -35,7 +35,7 @@ void dealocate_follower(token* followers, int size_follower)
 }
 
 
-bool consume_until(vec_token* vec_tokens, token *curr_token, stack* sync_stack)
+int consume_until(vec_token* vec_tokens, token *curr_token, stack* sync_stack)
 {
     int i;
 
@@ -48,13 +48,13 @@ bool consume_until(vec_token* vec_tokens, token *curr_token, stack* sync_stack)
             if(strcmp(curr_token->name,  sync_stack->list_tokens[i]) == 0 ||
                 strcmp(curr_token->type, sync_stack->list_tokens[i]) == 0)
             {
-                return true;
+                return i;
             }
         }   
         get_token_from_vector(vec_tokens, curr_token);
     }
 
-    return false;
+    return -1;
 
 }
 
