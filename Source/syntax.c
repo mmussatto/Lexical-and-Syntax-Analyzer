@@ -244,21 +244,28 @@ void sytx_corpo(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_sy
         sync_push(sync_stack, "identifier");
         sync_push(sync_stack, "begin");
         sync_push(sync_stack, "for");
-        //sync_push(sync_stack, ".");
 
-        if(!consume_until(vec_tokens, curr_token, sync_stack))
-        {
-            sync_pop(sync_stack, 8);
+        int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
+        int sync_valid_positions = sync_stack->curr_size - 7;
+
+        sync_pop(sync_stack, 7);  
+
+        if(sync_token_position < sync_valid_positions)
             return;
-        }
+
         //----------------------------------------------
 
-        consume_until(vec_tokens, curr_token, sync_stack);
-        return;
+        // // if(!consume_until(vec_tokens, curr_token, sync_stack))
+        // // {
+        // //     sync_pop(sync_stack, 8);
+        // //     return;
+        // // }
+        // // //----------------------------------------------
+
+        // consume_until(vec_tokens, curr_token, sync_stack);
+        // return;
     }
 
-    //sync_push(sync_stack, "for");
-    
     sytx_comandos(vec_tokens, curr_token, vec_synt_error, sync_stack);    
 
     if (strcmp(curr_token->name, "end") == 0)
