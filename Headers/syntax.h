@@ -43,7 +43,7 @@ void dealocate_follower(token* followers, int size_follower);
  * @param followers     followers (can be a single token or a vector of tokens)
  * @param size_follower number of followers
  */
-bool consume_until(vec_token* vec_tokens, token *curr_token, stack* sync_stack);
+int consume_until(vec_token* vec_tokens, token *curr_token, stack* sync_stack);
 
 
 /**
