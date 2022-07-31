@@ -21,8 +21,8 @@
 #pragma once
 
 typedef struct{
-    int size;
-    int curr_size;
+    int size;       //size of the memory alocated
+    int curr_size;  //number of elements inside
     char **list_tokens;  
 }stack;
 
