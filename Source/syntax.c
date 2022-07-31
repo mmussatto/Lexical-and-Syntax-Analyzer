@@ -137,35 +137,47 @@ void ASD(vec_token* vec_tokens, synt_error_vec* vec_synt_error, stack *sync_stac
 // 1.
 void sytx_programa(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error, stack *sync_stack)
 {
+
     if (strcmp(curr_token->name, "program") == 0)
         get_token_from_vector(vec_tokens, curr_token);
     else 
-    {   
+    {   //panic mode  
         add_synt_error(vec_synt_error, "Syntax Error: Unexpected string, missing program ", curr_token->line);
 
         //----------------------------------------------
         sync_push(sync_stack, "identifier");
-        if(!consume_until(vec_tokens, curr_token, sync_stack))
+
+        //position of the follower token in the sync_stack
+        int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);    
+
+        //valid sync tokens. Numbers lower than this, returns the function
+        int sync_valid_positions = sync_stack->curr_size - 1;
+
+        sync_pop(sync_stack, 1);  
+
+        if(sync_token_position < sync_valid_positions)
             return;
         //----------------------------------------------
-
-        sync_pop(sync_stack, 1);
     }
     
     
-
     if (strcmp(curr_token->type, "identifier") == 0)
             get_token_from_vector(vec_tokens, curr_token);
     else 
-    {   
+    {   //panic mode
         add_synt_error(vec_synt_error, "Syntax Error: Unexpected string, missing identifier ", curr_token->line);
+
         //----------------------------------------------
         sync_push(sync_stack, ";");
-        if(!consume_until(vec_tokens, curr_token, sync_stack))
+
+        int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
+        int sync_valid_positions = sync_stack->curr_size - 1;
+
+        sync_pop(sync_stack, 1);  
+
+        if(sync_token_position < sync_valid_positions)
             return;
         //----------------------------------------------
-
-        sync_pop(sync_stack, 1);
     }
     
 
@@ -181,27 +193,28 @@ void sytx_programa(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec
         sync_push(sync_stack, "procedure");
         sync_push(sync_stack, "begin");
 
-        if(!consume_until(vec_tokens, curr_token, sync_stack))
-            return;
-        //----------------------------------------------
+        int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
+        int sync_valid_positions = sync_stack->curr_size - 4;
 
         sync_pop(sync_stack, 4);
     
+        if(sync_token_position < sync_valid_positions)
+            return;
+        //----------------------------------------------
     }
+
 
     sync_push(sync_stack, ".");
 
     sytx_corpo(vec_tokens, curr_token, vec_synt_error, sync_stack);
 
-    sync_pop(sync_stack, 1);
+    sync_pop(sync_stack, 1);    //pop "."
+
     
     if (strcmp(curr_token->name, ".") == 0)
         get_token_from_vector(vec_tokens, curr_token);
     else 
-    {   
         add_synt_error(vec_synt_error, "Syntax Error: Missing final dot ", curr_token->line);
-        return;
-    }
         
     return;
     
