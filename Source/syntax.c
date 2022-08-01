@@ -43,7 +43,7 @@ int consume_until(vec_token* vec_tokens, token *curr_token, stack* sync_stack)
     while(strcmp(curr_token->name, "EOF") != 0)
     {
         //For each new token, test it with all followers
-        for(i = 0; i < sync_stack->curr_size; i++)
+        for(i = sync_stack->curr_size-1 ; i >= 0; i--)
         {
             if(strcmp(curr_token->name,  sync_stack->list_tokens[i]) == 0 ||
                 strcmp(curr_token->type, sync_stack->list_tokens[i]) == 0)
