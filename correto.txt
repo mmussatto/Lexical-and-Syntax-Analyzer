@@ -1,2 +1,8 @@
-program p_
-var .
+program p_;
+const x  10;
+var x, y: integer
+procedure
+begin
+x := -2;
+y * 3;
+end.
