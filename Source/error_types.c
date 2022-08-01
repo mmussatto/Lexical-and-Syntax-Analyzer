@@ -99,7 +99,7 @@ void add_synt_error(synt_error_vec* vec_synt_error, char *description, int linha
     if(vec_synt_error->list_size >= vec_synt_error->size - 1)
     {
         vec_synt_error->size += 10;
-        vec_synt_error->list_errors = realloc(vec_synt_error->list_errors, vec_synt_error->size);
+        vec_synt_error->list_errors = realloc(vec_synt_error->list_errors, vec_synt_error->size*sizeof(synt_error));
     }
 
     //Adds the error
