@@ -100,6 +100,8 @@ void get_token_from_vector(vec_token* vec_tokens, token *curr_token)
 }
 
 
+/*------------------------------ Parser ------------------------------*/
+
 void ASD(vec_token* vec_tokens, synt_error_vec* vec_synt_error, stack *sync_stack)
 {
     //Create current token
@@ -110,8 +112,6 @@ void ASD(vec_token* vec_tokens, synt_error_vec* vec_synt_error, stack *sync_stac
     //Get first token from vector
     get_token_from_vector(vec_tokens, curr_token);
 
-
-
     //Call first rule 
     sytx_programa(vec_tokens, curr_token, vec_synt_error, sync_stack);
 
@@ -121,18 +121,15 @@ void ASD(vec_token* vec_tokens, synt_error_vec* vec_synt_error, stack *sync_stac
         free(curr_token->name);
         free(curr_token->type);
         free(curr_token);
-        return;
     }
     else
     {
-        add_synt_error(vec_synt_error, "Syntax Error: Compilation Failed", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: Compilation Failed ", curr_token->line);
         free(curr_token->name);
         free(curr_token->type);
         free(curr_token);
-        return;
     }
 }
-
 
 // 1.
 void sytx_programa(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error, stack *sync_stack)
@@ -142,19 +139,20 @@ void sytx_programa(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec
         get_token_from_vector(vec_tokens, curr_token);
     else 
     {   //panic mode  
-        add_synt_error(vec_synt_error, "Syntax Error: Unexpected string, missing program ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \"program\" ", curr_token->line);
 
-        //----------------------------------------------
+        //push the next token of this rule (function will not return if this token is found)
         sync_push(sync_stack, "identifier");
 
         //position of the follower token in the sync_stack
         int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);    
 
-        //valid sync tokens. Numbers lower than this, returns the function
+        //valid sync tokens. Numbers lower than this will return the function
         int sync_valid_positions = sync_stack->curr_size - 1;
 
-        sync_pop(sync_stack, 1);  
+        sync_pop(sync_stack, 1);  //pop identifier
 
+        //verifies if the function has to continue or return
         if(sync_token_position < sync_valid_positions)
             return;
         
@@ -165,7 +163,7 @@ void sytx_programa(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec
             get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-        add_synt_error(vec_synt_error, "Syntax Error: Unexpected string, missing identifier ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected an identifier ", curr_token->line);
 
         sync_push(sync_stack, ";");
 
@@ -184,7 +182,7 @@ void sytx_programa(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec
         get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-        add_synt_error(vec_synt_error, "Syntax Error: Missing semicolon ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \";\" ", curr_token->line);
 
         
         sync_push(sync_stack, "const");
@@ -229,11 +227,12 @@ void sytx_corpo(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_sy
 
     sync_pop(sync_stack, 1);        //pop begin
 
+
     if (strcmp(curr_token->name, "begin") == 0)
         get_token_from_vector(vec_tokens, curr_token);
     else 
     {
-        add_synt_error(vec_synt_error, "Syntax Error: Missing begin ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \"begin\" ", curr_token->line);
 
         
         sync_push(sync_stack, "read");
@@ -264,7 +263,7 @@ void sytx_corpo(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_sy
     if (strcmp(curr_token->name, "end") == 0)
         get_token_from_vector(vec_tokens, curr_token);
     else 
-        add_synt_error(vec_synt_error, "Syntax Error: Missing end clause ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \"end\" ", curr_token->line);
 }
 
 // 3.
@@ -305,9 +304,8 @@ void sytx_dc_c(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
         if(sync_token_position < sync_valid_positions)
             return;
         
-
         //Error comes down here because the rule could be lamda (not expecting a "const" here)
-        add_synt_error(vec_synt_error, "Syntax Error: Missing const clause ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \"const\" ", curr_token->line);
     }
 
 
@@ -315,8 +313,7 @@ void sytx_dc_c(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
             get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-        add_synt_error(vec_synt_error, "Syntax Error: Expected identifier ", curr_token->line);
-
+        add_synt_error(vec_synt_error, "Syntax Error: expected an identifier ", curr_token->line);
         
         sync_push(sync_stack, "=");
 
@@ -327,8 +324,6 @@ void sytx_dc_c(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
 
         if(sync_token_position < sync_valid_positions)
             return;
-
-        
     }
 
 
@@ -336,7 +331,7 @@ void sytx_dc_c(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
             get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-        add_synt_error(vec_synt_error, "Syntax Error: Missing '=' token ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \"=\" ", curr_token->line);
         
         sync_push(sync_stack, "num_int");
         sync_push(sync_stack, "num_real");
@@ -355,7 +350,7 @@ void sytx_dc_c(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
             get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-        add_synt_error(vec_synt_error, "Syntax Error: Expected an integer or real number ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \"real\" or \"integer\" ", curr_token->line);
         
         sync_push(sync_stack, ";");
 
@@ -373,7 +368,7 @@ void sytx_dc_c(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
             get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-        add_synt_error(vec_synt_error, "Syntax Error: Missing ';' token ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \";\" ", curr_token->line);
 
         
         sync_push(sync_stack, "const");
@@ -387,8 +382,8 @@ void sytx_dc_c(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
             return;
     }
 
-    sytx_dc_c(vec_tokens, curr_token, vec_synt_error, sync_stack);
 
+    sytx_dc_c(vec_tokens, curr_token, vec_synt_error, sync_stack);
 }
 
 // 5.
@@ -398,7 +393,6 @@ void sytx_dc_v(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
             get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-        
         sync_push(sync_stack, "identifier");
 
         int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
@@ -408,10 +402,9 @@ void sytx_dc_v(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
 
         if(sync_token_position < sync_valid_positions)
             return;
-        
 
         //Error comes down here because the rule could be lamda (not expecting a "var" here)
-        add_synt_error(vec_synt_error, "Syntax Error: Missing expected var clause ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \"var\" ", curr_token->line);
     }
 
 
@@ -426,8 +419,7 @@ void sytx_dc_v(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
             get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-        add_synt_error(vec_synt_error, "Syntax Error: Missing expected colon ", curr_token->line);
-
+        add_synt_error(vec_synt_error, "Syntax Error: expected \":\" ", curr_token->line);
         
         sync_push(sync_stack, "real");
         sync_push(sync_stack, "integer");
@@ -439,7 +431,6 @@ void sytx_dc_v(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
 
         if(sync_token_position < sync_valid_positions)
             return;
-         
     }
 
 
@@ -447,8 +438,7 @@ void sytx_dc_v(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
             get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-        add_synt_error(vec_synt_error, "Syntax Error: Missing expected variable type ", curr_token->line);
-
+        add_synt_error(vec_synt_error, "Syntax Error: expected \"real\" or \"integer\" ", curr_token->line);
         
         sync_push(sync_stack, ";");
 
@@ -459,7 +449,6 @@ void sytx_dc_v(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
 
         if(sync_token_position < sync_valid_positions)
             return;
-         
     }
 
 
@@ -467,9 +456,8 @@ void sytx_dc_v(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
             get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-        add_synt_error(vec_synt_error, "Syntax Error: Missing expected semicolon ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \";\" ", curr_token->line);
 
-        
         sync_push(sync_stack, "var");
 
         int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
@@ -479,8 +467,8 @@ void sytx_dc_v(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
 
         if(sync_token_position < sync_valid_positions)
             return;
-         
     }
+
 
     sytx_dc_v(vec_tokens, curr_token, vec_synt_error, sync_stack);
 }
@@ -492,7 +480,7 @@ void sytx_variaveis(vec_token* vec_tokens, token *curr_token, synt_error_vec* ve
             get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-        add_synt_error(vec_synt_error, "Syntax Error: Expected identifier ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected an identifier ", curr_token->line);
 
         
         sync_push(sync_stack, ",");
@@ -503,13 +491,11 @@ void sytx_variaveis(vec_token* vec_tokens, token *curr_token, synt_error_vec* ve
         sync_pop(sync_stack, 1);  
 
         if(sync_token_position < sync_valid_positions)
-            return;
-
-        
+            return;        
     }
 
-    sytx_mais_var(vec_tokens, curr_token, vec_synt_error, sync_stack);
 
+    sytx_mais_var(vec_tokens, curr_token, vec_synt_error, sync_stack);
 }
 
 // 8.
@@ -518,8 +504,7 @@ void sytx_mais_var(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec
     if (strcmp(curr_token->name, ",") == 0)
             get_token_from_vector(vec_tokens, curr_token);
     else 
-    {   
-        
+    {    
         sync_push(sync_stack, "identifier");
 
         int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
@@ -530,13 +515,12 @@ void sytx_mais_var(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec
         if(sync_token_position < sync_valid_positions)
             return;
          
-
         //Error comes down here because the rule could be lamda (not expecting a comma here)
-        add_synt_error(vec_synt_error, "Syntax Error: Missing expected comma ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \",\" ", curr_token->line);
     }
 
-    sytx_variaveis(vec_tokens, curr_token, vec_synt_error, sync_stack);
 
+    sytx_variaveis(vec_tokens, curr_token, vec_synt_error, sync_stack);
 }
 
 // 9.
@@ -546,7 +530,6 @@ void sytx_dc_p(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
             get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-        
         sync_push(sync_stack, "identifier");
 
         int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
@@ -557,9 +540,8 @@ void sytx_dc_p(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
         if(sync_token_position < sync_valid_positions)
             return;
          
-
         //Error comes down here because the rule could be lamda (not expecting a colon here)
-        add_synt_error(vec_synt_error, "Syntax Error: Missing procedure clause ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \"procedure\" ", curr_token->line);
     }
 
 
@@ -567,9 +549,8 @@ void sytx_dc_p(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
             get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-        add_synt_error(vec_synt_error, "Syntax Error: Expected identifier ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected an identifier ", curr_token->line);
 
-        
         sync_push(sync_stack, "(");
 
         int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
@@ -579,9 +560,8 @@ void sytx_dc_p(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
 
         if(sync_token_position < sync_valid_positions)
             return;
-
-        
     }
+
 
     sync_push(sync_stack, ";");
 
@@ -594,20 +574,18 @@ void sytx_dc_p(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
             get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-
         sync_push(sync_stack, "var");
 
         int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
         int sync_valid_positions = sync_stack->curr_size - 1;
 
-    sync_pop(sync_stack, 1); 
+        sync_pop(sync_stack, 1);  
 
         if(sync_token_position < sync_valid_positions)
             return;
-
-
+         
         //Error comes down here because the rule could be lamda (not expecting parameters)
-        add_synt_error(vec_synt_error, "Syntax Error: Missing expected semicolon ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \";\" ", curr_token->line);
     }
 
 
@@ -621,7 +599,6 @@ void sytx_dc_p(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
     sytx_dc_p(vec_tokens, curr_token, vec_synt_error, sync_stack);
 }
 
-
 // 10.
 void sytx_parametros(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error, stack *sync_stack)
 {
@@ -629,7 +606,6 @@ void sytx_parametros(vec_token* vec_tokens, token *curr_token, synt_error_vec* v
             get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-        
         sync_push(sync_stack, "identifier");
 
         int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
@@ -640,9 +616,8 @@ void sytx_parametros(vec_token* vec_tokens, token *curr_token, synt_error_vec* v
         if(sync_token_position < sync_valid_positions)
             return;
          
-
         //Error comes down here because the rule could be lamda (not expecting parameters)
-        add_synt_error(vec_synt_error, "Syntax Error: Missing expected open parenthesis ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \"(\" ", curr_token->line);
     }
 
 
@@ -657,19 +632,7 @@ void sytx_parametros(vec_token* vec_tokens, token *curr_token, synt_error_vec* v
             get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-        add_synt_error(vec_synt_error, "Syntax Error: Missing expected close parenthesis ", curr_token->line);
-
-        
-        // // sync_push(sync_stack, "identifier");
-
-        // // int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
-        // // int sync_valid_positions = sync_stack->curr_size - 1;
-
-        // // sync_pop(sync_stack, 1);  
-
-        // // if(sync_token_position < sync_valid_positions)
-            return;
-
+        add_synt_error(vec_synt_error, "Syntax Error: expected \")\" ", curr_token->line);
     }
 }
 
@@ -687,8 +650,7 @@ void sytx_lista_par(vec_token* vec_tokens, token *curr_token, synt_error_vec* ve
             get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-        add_synt_error(vec_synt_error, "Syntax Error: Missing expected colon ", curr_token->line);
-
+        add_synt_error(vec_synt_error, "Syntax Error: expected \":\" ", curr_token->line);
         
         sync_push(sync_stack, "real");
         sync_push(sync_stack, "integer");
@@ -700,7 +662,6 @@ void sytx_lista_par(vec_token* vec_tokens, token *curr_token, synt_error_vec* ve
 
         if(sync_token_position < sync_valid_positions)
             return;
-         
     }
 
 
@@ -708,8 +669,7 @@ void sytx_lista_par(vec_token* vec_tokens, token *curr_token, synt_error_vec* ve
             get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-        add_synt_error(vec_synt_error, "Syntax Error: Missing expected variable type ", curr_token->line);
-
+        add_synt_error(vec_synt_error, "Syntax Error: expected \"rael\" \"identifier\" ", curr_token->line);
         
         sync_push(sync_stack, ";");
 
@@ -720,8 +680,8 @@ void sytx_lista_par(vec_token* vec_tokens, token *curr_token, synt_error_vec* ve
 
         if(sync_token_position < sync_valid_positions)
             return;
-         
     }
+
 
     sytx_mais_par(vec_tokens, curr_token, vec_synt_error, sync_stack);
 }
@@ -732,8 +692,7 @@ void sytx_mais_par(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec
     if (strcmp(curr_token->name, ";") == 0)
             get_token_from_vector(vec_tokens, curr_token);
     else 
-    {   
-        
+    {    
         sync_push(sync_stack, "identifier");
 
         int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
@@ -744,10 +703,10 @@ void sytx_mais_par(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec
         if(sync_token_position < sync_valid_positions)
             return;
          
-
         //Error comes down here because the rule could be lamda (not expecting a comma here)
-        add_synt_error(vec_synt_error, "Syntax Error: Missing expected semicolon ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \";\" ", curr_token->line);
     }
+
 
     sytx_lista_par(vec_tokens, curr_token, vec_synt_error, sync_stack);
 }
@@ -755,7 +714,6 @@ void sytx_mais_par(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec
 // 13.
 void sytx_corpo_p(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error, stack *sync_stack)
 {
-
     sync_push(sync_stack, "begin");
 
     sytx_dc_loc(vec_tokens, curr_token, vec_synt_error, sync_stack);
@@ -767,8 +725,7 @@ void sytx_corpo_p(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_
         get_token_from_vector(vec_tokens, curr_token);
     else 
     {
-        add_synt_error(vec_synt_error, "Syntax Error: Missing begin ", curr_token->line);
-
+        add_synt_error(vec_synt_error, "Syntax Error: expected \"begin\" ", curr_token->line);
         
         sync_push(sync_stack, "read");
         sync_push(sync_stack, "write");
@@ -796,12 +753,11 @@ void sytx_corpo_p(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_
 
 
     if (strcmp(curr_token->name, "end") == 0)
-            get_token_from_vector(vec_tokens, curr_token);
+        get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-        add_synt_error(vec_synt_error, "Syntax Error: Missing end clause ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \"end\" ", curr_token->line);
 
-        
         sync_push(sync_stack, ";");
 
         int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
@@ -810,28 +766,14 @@ void sytx_corpo_p(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_
         sync_pop(sync_stack, 1);  
 
         if(sync_token_position < sync_valid_positions)
-            return;
-                 
+            return;         
     }
+
 
     if (strcmp(curr_token->name, ";") == 0)
-            get_token_from_vector(vec_tokens, curr_token);
-    else 
-    {   
-        add_synt_error(vec_synt_error, "Syntax Error: Missing semicolon ", curr_token->line);
-
-        
-        // // sync_push(sync_stack, ";");
-
-        // // int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
-        // // int sync_valid_positions = sync_stack->curr_size - 1;
-
-        // // sync_pop(sync_stack, 1);  
-
-        // // if(sync_token_position < sync_valid_positions)
-            return;
-                 
-    }
+        get_token_from_vector(vec_tokens, curr_token);
+    else  
+        add_synt_error(vec_synt_error, "Syntax Error: expected \";\" ", curr_token->line);      
 }
 
 //14.
@@ -844,10 +786,9 @@ void sytx_dc_loc(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_s
 void sytx_lista_arg(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error, stack *sync_stack)
 {
     if (strcmp(curr_token->name, "(") == 0)
-            get_token_from_vector(vec_tokens, curr_token);
+        get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-        
         sync_push(sync_stack, "identifier");
 
         int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
@@ -858,9 +799,8 @@ void sytx_lista_arg(vec_token* vec_tokens, token *curr_token, synt_error_vec* ve
         if(sync_token_position < sync_valid_positions)
             return;
          
-
         //Error comes down here because the rule could be lamda (not expecting parameters)
-        add_synt_error(vec_synt_error, "Syntax Error: Missing expected open parenthesis ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \"(\" ", curr_token->line);
     }
 
 
@@ -872,35 +812,20 @@ void sytx_lista_arg(vec_token* vec_tokens, token *curr_token, synt_error_vec* ve
 
 
     if (strcmp(curr_token->name, ")") == 0)
-            get_token_from_vector(vec_tokens, curr_token);
+        get_token_from_vector(vec_tokens, curr_token);
     else 
-    {   
         add_synt_error(vec_synt_error, "Syntax Error: Missing expected close parenthesis ", curr_token->line);
-
-        
-        // // sync_push(sync_stack, "identifier");
-
-        // // int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
-        // // int sync_valid_positions = sync_stack->curr_size - 1;
-
-        // // sync_pop(sync_stack, 1);  
-
-        // // if(sync_token_position < sync_valid_positions)
-            return;
-         
-    }
 }
 
 // 16.
 void sytx_argumentos(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error, stack *sync_stack)
 {
     if (strcmp(curr_token->type, "identifier") == 0)
-            get_token_from_vector(vec_tokens, curr_token);
+        get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-        add_synt_error(vec_synt_error, "Syntax Error: Expected identifier ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected an identifier ", curr_token->line);
 
-        
         sync_push(sync_stack, ",");
 
         int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
@@ -910,9 +835,8 @@ void sytx_argumentos(vec_token* vec_tokens, token *curr_token, synt_error_vec* v
 
         if(sync_token_position < sync_valid_positions)
             return;
-
-        
     }
+
 
     sytx_mais_ident(vec_tokens, curr_token, vec_synt_error, sync_stack);
 }
@@ -924,7 +848,6 @@ void sytx_mais_ident(vec_token* vec_tokens, token *curr_token, synt_error_vec* v
             get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-        
         sync_push(sync_stack, "identifier");
 
         int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
@@ -934,14 +857,13 @@ void sytx_mais_ident(vec_token* vec_tokens, token *curr_token, synt_error_vec* v
 
         if(sync_token_position < sync_valid_positions)
             return;
-         
 
         //Error comes down here because the rule could be lamda (not expecting a comma here)
-        add_synt_error(vec_synt_error, "Syntax Error: Missing expected semicolon ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \";\" ", curr_token->line);
     }
 
-    sytx_argumentos(vec_tokens, curr_token, vec_synt_error, sync_stack);
 
+    sytx_argumentos(vec_tokens, curr_token, vec_synt_error, sync_stack);
 }
 
 // 18.
@@ -951,7 +873,6 @@ void sytx_pfalsa(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_s
         get_token_from_vector(vec_tokens, curr_token);
     else 
     {
-        
         sync_push(sync_stack, "read");
         sync_push(sync_stack, "write");
         sync_push(sync_stack, "while");
@@ -969,12 +890,11 @@ void sytx_pfalsa(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_s
             return;
 
         //Error comes down here because the rule could be lamda (not expecting a comma here)
-        add_synt_error(vec_synt_error, "Syntax Error: Missing else ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \"else\" ", curr_token->line);
     }
 
+
     sytx_cmd(vec_tokens, curr_token, vec_synt_error, sync_stack);
-
-
 }
 
 // 19.
@@ -991,7 +911,6 @@ void sytx_comandos(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec
         get_token_from_vector(vec_tokens, curr_token);
     else 
     {
-        
         sync_push(sync_stack, "read");
         sync_push(sync_stack, "write");
         sync_push(sync_stack, "while");
@@ -1009,11 +928,11 @@ void sytx_comandos(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec
             return;
 
         //Error comes down here because the rule could be lamda (not expecting a comma here)
-        add_synt_error(vec_synt_error, "Syntax Error: Missing semicolon ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \";\" ", curr_token->line);
     }
 
-    sytx_comandos(vec_tokens, curr_token, vec_synt_error, sync_stack);
 
+    sytx_comandos(vec_tokens, curr_token, vec_synt_error, sync_stack);
 }
 
 // 20.
@@ -1027,9 +946,8 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
             get_token_from_vector(vec_tokens, curr_token);
         else 
         {   
-            add_synt_error(vec_synt_error, "Syntax Error: Missing expected open parenthesis ", curr_token->line);
+            add_synt_error(vec_synt_error, "Syntax Error: expected \"(\" ", curr_token->line);
 
-            
             sync_push(sync_stack, "identifier");
 
             int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
@@ -1038,8 +956,7 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
             sync_pop(sync_stack, 1);  
 
             if(sync_token_position < sync_valid_positions)
-                return;
-             
+                return;  
         }
 
         sync_push(sync_stack, ")");
@@ -1052,7 +969,7 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
         if (strcmp(curr_token->name, ")") == 0)
             get_token_from_vector(vec_tokens, curr_token);
         else 
-            add_synt_error(vec_synt_error, "Syntax Error: Missing expected close parenthesis ", curr_token->line);
+            add_synt_error(vec_synt_error, "Syntax Error: expected \")\" ", curr_token->line);
     }   
 
     //Write
@@ -1063,9 +980,8 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
             get_token_from_vector(vec_tokens, curr_token);
         else 
         {   
-            add_synt_error(vec_synt_error, "Syntax Error: Missing expected open parenthesis ", curr_token->line);
+            add_synt_error(vec_synt_error, "Syntax Error: expected \"(\" ", curr_token->line);
 
-            
             sync_push(sync_stack, "identifier");
 
             int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
@@ -1075,8 +991,8 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
 
             if(sync_token_position < sync_valid_positions)
                 return;
-             
         }
+
 
         sync_push(sync_stack, ")");
 
@@ -1088,7 +1004,7 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
         if (strcmp(curr_token->name, ")") == 0)
             get_token_from_vector(vec_tokens, curr_token);
         else 
-            add_synt_error(vec_synt_error, "Syntax Error: Missing expected close parenthesis ", curr_token->line);
+            add_synt_error(vec_synt_error, "Syntax Error: expected \")\" ", curr_token->line);
     }
 
     //While
@@ -1099,9 +1015,8 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
             get_token_from_vector(vec_tokens, curr_token);
         else 
         {   
-            add_synt_error(vec_synt_error, "Syntax Error: Missing expected open parenthesis ", curr_token->line);
+            add_synt_error(vec_synt_error, "Syntax Error: expected \"(\" ", curr_token->line);
 
-            
             sync_push(sync_stack, "identifier");
 
             int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
@@ -1111,8 +1026,8 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
 
             if(sync_token_position < sync_valid_positions)
                 return;
-             
         }
+
 
         sync_push(sync_stack, ")");
 
@@ -1125,8 +1040,7 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
             get_token_from_vector(vec_tokens, curr_token);
         else 
         {   
-            add_synt_error(vec_synt_error, "Syntax Error: Missing expected close parenthesis ", curr_token->line);
-
+            add_synt_error(vec_synt_error, "Syntax Error: expected \")\" ", curr_token->line);
             
             sync_push(sync_stack, "do");
 
@@ -1136,16 +1050,15 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
             sync_pop(sync_stack, 1);  
 
             if(sync_token_position < sync_valid_positions)
-                return;
-             
+                return; 
         }
+
 
         if (strcmp(curr_token->name, "do") == 0)
             get_token_from_vector(vec_tokens, curr_token);
         else 
         {
-            add_synt_error(vec_synt_error, "Syntax Error: Missing expected do clause ", curr_token->line);
-        
+            add_synt_error(vec_synt_error, "Syntax Error: expected \"do\" ", curr_token->line);
             
             sync_push(sync_stack, "read");
             sync_push(sync_stack, "write");
@@ -1164,6 +1077,7 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
                 return;
         }
 
+
         sytx_cmd(vec_tokens, curr_token, vec_synt_error, sync_stack);
     }
 
@@ -1178,12 +1092,12 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
 
         sync_pop(sync_stack, 1);
 
+
         if (strcmp(curr_token->name, "then") == 0)
             get_token_from_vector(vec_tokens, curr_token);
         else 
         {
-            add_synt_error(vec_synt_error, "Syntax Error: Missing expected do clause ", curr_token->line);
-        
+            add_synt_error(vec_synt_error, "Syntax Error: expected \"then\" ", curr_token->line);
             
             sync_push(sync_stack, "read");
             sync_push(sync_stack, "write");
@@ -1223,8 +1137,7 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
            sytx_expressao(vec_tokens, curr_token, vec_synt_error, sync_stack);
         }
         else 
-            sytx_lista_arg(vec_tokens, curr_token, vec_synt_error, sync_stack);
-        
+            sytx_lista_arg(vec_tokens, curr_token, vec_synt_error, sync_stack);    
     }
 
     //For
@@ -1235,9 +1148,8 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
             get_token_from_vector(vec_tokens, curr_token);
         else 
         {   
-            add_synt_error(vec_synt_error, "Syntax Error: Expected identifier ", curr_token->line);
+            add_synt_error(vec_synt_error, "Syntax Error: expected an identifier ", curr_token->line);
 
-            
             sync_push(sync_stack, ":=");
 
             int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
@@ -1247,16 +1159,14 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
 
             if(sync_token_position < sync_valid_positions)
                 return;
-
-            
         }
+
 
         if (strcmp(curr_token->name, ":=") == 0)
             get_token_from_vector(vec_tokens, curr_token);
         else 
         {   
-            add_synt_error(vec_synt_error, "Syntax Error: Missing expected ':=' ", curr_token->line);
-
+            add_synt_error(vec_synt_error, "Syntax Error: expected \":=\" ", curr_token->line);
             
             sync_push(sync_stack, "+");
             sync_push(sync_stack, "-");
@@ -1272,8 +1182,8 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
 
             if(sync_token_position < sync_valid_positions)
                 return;
-             
         }
+
 
         sync_push(sync_stack, "to");
 
@@ -1286,9 +1196,8 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
             get_token_from_vector(vec_tokens, curr_token);
         else 
         {   
-            add_synt_error(vec_synt_error, "Syntax Error: Missing expected to clause ", curr_token->line);
+            add_synt_error(vec_synt_error, "Syntax Error: expected \"to\" ", curr_token->line);
 
-            
             sync_push(sync_stack, "+");
             sync_push(sync_stack, "-");
             sync_push(sync_stack, "identifier");
@@ -1302,9 +1211,9 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
             sync_pop(sync_stack, 6);  
 
             if(sync_token_position < sync_valid_positions)
-                return;
-             
+                return;  
         }
+
 
         sync_push(sync_stack, "do");
 
@@ -1317,9 +1226,8 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
             get_token_from_vector(vec_tokens, curr_token);
         else 
         {
-            add_synt_error(vec_synt_error, "Syntax Error: Missing expected do clause ", curr_token->line);
+            add_synt_error(vec_synt_error, "Syntax Error: expected \"do\" ", curr_token->line);
         
-            
             sync_push(sync_stack, "read");
             sync_push(sync_stack, "write");
             sync_push(sync_stack, "while");
@@ -1337,12 +1245,14 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
                 return;
         }
 
+
         sytx_cmd(vec_tokens, curr_token, vec_synt_error, sync_stack);
     }
 
     //Begin
     else if (strcmp(curr_token->name, "begin") == 0){
         get_token_from_vector(vec_tokens, curr_token);
+
 
         sync_push(sync_stack, "end");
         
@@ -1354,7 +1264,7 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
         if(strcmp(curr_token->name, "end") == 0)
             get_token_from_vector(vec_tokens, curr_token);
         else 
-            add_synt_error(vec_synt_error, "Syntax Error: Missing expected 'end' ", curr_token->line);
+            add_synt_error(vec_synt_error, "Syntax Error: expected \"end\" ", curr_token->line);
     }
     
     //Error
@@ -1367,16 +1277,13 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
             return;
 
         //Error comes down here because the rule could be lamda (not expecting a comma here)
-        add_synt_error(vec_synt_error, "Syntax Error: Missing expected cmd ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected a command ", curr_token->line);
     }
-
 }
-
 
 // 21.
 void sytx_condicao(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error, stack *sync_stack)
 {
-
     //First of <relacao>
     sync_push(sync_stack, "=");
     sync_push(sync_stack, "<>");
@@ -1397,7 +1304,6 @@ void sytx_condicao(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec
     sync_push(sync_stack, "real");
     sync_push(sync_stack, "(");
 
-
     sytx_relacao(vec_tokens, curr_token, vec_synt_error, sync_stack);
 
     sync_pop(sync_stack, 6);
@@ -1408,7 +1314,6 @@ void sytx_condicao(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec
 // 22.
 void sytx_relacao(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error, stack *sync_stack)
 {
-
     if (strcmp(curr_token->name, "=") == 0)
         get_token_from_vector(vec_tokens, curr_token);
 
@@ -1429,7 +1334,7 @@ void sytx_relacao(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_
 
     else
     {
-        add_synt_error(vec_synt_error, "Syntax Error: Unrecognized comparator ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected a comparator ", curr_token->line);
         consume_until(vec_tokens, curr_token, sync_stack);
         return;
     }      
@@ -1479,14 +1384,12 @@ void sytx_outros_termos(vec_token* vec_tokens, token *curr_token, synt_error_vec
 // 26.
 void sytx_op_ad(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error, stack *sync_stack)
 {
-
     if (strcmp(curr_token->name, "+") == 0 || strcmp(curr_token->name, "-") == 0)
             get_token_from_vector(vec_tokens, curr_token);
     else
     {
-        add_synt_error(vec_synt_error, "Syntax Error: Unrecognized operator ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \"+\" or \"-\" ", curr_token->line);
         consume_until(vec_tokens, curr_token, sync_stack);
-
     }        
 }
 
@@ -1510,22 +1413,22 @@ void sytx_termo(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_sy
     sync_pop(sync_stack, 2);
 
     sytx_mais_fatores(vec_tokens, curr_token, vec_synt_error, sync_stack);
-
 }
 
 // 28.
 void sytx_mais_fatores(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error, stack *sync_stack)
 {
-    //Op mul já está imbutido aqui
+    //the <op_mul> is included on this if clause
     if (strcmp(curr_token->name, "*") == 0 || strcmp(curr_token->name, "/") == 0)
     {
         get_token_from_vector(vec_tokens, curr_token);
+
         sytx_fator(vec_tokens, curr_token, vec_synt_error, sync_stack);
+
         sytx_mais_fatores(vec_tokens, curr_token, vec_synt_error, sync_stack);
     }
     else
         return;
-
 }
 
 // 30.
@@ -1548,11 +1451,12 @@ void sytx_fator(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_sy
 
         sync_pop(sync_stack, 1);
 
+
         if (strcmp(curr_token->name, ")") == 0)
             get_token_from_vector(vec_tokens, curr_token);
         else
         {
-            add_synt_error(vec_synt_error, "Syntax Error: Missing closing parenthesis ", curr_token->line);
+            add_synt_error(vec_synt_error, "Syntax Error: expected \")\" ", curr_token->line);
             consume_until(vec_tokens, curr_token, sync_stack);
         }
     }
@@ -1567,13 +1471,11 @@ void sytx_fator(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_sy
 // 31.
 void sytx_numero(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error, stack *sync_stack)
 {
-
-
     if ((strcmp(curr_token->type, "num_int") == 0) || (strcmp(curr_token->type, "num_real") == 0))
         get_token_from_vector(vec_tokens, curr_token);
     else
     {
-        add_synt_error(vec_synt_error, "Syntax Error: Expected number ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected a number", curr_token->line);
         consume_until(vec_tokens, curr_token, sync_stack);
     }
 }
