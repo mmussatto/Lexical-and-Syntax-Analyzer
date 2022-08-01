@@ -41,6 +41,15 @@ char* read_file_string(FILE *program, int size)
     //Read from file
     fread(string, sizeof(char), size, program);
 
+    //Remove \r\n from unfinished comment
+    int i = string[strcspn(string, "\r\n")];
+    while (i != 0)
+    {
+        i = strcspn(string, "\r\n");
+        string[i] = '/';
+        i = string[strcspn(string, "\r\n")];
+    }
+
     return string;
 }
 
