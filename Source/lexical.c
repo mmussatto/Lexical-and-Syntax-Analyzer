@@ -68,9 +68,15 @@ token* get_token(FILE* program, int **transition_matrix, state *vec_states,
 
     if(n_characters_read == 0) //End of file
         return create_EOF_token(*curr_line);
-    else{
+    else if (curr_state == 13)
+    {
         curr_state = -5; //EOF while unclosed comment
         return create_error_token(program, vec_errors, abs(curr_state), n_characters_read, *curr_line);
+    }
+    else
+    {   
+        curr_state = 11; //identifier
+        return create_token(program, vec_states, curr_state, n_characters_read, vec_reserveds, *curr_line);
     }
 }
 
