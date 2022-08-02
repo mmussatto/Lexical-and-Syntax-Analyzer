@@ -77,7 +77,7 @@ int main(int argc, char** argv)
     {
         vec_tokens_push_back(vec_tokens, get_token(program, transition_matrix, vec_states, vec_tokens, vec_errors, vec_reserveds, &curr_line));
        
-    } while(strcmp(last_vec_token(vec_tokens).name,"EOF") != 0); 
+    } while(last_vec_token(vec_tokens).name == NULL || strcmp(last_vec_token(vec_tokens).name,"EOF") != 0  ); 
 
 
     /*------ Syntax Analyzer --------*/
