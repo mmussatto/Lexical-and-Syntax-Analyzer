@@ -1023,7 +1023,7 @@ void sytx_cmd(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt
 
         sync_push(sync_stack, ")");
 
-        sytx_variaveis(vec_tokens, curr_token, vec_synt_error, sync_stack);
+        sytx_condicao(vec_tokens, curr_token, vec_synt_error, sync_stack);
 
         sync_pop(sync_stack, 1);  
 
