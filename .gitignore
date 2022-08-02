@@ -54,4 +54,12 @@ dkms.conf
 .vscode/c_cpp_properties.json
 .vscode/settings.json
 
-*.zip
+
+
+#Vs code files
+.vscode/configurationCache.log 
+.vscode/dryrun.log 
+.vscode/launch.json 
+.vscode/settings.json 
+.vscode/targets.log 
+.vscode/tasks.json
