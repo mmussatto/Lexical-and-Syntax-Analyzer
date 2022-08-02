@@ -35,5 +35,5 @@ run:
 	./prog $${NOME};
 
 clean:
-	@rm -f *.o prog error_file.txt output.txt
+	@rm -f *.o Output/*
 	
