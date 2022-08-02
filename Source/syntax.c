@@ -211,7 +211,7 @@ void sytx_programa(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec
     if (strcmp(curr_token->name, ".") == 0)
         get_token_from_vector(vec_tokens, curr_token);
     else 
-        add_synt_error(vec_synt_error, "Syntax Error: Missing final dot ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \".\" ", curr_token->line);
         
     return;
     
