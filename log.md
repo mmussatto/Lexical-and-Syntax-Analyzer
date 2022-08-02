@@ -45,4 +45,12 @@
 
     [] Identificar se o erro é lexico ou sintático
 
+
+## Mussattinho
+    [X] Verificar todas as mensagens de erro (padronizar)
+    [X] Verificar locais onde tem "," (comma) e ":" (colon)
+    [] Testar comandos faltando o  ultimo pareneses
     
+    - Modo panico so reconhece falta de argumento, se tiver coisa a mais, ele só ignora por causa do modo pânico
+
+    -Tava colocando o caracter invalido na mensagem de erro, ta dando problema no free do vetor de tokens

@@ -18,3 +18,4 @@
 26	true	<	op_lesser	true
 27	true	<=	op_lesser_equal	false
 28	true	<>	op_not_equal	false
+29  true    =   op_equal    false

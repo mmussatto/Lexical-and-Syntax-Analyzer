@@ -72,7 +72,13 @@ void vec_tokens_push_back(vec_token* vec_tokens, token* t)
     if(vec_tokens->size == vec_tokens->total_size)
     {
         vec_tokens->total_size *= 2;
-        vec_tokens->tokens = realloc(vec_tokens->tokens, vec_tokens->total_size);
+        vec_tokens->tokens = realloc(vec_tokens->tokens, (vec_tokens->total_size * sizeof(token)));
+    }
+
+    if(vec_tokens->tokens == NULL)
+    {
+        printf("Failed to resize the tokens vector.");
+        exit(1);
     }
 
     if(strcmp(t->type,"comment") != 0)

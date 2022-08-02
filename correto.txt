@@ -1,7 +1,18 @@
-program p_;
-var x: integer;
+program leimprime;
+var a: real;
+var b: integer;
+procedure nomep(x: real);
+var a, c: integer;
 begin
-    x:=-1;
-    while (x<3) do
-            x:=x+1;
+read(c, sdf );
+if a<x+c then
+begin
+a:= 1$23;
+write(a);
+end
+else c:= a+x;
+end
+begin {programa principal}
+read();
+nomep(#b53);
 end.
