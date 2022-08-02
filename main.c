@@ -86,7 +86,7 @@ int main(int argc, char** argv)
 
     /*------ Writting in out file --------*/
     //Open out file
-    FILE *f_out = fopen("output.txt", "w");
+    FILE *f_out = fopen("Output/tokens.txt", "w");
 
     //Checking for error on file opening
     if(f_out == NULL)
@@ -96,7 +96,7 @@ int main(int argc, char** argv)
     }
 
     //Opening error file
-    FILE *fp_error = fopen("error_file.txt","w");
+    FILE *fp_error = fopen("Output/errors.txt","w");
     
     //Checking for error on file opening
     if(fp_error == NULL)
