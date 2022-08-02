@@ -900,39 +900,48 @@ void sytx_pfalsa(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_s
 // 19.
 void sytx_comandos(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error, stack *sync_stack)
 {
-    sync_push(sync_stack, ";");
-
-    sytx_cmd(vec_tokens, curr_token, vec_synt_error, sync_stack);
-
-    sync_pop(sync_stack, 1);
-
-
-    if (strcmp(curr_token->name, ";") == 0)
-        get_token_from_vector(vec_tokens, curr_token);
-    else 
+    if ((strcmp(curr_token->name, "read")   == 0)       ||
+        (strcmp(curr_token->name, "write")  == 0)       ||
+        (strcmp(curr_token->name, "while")  == 0)       ||
+        (strcmp(curr_token->name, "if")     == 0)       ||
+        (strcmp(curr_token->type, "identifier") == 0)   ||
+        (strcmp(curr_token->name, "for")    == 0)       ||
+        (strcmp(curr_token->name, "begin")  == 0))
     {
-        sync_push(sync_stack, "read");
-        sync_push(sync_stack, "write");
-        sync_push(sync_stack, "while");
-        sync_push(sync_stack, "if");
-        sync_push(sync_stack, "identifier");
-        sync_push(sync_stack, "begin");
-        sync_push(sync_stack, "for");
+        sync_push(sync_stack, ";");
 
-        int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
-        int sync_valid_positions = sync_stack->curr_size - 7;
+        sytx_cmd(vec_tokens, curr_token, vec_synt_error, sync_stack);
 
-        sync_pop(sync_stack, 7);  
+        sync_pop(sync_stack, 1);
 
-        if(sync_token_position < sync_valid_positions)
-            return;
 
-        //Error comes down here because the rule could be lamda (not expecting a comma here)
-        add_synt_error(vec_synt_error, "Syntax Error: expected \";\" ", curr_token->line);
+        if (strcmp(curr_token->name, ";") == 0)
+            get_token_from_vector(vec_tokens, curr_token);
+        else 
+        {
+            sync_push(sync_stack, "read");
+            sync_push(sync_stack, "write");
+            sync_push(sync_stack, "while");
+            sync_push(sync_stack, "if");
+            sync_push(sync_stack, "identifier");
+            sync_push(sync_stack, "begin");
+            sync_push(sync_stack, "for");
+
+            int sync_token_position = consume_until(vec_tokens, curr_token, sync_stack);
+            int sync_valid_positions = sync_stack->curr_size - 7;
+
+            sync_pop(sync_stack, 7);
+
+            if(sync_token_position < sync_valid_positions)
+                return;
+
+            //Error comes down here because the rule could be lamda (not expecting a comma here)
+            add_synt_error(vec_synt_error, "Syntax Error: expected \";\" ", curr_token->line);
+        }
+
+
+        sytx_comandos(vec_tokens, curr_token, vec_synt_error, sync_stack);
     }
-
-
-    sytx_comandos(vec_tokens, curr_token, vec_synt_error, sync_stack);
 }
 
 // 20.
