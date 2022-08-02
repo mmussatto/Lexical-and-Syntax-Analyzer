@@ -197,7 +197,6 @@ void sytx_programa(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec
         add_synt_error(vec_synt_error, "Syntax Error: expected \".\" ", curr_token->line);
         
     return;
-    
 }
 
 // 2.
@@ -402,7 +401,7 @@ void sytx_dc_v(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_syn
             get_token_from_vector(vec_tokens, curr_token);
     else 
     {   
-        add_synt_error(vec_synt_error, "Syntax Error: expected \":\" ", curr_token->line);
+        add_synt_error(vec_synt_error, "Syntax Error: expected \":\" ", curr_token->line-1);
         
         sync_push(sync_stack, "real");
         sync_push(sync_stack, "integer");
@@ -1388,14 +1387,8 @@ void sytx_op_ad(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_sy
 // 27.
 void sytx_termo(vec_token* vec_tokens, token *curr_token, synt_error_vec* vec_synt_error, stack *sync_stack)
 {
-    sync_push(sync_stack, "identifier");
-    sync_push(sync_stack, "integer");
-    sync_push(sync_stack, "real");
-    sync_push(sync_stack, "(");
 
     sytx_op_un(vec_tokens, curr_token, vec_synt_error, sync_stack);
-
-    sync_pop(sync_stack, 4);
 
     sync_push(sync_stack, "*");
     sync_push(sync_stack, "/");
