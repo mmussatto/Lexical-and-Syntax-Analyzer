@@ -172,15 +172,33 @@ void write_error_file(FILE *fp, synt_error_vec *vec_synt_error, vec_token *vec_t
     //Run the tokens vector searching for errors
     for(i = 0; i< vec_tokens->size; i++)
     {
+        //Token type with less than 14 letters can't be errors
         if(strlen(vec_tokens->tokens[i].type) > 14)
         {
             substring = strndup(vec_tokens->tokens[i].type, 14);
             if(strcmp(substring, "Lexical Error:") == 0)
+            {
+                //Get error token name
+                char error_char[10] = "";
+                sprintf(error_char, "(%s) ", vec_tokens->tokens[i].name);
+
+                //Add error token name to error message
+                int length = strlen(vec_tokens->tokens[i].type) + strlen(error_char) + 1;
+                vec_tokens->tokens[i].type = realloc(vec_tokens->tokens[i].type, length * sizeof(char));
+                strcat(vec_tokens->tokens[i].type, error_char);
+
+                //Remove \r from the error message
+                if (vec_tokens->tokens[i].type[strcspn(vec_tokens->tokens[i].type, "\r")] != 0)
+                    vec_tokens->tokens[i].type[strcspn(vec_tokens->tokens[i].type, "\r")] = ' ';
+                
+                //Add error to the vector
                 add_synt_error(vec_synt_error, vec_tokens->tokens[i].type, vec_tokens->tokens[i].line);
+            }
 
             free(substring);
         }
     }
+
 
     //Sort the errors vector
     sort_synt_error_vec(vec_synt_error);
