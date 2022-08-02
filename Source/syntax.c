@@ -18,23 +18,6 @@
 #include "Headers/syntax.h"
 
 
-void dealocate_follower(token* followers, int size_follower)
-{
-    int i;
-
-    if(size_follower > 1)   //its a vector of followers
-    {
-        for(i = 0; i < size_follower; i++)
-            free(followers[i].name);
-        
-    }    
-    else    //its only one follower
-        free(followers->name);
-
-    free(followers);
-}
-
-
 int consume_until(vec_token* vec_tokens, token *curr_token, stack* sync_stack)
 {
     int i;

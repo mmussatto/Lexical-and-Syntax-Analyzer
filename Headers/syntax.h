@@ -20,28 +20,14 @@
 #include "Headers/lexical.h"
 #include "Headers/sync.h"
 
+
 /**
- * @brief Deallocate the memory used for the follower tokens
+ * @brief Consume tokens until a synchronization token is found
  * 
- * @param followers     followers (can be a single token or a vector of tokens)
- * @param size_follower number of followers
- */
-void dealocate_follower(token* followers, int size_follower);
-
-
-
-
-
-
-
-//REFAZER
-/**
- * @brief Consumes tokens until a follower is found
- * 
- * @param vec_tokens    vector containing all tokens from source code
- * @param curr_token    current token
- * @param followers     followers (can be a single token or a vector of tokens)
- * @param size_follower number of followers
+ * @param vec_tokens vector containing all tokens from source code
+ * @param curr_token current token
+ * @param sync_stack stack containing the synchronization tokens
+ * @return int position of the synchronization token found in the stack
  */
 int consume_until(vec_token* vec_tokens, token *curr_token, stack* sync_stack);
 
