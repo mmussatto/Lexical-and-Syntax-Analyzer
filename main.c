@@ -21,34 +21,25 @@
 
 int main(int argc, char** argv)
 {
-    //Checking runtime parameters
+    /*------------ Checking runtime parameters ------------*/
     if(argc != 2)
     {
         printf("Provide just the name of the file\n");
         return 1;
     }
 
+
+    /*------------ Opening program file ------------*/
     //Opening file with the program to be tokenized  
     FILE *program = open_file(argv[1],'r');
     
     //Checking for error on file opening
     if(program == NULL)
     {
-        printf("Error opening file\n");
+        printf("Error opening program file\n");
         return 1;
     }
-
     
-    //Opening error file
-    FILE *fp_error = open_file("error_file.txt",'w');
-    
-    //Checking for error on file opening
-    if(fp_error == NULL)
-    {
-        printf("Error opening file\n");
-        return 1;
-    }
-
 
     /*------------ Creating vectors and alocatting memory ------------*/
     // Allocating Transition Matrix
@@ -59,7 +50,7 @@ int main(int argc, char** argv)
     state* vec_states = create_states_vector(NUM_STATES);
     populate_states_vector(vec_states, "Data/states.tsv"); 
 
-    // Allocating Vector of errors
+    // Allocating Vector of possible lexical errors
     error *vec_errors = create_errors_vector(NUM_ERRORS);
     populate_errors_vector(vec_errors, "Data/errors.tsv"); 
 
@@ -70,13 +61,11 @@ int main(int argc, char** argv)
     //Allocating the Vector of tokens read
     vec_token *vec_tokens = create_tokens_vector();
 
-    //Allocating the synth_errors_vector
+    //Allocating the vector of syntatic errors
     synt_error_vec *vec_synt_error = create_synth_error_vector(10); 
 
-
-
+    //Allocating the stack of synchronization tokens
     stack *sync_stack = create_sync_stack();
-
 
     //Keeps track of the current line of the program
     int curr_line = 1;
@@ -96,9 +85,26 @@ int main(int argc, char** argv)
 
 
     /*------ Writting in out file --------*/
-
     //Open out file
-    FILE *f_out = open_file("output.txt", 'w');
+    FILE *f_out = fopen("output.txt", "w");
+
+    //Checking for error on file opening
+    if(f_out == NULL)
+    {
+        printf("Error opening output file\n");
+        return 1;
+    }
+
+    //Opening error file
+    FILE *fp_error = fopen("error_file.txt","w");
+    
+    //Checking for error on file opening
+    if(fp_error == NULL)
+    {
+        printf("Error opening error file\n");
+        return 1;
+    }
+
 
     //Write all tokens read to file
     write_tokens_file(f_out, vec_tokens);
@@ -116,7 +122,8 @@ int main(int argc, char** argv)
     free_reserved_vector(vec_reserveds);
     free_synt_errors_vector(vec_synt_error);
     
-    //Closing the files
+
+    /*------ Closing the files --------*/
     fclose(program);
     fclose(f_out);
     fclose(fp_error);
