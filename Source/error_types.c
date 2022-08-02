@@ -180,7 +180,7 @@ void write_error_file(FILE *fp, synt_error_vec *vec_synt_error, vec_token *vec_t
             {
                 //Get error token name
                 char error_char[10] = "";
-                sprintf(error_char, "(%s) ", vec_tokens->tokens[i].name);
+                sprintf(error_char, "(%.6s) ", vec_tokens->tokens[i].name);
 
                 //Add error token name to error message
                 int length = strlen(vec_tokens->tokens[i].type) + strlen(error_char) + 1;
