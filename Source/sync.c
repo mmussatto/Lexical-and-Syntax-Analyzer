@@ -17,11 +17,6 @@
 
 #include "Headers/sync.h"
 
-// typedef struct{
-//     int size;
-//     int curr_size;
-//     char **list_tokens;  
-// }sync_stack;
 
 stack* create_sync_stack()
 {
@@ -54,19 +49,18 @@ void free_sync_stack(stack* sync_stack)
     free(sync_stack);
 }
 
+
 void sync_push (stack* sync_stack, char* string)
 {
-
     sync_stack->list_tokens[sync_stack->curr_size] = strdup(string);
     sync_stack->curr_size++;
-
 }
+
 
 void sync_pop (stack* sync_stack, int n)
 {
     while (n-- && sync_stack->curr_size > 0)
-        sync_stack->curr_size--;
-    
+        sync_stack->curr_size--;  
 }
 
 
