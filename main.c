@@ -86,10 +86,10 @@ int main(int argc, char** argv)
 
     /*------ Writting in out file --------*/
     //Open out file
-    FILE *f_out = fopen("Output/tokens.txt", "w");
+    FILE *fp_out = fopen("Output/tokens.txt", "w");
 
     //Checking for error on file opening
-    if(f_out == NULL)
+    if(fp_out == NULL)
     {
         printf("Error opening output file\n");
         return 1;
@@ -107,7 +107,7 @@ int main(int argc, char** argv)
 
 
     //Write all tokens read to file
-    write_tokens_file(f_out, vec_tokens);
+    write_tokens_file(fp_out, vec_tokens);
 
     //Write all errors to file
     write_error_file(fp_error, vec_synt_error, vec_tokens);
@@ -125,7 +125,7 @@ int main(int argc, char** argv)
 
     /*------ Closing the files --------*/
     fclose(program);
-    fclose(f_out);
+    fclose(fp_out);
     fclose(fp_error);
     
     return 0;
