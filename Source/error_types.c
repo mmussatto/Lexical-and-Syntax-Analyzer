@@ -212,6 +212,9 @@ void write_error_file(FILE *fp, synt_error_vec *vec_synt_error, vec_token *vec_t
         return;
     }
 
+    //Header for erros file
+    fprintf(fp, "Error Description, Line:\n\n");
+
     //Traverse the tokens vector
     for(i = 0; i < vec_synt_error->list_size; i++)
     {   

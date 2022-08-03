@@ -104,6 +104,9 @@ void write_tokens_file(FILE *fp, vec_token *vec_tokens)
     token t;
     char *substring;
 
+    //Header for tokens file
+    fprintf(fp, "Character, Token name, Line:\n\n");
+
     //Traverse the tokens vector
     for(i = 0; i < vec_tokens->size; i++)
     {   
