@@ -1,0 +1,10 @@
+program p_;
+var a, b: integer;
+begin
+    a:=5;
+    b:=10;
+    while(a < b) {there should be a 'do' here}
+        begin
+        a:= a + ;   {there's nothing after the '+'}
+        end
+.   {there should be an 'end' here}

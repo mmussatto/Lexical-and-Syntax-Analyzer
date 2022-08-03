@@ -1,7 +1,0 @@
-program p_;
-var x: integer;
-begin
-    x:= ;
-    @while (x<3) do
-            x:=x+1
-end.

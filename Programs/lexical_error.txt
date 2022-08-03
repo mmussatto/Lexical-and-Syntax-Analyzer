@@ -1,0 +1,6 @@
+program p_;
+{the '$' is an invalid character}
+var a$, b: integer;
+begin
+    a := a+b
+end.
