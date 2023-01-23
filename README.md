@@ -2,7 +2,7 @@
 
 This project is an implementation of a Lexical and a Syntax Analyzer for the P-- programming language. 
 
-This is an educational programming language desined to help the study of how compilers work. The syntax rules of this language can be found in the pdf: [Linguagem P--.pdf](https://github.com/mmussatto/Lexical-and-Syntax-Analyzer/blob/main/School%20Files/Linguagem%20P--.pdf)
+This is an educational programming language designed to help the study of how compilers work. The syntax rules of this language can be found in the pdf: [Linguagem P--.pdf](https://github.com/mmussatto/Lexical-and-Syntax-Analyzer/blob/main/School%20Files/Linguagem%20P--.pdf)
 
 ## Authors
 
